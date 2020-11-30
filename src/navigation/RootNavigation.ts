@@ -16,6 +16,10 @@ import VisitList from '../components/VisitList';
 import EventList from '../components/EventList';
 import EditVitals from '../components/EditVitals';
 import PrescriptionList from '../components/PrescriptionList';
+import MedicalHistory from '../components/nv_events/MedicalHistory';
+import VitalSigns from '../components/nv_events/VitalSigns';
+import ClinicalEvaluation from '../components/nv_events/ClinicalEvaluation';
+import MedicalPathologies from '../components/nv_events/MedicalPathologies';
 
 const rootNavigator = createStackNavigator(
   {
@@ -114,6 +118,34 @@ const rootNavigator = createStackNavigator(
       screen: PrescriptionList,
       navigationOptions: () => ({
         title: `PrescriptionList`,
+        header: null
+      })
+    },
+    MedicalHistory: {
+      screen: MedicalHistory,
+      navigationOptions: () => ({
+        title: `MedicalHistory`,
+        header: null
+      })
+    },
+    VitalSigns: {
+      screen: VitalSigns,
+      navigationOptions: () => ({
+        title: `VitalSigns`,
+        header: null
+      })
+    },
+    ClinicalEvaluation: {
+      screen: ClinicalEvaluation,
+      navigationOptions: () => ({
+        title: `ClinicalEvaluation`,
+        header: null
+      })
+    },
+    MedicalPathologies: {
+      screen: MedicalPathologies,
+      navigationOptions: () => ({
+        title: 'MedicalPathologies',
         header: null
       })
     }
