@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { database } from "../storage/Database";
 import { ImageSync } from '../storage/ImageSync'
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import styles from './Style';
 import DatePicker from 'react-native-datepicker'
 import LinearGradient from 'react-native-linear-gradient';
@@ -14,8 +14,10 @@ import { useCamera } from 'react-native-camera-hooks';
 
 const NewPatient = (props) => {
   const imageSync = new ImageSync();
-  const [givenName, setGivenName] = useState('');
-  const [surname, setSurname] = useState('');
+  const [givenName1, setGivenName1] = useState('');
+  const [givenName2, setGivenName2] = useState('');
+  const [surname1, setSurname1] = useState('');
+  const [surname2, setSurname2] = useState('');
   const [dob, setDob] = useState('');
   const [male, setMale] = useState(false);
   const [country, setCountry] = useState('');
@@ -33,8 +35,8 @@ const NewPatient = (props) => {
   const [patientId] = useState(uuid().replace(/-/g, ''));
 
   const addPatient = async () => {
-    const givenNameId = await database.saveStringContent([{ language: language, content: givenName }])
-    const surnameId = await database.saveStringContent([{ language: language, content: surname }])
+    const givenNameId = await database.saveStringContent([{ language: language, content: givenName2 ? `${givenName1} ${givenName2}` : givenName1 }])
+    const surnameId = await database.saveStringContent([{ language: language, content: surname2 ? `${surname1} ${surname2}` : surname1 }])
     const countryId = await database.saveStringContent([{ language: language, content: country }])
     const hometownId = await database.saveStringContent([{ language: language, content: hometown }])
 
@@ -131,17 +133,29 @@ const NewPatient = (props) => {
         <View style={styles.inputRow}>
           <TextInput
             style={styles.inputs}
-            placeholder={LocalizedStrings[language].firstName}
-            onChangeText={(text) => setGivenName(text)}
-            value={givenName}
+            placeholder={LocalizedStrings[language].firstName1}
+            onChangeText={(text) => setGivenName1(text)}
+            value={givenName1}
+          />
+          <TextInput
+            style={styles.inputs}
+            placeholder={LocalizedStrings[language].firstName2}
+            onChangeText={(text) => setGivenName2(text)}
+            value={givenName2}
           />
         </View>
         <View style={styles.inputRow}>
           <TextInput
             style={styles.inputs}
-            placeholder={LocalizedStrings[language].surname}
-            onChangeText={(text) => setSurname(text)}
-            value={surname}
+            placeholder={LocalizedStrings[language].surname1}
+            onChangeText={(text) => setSurname1(text)}
+            value={surname1}
+          />
+          <TextInput
+            style={styles.inputs}
+            placeholder={LocalizedStrings[language].surname2}
+            onChangeText={(text) => setSurname2(text)}
+            value={surname2}
           />
         </View>
         <View style={styles.inputRow}>

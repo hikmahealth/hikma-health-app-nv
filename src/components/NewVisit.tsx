@@ -6,7 +6,7 @@ import styles from './Style';
 import { EventTypes } from '../enums/EventTypes';
 import LinearGradient from 'react-native-linear-gradient';
 import { database } from "../storage/Database";
-import { uuid } from "uuidv4";
+import { v4 as uuid } from 'uuid';
 import { LocalizedStrings } from '../enums/LocalizedStrings';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
@@ -198,7 +198,9 @@ const NewVisit = (props) => {
               </View>
               <Text style={styles.actionText}>{LocalizedStrings[language].notes}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('Covid19Form', { language: language, patient: patient, visitId: visitId })}>
+            <TouchableOpacity style={styles.actionButton} 
+            // onPress={() => props.navigation.navigate('Covid19Form', { language: language, patient: patient, visitId: visitId })}
+            >
               <View style={styles.actionIcon}>
                 <Image source={require('../images/covid.png')} style={{ width: 43, height: 47 }} />
               </View>

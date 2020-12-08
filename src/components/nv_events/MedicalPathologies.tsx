@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import { database } from "../../storage/Database";
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import styles from '../Style';
 import { EventTypes } from '../../enums/EventTypes';
 import LinearGradient from 'react-native-linear-gradient';
@@ -422,7 +422,7 @@ const MedicalPathologies = (props) => {
                     <View style={[styles.responseRow, { paddingVertical: 0 }]}>
                         <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].lastPAP}</Text>
                     </View>
-                    <View style={{ paddingLeft: 20 }}>{datePicker({ placeholder: ' Date', date: lastPAP, action: setLastPAP, language })}</View>
+                    <View style={{ paddingLeft: 20 }}>{datePicker({ placeholder: LocalizedStrings[language].date, date: lastPAP, action: setLastPAP, language })}</View>
                     {formRow(vaginalFluid, setVaginalFluid, vaginalFluidText, setVaginalFluidText, 'vaginalFluid')}
                     {formRow(hypertension, setHypertension, hypertensionText, setHypertensionText, 'hypertension')}
                     {formRow(hypothyroidism, setHypothyroidism, hypothyroidismText, setHypothyroidismText, 'hypothyroidism')}
@@ -463,7 +463,7 @@ const MedicalPathologies = (props) => {
                     <View style={[styles.responseRow, { paddingVertical: 0 }]}>
                         <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].lastMenstruation}</Text>
                     </View>
-                    <View style={{ paddingLeft: 20 }}>{datePicker({ placeholder: ' Date', date: lastMenstruation, action: setLastMenstruation, language })}</View>
+                    <View style={{ paddingLeft: 20 }}>{datePicker({ placeholder: LocalizedStrings[language].date, date: lastMenstruation, action: setLastMenstruation, language })}</View>
                     {formRow(hiv, setHiv, hivText, setHivText, 'hiv')}
                     {formRow(vomiting, setVomiting, vomitingText, setVomitingText, 'vomiting')}
                     <View style={[styles.responseRow, { paddingBottom: 0 }]}>

@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import { database } from "../../storage/Database";
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import styles from '../Style';
 import { EventTypes } from '../../enums/EventTypes';
 import LinearGradient from 'react-native-linear-gradient';
@@ -113,7 +113,7 @@ const MedicalHistory = (props) => {
           <View style={[styles.responseRow, { paddingVertical: 0 }]}>
             <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].parasiteTreatment}</Text>
           </View>
-          <View style={{ paddingLeft: 20 }}>{datePicker({ placeholder: ' Treatment date', date: parasiteTreatment, action: setParasiteTreatment, language })}</View>
+          <View style={{ paddingLeft: 20 }}>{datePicker({ placeholder: LocalizedStrings[language].treatmentDate, date: parasiteTreatment, action: setParasiteTreatment, language })}</View>
 
 
           <View style={[styles.responseRow, { paddingVertical: 0 }]}>

@@ -3,7 +3,7 @@ import { View, Text, Image, TextInput, TouchableOpacity, ImageBackground, Alert,
 import { ImageSync } from '../storage/ImageSync';
 import { database } from '../storage/Database';
 import styles from './Style';
-import { uuid } from "uuidv4";
+import { v4 as uuid } from 'uuid';
 import { EventTypes } from "../enums/EventTypes";
 import { iconHash } from '../services/hash'
 import { icons } from '../enums/Icons';
@@ -118,6 +118,16 @@ const PatientView = (props) => {
             <Text style={styles.gridItemText}>{displayName(patient)}</Text>
           </View>
         </View>
+        <View style={{ alignItems: 'center' }}>
+          <TouchableOpacity
+            style={[styles.profileButton, { height: 40 }]}
+            onPress={() => props.navigation.navigate('PatientDetails', { language: language, patientId: patient.id })}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
+              <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].patientDetails}</Text>
+              <Text style={{ fontSize: 15 }}>></Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         <View style={[styles.card, { height: 100, justifyContent: 'center', marginTop: 0, elevation: 0 }]}>
           <View style={{ marginTop: 10, marginHorizontal: 20, display: "flex", flexDirection: "row" }}>
             <View style={{ flex: 1, display: 'flex', justifyContent: 'center' }}><Text style={[styles.gridItemText, { marginRight: 'auto' }]}>{patient.date_of_birth}</Text></View>
@@ -139,7 +149,7 @@ const PatientView = (props) => {
           </View>
 
         </View>
-        {isEditingSummary ? null : <View style={{margin: 15}}></View> }
+        {isEditingSummary ? null : <View style={{ margin: 15 }}></View>}
         <View style={{ alignItems: 'center' }}>
           <TouchableOpacity
             style={[styles.profileButton, { height: 40 }]}

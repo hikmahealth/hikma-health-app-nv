@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import { database } from "../../storage/Database";
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import styles from '../Style';
 import { EventTypes } from '../../enums/EventTypes';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,8 +17,8 @@ export const VitalSignsDisplay = (metadataObj, language) => {
       <Text>{LocalizedStrings[language].weight}: {metadataObj.weight} kg</Text>
       <Text>{LocalizedStrings[language].idealWeight}: {metadataObj.idealWeight} kg</Text>
       <Text>{LocalizedStrings[language].bloodPressure}: {metadataObj.systolic}/{metadataObj.diastolic}</Text>
-      <Text>{LocalizedStrings[language].pulse}: {metadataObj.pulse} BPM</Text>
-      <Text>{LocalizedStrings[language].respiration}: {metadataObj.respiration} BPM</Text>
+      <Text>{LocalizedStrings[language].pulse}: {metadataObj.pulse}</Text>
+      <Text>{LocalizedStrings[language].respiration}: {metadataObj.respiration}</Text>
       <Text>{LocalizedStrings[language].sats}: {metadataObj.sats}%</Text>
       <Text>{LocalizedStrings[language].height}: {metadataObj.height} m</Text>
       <Text>{LocalizedStrings[language].temp}: {metadataObj.temp} °C</Text>

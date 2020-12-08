@@ -20,6 +20,7 @@ import MedicalHistory from '../components/nv_events/MedicalHistory';
 import VitalSigns from '../components/nv_events/VitalSigns';
 import ClinicalEvaluation from '../components/nv_events/ClinicalEvaluation';
 import MedicalPathologies from '../components/nv_events/MedicalPathologies';
+import PatientDetails from '../components/nv_events/PatientDetails';
 
 const rootNavigator = createStackNavigator(
   {
@@ -146,6 +147,13 @@ const rootNavigator = createStackNavigator(
       screen: MedicalPathologies,
       navigationOptions: () => ({
         title: 'MedicalPathologies',
+        header: null
+      })
+    },
+    PatientDetails: {
+      screen: PatientDetails,
+      navigationOptions: () => ({
+        title: 'PatientDetails',
         header: null
       })
     }

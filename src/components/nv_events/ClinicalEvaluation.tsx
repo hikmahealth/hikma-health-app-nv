@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import { database } from "../../storage/Database";
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import styles from '../Style';
 import { EventTypes } from '../../enums/EventTypes';
 import LinearGradient from 'react-native-linear-gradient';
@@ -128,7 +128,6 @@ const ClinicalEvaluation = (props) => {
             {radioButtons({ field: breastExam, action: setBreastExam, prompt: LocalizedStrings[language].breastExam, language })}
           </View>
 
-
           <View style={[styles.responseRow, { paddingVertical: 0 }]}>
             <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].diagnosis}</Text>
           </View>
@@ -139,7 +138,6 @@ const ClinicalEvaluation = (props) => {
               value={diagnosis}
             />
           </View>
-
 
           <View style={[styles.responseRow, { paddingVertical: 0 }]}>
             <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].treatment}</Text>
@@ -154,24 +152,23 @@ const ClinicalEvaluation = (props) => {
  
           <View style={[styles.responseRow]}>
             {radioButtons({ field: communityVisit, action: setCommunityVisit, prompt: LocalizedStrings[language].communityVisit, language })}
-            <View style={{ paddingLeft: 20 }}>{communityVisit ? datePicker({ placeholder: "Date", date: communityVisitDate, action: setCommunityVisitDate, language }) : null}</View>
+            <View style={{ paddingLeft: 20 }}>{communityVisit ? datePicker({ placeholder: LocalizedStrings[language].date, date: communityVisitDate, action: setCommunityVisitDate, language }) : null}</View>
           </View>
-
 
           <View style={[styles.responseRow]}>
             {radioButtons({ field: promoterVisit, action: setPromoterVisit, prompt: LocalizedStrings[language].promoterVisit, language })}
-            <View style={{ paddingLeft: 20 }}>{promoterVisit ? datePicker({ placeholder: "Date", date: promoterVisitDate, action: setPromoterVisitDate, language }) : null}</View>
+            <View style={{ paddingLeft: 20 }}>{promoterVisit ? datePicker({ placeholder: LocalizedStrings[language].date, date: promoterVisitDate, action: setPromoterVisitDate, language }) : null}</View>
           </View>
 
           <View style={[styles.responseRow]}>
             {radioButtons({ field: refusal, action: setRefusal, prompt: LocalizedStrings[language].refusal, language })}
-            <View style={{ paddingLeft: 20 }}>{refusal ? datePicker({ placeholder: "Date", date: refusalDate, action: setRefusalDate, language }) : null}</View>
+            <View style={{ paddingLeft: 20 }}>{refusal ? datePicker({ placeholder: LocalizedStrings[language].date, date: refusalDate, action: setRefusalDate, language }) : null}</View>
           </View>
 
           <View style={[styles.responseRow, { paddingVertical: 0 }]}>
             <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].nextVisitDate}</Text>
           </View>
-          <View style={{ paddingLeft: 20 }}>{datePicker({ placeholder: 'Next Visit', date: nextVisitDate, action: setNextVisitDate, future: true, language })}</View>
+          <View style={{ paddingLeft: 20 }}>{datePicker({ placeholder: LocalizedStrings[language].nextVisit, date: nextVisitDate, action: setNextVisitDate, future: true, language })}</View>
 
           <View style={[styles.responseRow, { paddingVertical: 0 }]}>
             <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].nextVisitReason}</Text>
