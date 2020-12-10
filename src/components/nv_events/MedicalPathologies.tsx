@@ -14,7 +14,8 @@ import { LocalizedStrings } from '../../enums/LocalizedStrings';
 export const MedicalPathologiesDisplay = (metadataObj, language) => {
     return (
         <View>
-
+            <Text>Medical Pathologies have been saved</Text>
+            {/* TODO!! */}
         </View>)
 }
 

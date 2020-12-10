@@ -142,32 +142,47 @@ const PatientView = (props) => {
               borderBottomWidth: 1,
             }}
           />
-          <View style={{ marginBottom: 10, marginHorizontal: 20, display: "flex", flexDirection: "row" }}>
+          <View style={{ marginHorizontal: 20, display: "flex", flexDirection: "row" }}>
             <View style={{ flex: 1, display: 'flex', justifyContent: 'center' }}><Text style={[styles.gridItemLabel, { marginRight: 'auto' }]}>{LocalizedStrings[language].DOB}</Text></View>
             <View style={{ flex: 1, display: 'flex', justifyContent: 'center' }}><Text style={styles.gridItemLabel}>{LocalizedStrings[language].age}</Text></View>
             <View style={{ flex: 1, display: 'flex', justifyContent: 'center' }}><Text style={[styles.gridItemLabel, { marginLeft: 'auto' }]}>{LocalizedStrings[language].GENDER}</Text></View>
           </View>
 
         </View>
-        {isEditingSummary ? null : <View style={{ margin: 15 }}></View>}
         <View style={{ alignItems: 'center' }}>
           <TouchableOpacity
-            style={[styles.profileButton, { height: 40 }]}
-            onPress={() => props.navigation.navigate('PrescriptionList', { language: language, patient: patient })}>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
-              <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].prescriptions}</Text>
-              <Text style={{ fontSize: 15 }}>></Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.profileButton, { height: 40 }]}
+            style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
             onPress={() => props.navigation.navigate('VisitList', { language: language, patient: patient })}>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
               <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].visitHistory}</Text>
               <Text style={{ fontSize: 15 }}>></Text>
             </View>
-
           </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.profileButton, { height: 40, marginVertical: 1  }]}
+            onPress={() => props.navigation.navigate('MedicinesList', { eventType: EventTypes.MedicinesInStock, language: language, patient: patient })}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
+              <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].medicinesInStock}</Text>
+              <Text style={{ fontSize: 15 }}>></Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.profileButton, { height: 40, marginVertical: 1  }]}
+            onPress={() => props.navigation.navigate('MedicinesList', { eventType: EventTypes.MedicinesOTC, language: language, patient: patient })}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
+              <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].medicinesOTC}</Text>
+              <Text style={{ fontSize: 15 }}>></Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.profileButton, { height: 40, marginVertical: 1  }]}
+            onPress={() => props.navigation.navigate('MedicinesList', { eventType: EventTypes.ControlledMedicines, language: language, patient: patient })}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
+              <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].controlledMedicines}</Text>
+              <Text style={{ fontSize: 15 }}>></Text>
+            </View>
+          </TouchableOpacity>
+
         </View>
 
         <View>
@@ -197,7 +212,11 @@ const PatientView = (props) => {
           </TouchableOpacity>
 
         </View>
-        <View style={styles.newVisit}>
+        {isEditingSummary ? <View style={{ margin: 10 }}></View> : <View style={{ margin: 20 }}></View>}
+
+        <View  style={{position: 'absolute', bottom: 20, right: 20}}
+        // style={styles.newVisit}
+        >
           <TouchableOpacity onPress={() => {
             const newVisitId = uuid();
             database.addVisit({

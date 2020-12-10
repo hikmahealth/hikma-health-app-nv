@@ -139,9 +139,18 @@ export const LocalizedStrings = {
     nextVisitReason: "Reason for Next Visit",
     nextVisit: "Next Visit",
 
+    //4,5,6
+    medicinesInStock: "Medicines in Stock",
+    medicinesOTC: "Medicines OTC",
+    controlledMedicines: "Controlled Medicines",
+    medicine: "Medicine",
+    format: "Format",
+    dosage: "Dosage",
+    days: "Days",
+
     //7
     medicalPathologies: "Medical Pathologies",
-    miscarriages: "Number of Miscarriages", 
+    miscarriages: "Number of Miscarriages",
     foodAllergies: "Allergies to Food",
     animalAllergies: "Allergies to Animals",
     atmosphereAllergies: "Allergies to Atmosphere",
@@ -301,7 +310,7 @@ export const LocalizedStrings = {
     VDRLSerology: "Serology - VDRL or RPR",
     strepSerology: "Serology - Rapid Strep A",
     othersSerology: "Serology - Others",
-    ESRSerology: "Serology - ESR", 
+    ESRSerology: "Serology - ESR",
 
     //12
     colorPhysical: "Physical Color",
@@ -536,7 +545,7 @@ export const LocalizedStrings = {
     ectopicKidney: "Ectopic Kidney",
     rinonHerradura: "Rinon in Herradura",
     tumor: "Tumor",
-      
+
     //21
     cataract: "Cataract",
     cataractOperation: "Cataract operation",
@@ -559,7 +568,7 @@ export const LocalizedStrings = {
     //22
     accidentWork: "Accident at work",
     description: "Description and where / how",
-   
+
     traumaDetails: "Trauma details",
     referralSpecialist: "Referral to Specialist",
     followUpVisit: "Follow-Up Visit",
@@ -705,9 +714,18 @@ export const LocalizedStrings = {
     nextVisitReason: "Motiva de la Cita de Seguimiento",
     nextVisit: "Siguiente visita",
 
+    //4,5,6
+    medicinesInStock: "Medicamentos de Bodega",
+    medicinesOTC: "Medicamentos Prescritos",
+    controlledMedicines: "Medicamentos Controlados",
+    medicine: "Medicamentos",
+    format: "Formato",
+    dosage: "Dosis",
+    days: "Dias",
+
     //7
     medicalPathologies: "Patologias Medicas",
-    miscarriages: "Abortos", 
+    miscarriages: "Abortos",
     foodAllergies: "Alérgias a Alimentos",
     animalAllergies: "Alérgias a Animales",
     atmosphereAllergies: "Alérgias a la Atmósfera",
@@ -881,7 +899,7 @@ export const LocalizedStrings = {
     pHChem: "Quimico - pH",
     urobilinogenChem: "Quimico - Urobilinogeno",
     glucoseChem: "Quimico - Glucosa",
-    leukocytesChem:	"Quimico - Bilirubinas",
+    leukocytesChem: "Quimico - Bilirubinas",
     bilirubinsChem: "Quimico - Leucocitos",
     nitriteChem: "Quimico - Nitritos",
     epithelialMicro: "Microscopico - Celulas Epiteliales... xcampo",
@@ -1098,7 +1116,7 @@ export const LocalizedStrings = {
     fractures: "Fracturas",
     pneumonia: "Neumonía / EPOC / TB",
     pulmonaryNodule: "Nódulo Pulmonar",
-    
+
     osteoporosis: "Osteoporosis",
     ectopicKidney: "Riñón Ectópico",
     rinonHerradura: "Riñón en Herradura",
@@ -1126,7 +1144,7 @@ export const LocalizedStrings = {
     //22
     accidentWork: "Accidente en el trabajo",
     description: "Descripción y especificar donde / como",
-    
+
     traumaDetails: "Detalles del trauma",
     referralSpecialist: "Referencia a Especialista",
     followUpVisit: "Cita de seguimiento",

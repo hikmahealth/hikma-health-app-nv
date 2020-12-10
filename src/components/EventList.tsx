@@ -9,6 +9,8 @@ import { Event } from "../types/Event";
 import { MedicalHistoryDisplay } from "./nv_events/MedicalHistory";
 import { VitalSignsDisplay } from "./nv_events/VitalSigns";
 import { ClinicalEvaluationDisplay } from "./nv_events/ClinicalEvaluation";
+import { MedicalPathologiesDisplay } from "./nv_events/MedicalPathologies";
+import { MedicinesDisplay } from "./nv_events/Medicines";
 
 const EventList = (props) => {
   const visit = props.navigation.getParam('visit');
@@ -85,7 +87,13 @@ const EventList = (props) => {
       case EventTypes.MedicalHistory:
         return MedicalHistoryDisplay(metadataObj, language)
       case EventTypes.Evaluation:
-        return ClinicalEvaluationDisplay(metadataObj, language)  
+        return ClinicalEvaluationDisplay(metadataObj, language)
+      case EventTypes.MedicalPathologies:
+        return MedicalPathologiesDisplay(metadataObj, language)
+      case EventTypes.MedicinesInStock:
+      case EventTypes.MedicinesOTC: 
+      case EventTypes.ControlledMedicines:
+        return MedicinesDisplay(metadataObj, language)
       default:
         return (<Text>{metadataObj}</Text>)
     }
