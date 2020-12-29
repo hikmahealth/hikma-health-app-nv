@@ -30,6 +30,7 @@ const PatientDetails = (props) => {
 
     const patientId = props.navigation.getParam('patientId');
     const language = props.navigation.getParam('language', 'en');
+    const userName = props.navigation.getParam('userName');
 
     useEffect(() => {
         database.getLatestPatientEventByType(patientId, EventTypes.PatientDetails).then((response: any) => {
@@ -63,6 +64,7 @@ const PatientDetails = (props) => {
             visit_id: null,
             event_type: EventTypes.PatientDetails,
             event_metadata: JSON.stringify({
+                doctor: userName,
                 medicalNum,
                 dentalNum,
                 optometryNum,

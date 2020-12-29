@@ -267,7 +267,7 @@ export default StyleSheet.create({
     height: 12,
     width: 12,
     borderRadius: 6,
-    backgroundColor: 'green',
+    backgroundColor: '#F77824',
   },
   datePicker: {
     backgroundColor: '#FFFFFF',

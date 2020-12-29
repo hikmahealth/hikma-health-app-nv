@@ -28,7 +28,7 @@ const PatientList = (props) => {
   const [maxAge, setMaxAge] = useState<number>(0);
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [language, setLanguage] = useState(props.navigation.getParam('language', 'en'));
+  const [language, setLanguage] = useState(props.navigation.getParam('language', 'sp'));
   const [searchIconFunction, setSearchIconFunction] = useState(false)
   const search = useRef(null);
 
@@ -216,14 +216,15 @@ const PatientList = (props) => {
         </View>
 
         <View style={{ position: 'absolute', bottom: 20, right: 20 }}>
-          <TouchableOpacity onPress={() => props.navigation.navigate('NewPatient',
+          <Button
+            color={'#F77824'}
+            title={LocalizedStrings[language].newPatient}
+            onPress={() => props.navigation.navigate('NewPatient',
             {
               reloadPatientsToggle: props.navigation.state.params.reloadPatientsToggle,
               language: language
             }
-          )}>
-            <Image source={require('../images/newVisit.png')} style={{ width: 75, height: 75 }} />
-          </TouchableOpacity>
+          )}/>
         </View>
       </View>
       <Modal

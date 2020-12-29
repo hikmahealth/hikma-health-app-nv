@@ -19,12 +19,12 @@ export const ClinicalEvaluationDisplay = (metadataObj, language) => {
       <Text>{LocalizedStrings[language].reason}: {metadataObj.reason}</Text>
       <Text>{LocalizedStrings[language].observations}: {metadataObj.observations}</Text>
       <Text>{LocalizedStrings[language].medications}: {metadataObj.medications}</Text>
-      <Text>{LocalizedStrings[language].breastExam}: {metadataObj.breastExam.toString()}</Text>
+      <Text>{LocalizedStrings[language].breastExam}: {metadataObj.breastExam ? LocalizedStrings[language].true : LocalizedStrings[language].false}</Text>
       <Text>{LocalizedStrings[language].diagnosis}: {metadataObj.diagnosis}</Text>
       <Text>{LocalizedStrings[language].treatment}: {metadataObj.treatment}</Text>
-      <Text>{LocalizedStrings[language].communityVisit}: {LocalizedStrings[language].communityVisit ? metadataObj.communityVisitDate : metadataObj.communityVisit.toString()}</Text>
-      <Text>{LocalizedStrings[language].promoterVisit}: {LocalizedStrings[language].promoterVisit ? metadataObj.promoterVisitDate : metadataObj.promoterVisit.toString()}</Text>
-      <Text>{LocalizedStrings[language].refusal}: {LocalizedStrings[language].refusal ? metadataObj.refusalDate : metadataObj.refusal.toString()}</Text>
+      <Text>{LocalizedStrings[language].communityVisit}: {metadataObj.communityVisit ? metadataObj.communityVisitDate : LocalizedStrings[language].false}</Text>
+      <Text>{LocalizedStrings[language].promoterVisit}: {metadataObj.promoterVisit ? metadataObj.promoterVisitDate : LocalizedStrings[language].false}</Text>
+      <Text>{LocalizedStrings[language].refusal}: {metadataObj.refusal ? metadataObj.refusalDate : LocalizedStrings[language].false}</Text>
       <Text>{LocalizedStrings[language].nextVisitDate}: {metadataObj.nextVisitDate}</Text>
       <Text>{LocalizedStrings[language].nextVisitReason}: {metadataObj.nextVisitReason}</Text>
     </View>)
@@ -34,19 +34,18 @@ const ClinicalEvaluation = (props) => {
   const [reason, setReason] = useState(null);
   const [observations, setObservations] = useState(null);
   const [medications, setMedications] = useState(null);
-  const [breastExam, setBreastExam] = useState(false);
+  const [breastExam, setBreastExam] = useState(null);
   const [diagnosis, setDiagnosis] = useState(null);
 
   const [treatment, setTreatment] = useState(null);
-  const [communityVisit, setCommunityVisit] = useState(false);
+  const [communityVisit, setCommunityVisit] = useState(null);
   const [communityVisitDate, setCommunityVisitDate] = useState('');
-  const [promoterVisit, setPromoterVisit] = useState(false);
+  const [promoterVisit, setPromoterVisit] = useState(null);
   const [promoterVisitDate, setPromoterVisitDate] = useState('');
-  const [refusal, setRefusal] = useState(false);
+  const [refusal, setRefusal] = useState(null);
   const [refusalDate, setRefusalDate] = useState('');
   const [nextVisitDate, setNextVisitDate] = useState('');
   const [nextVisitReason, setNextVisitReason] = useState(null);
-
 
   const patientId = props.navigation.getParam('patientId');
   const visitId = props.navigation.getParam('visitId');
@@ -149,26 +148,27 @@ const ClinicalEvaluation = (props) => {
               value={treatment}
             />
           </View>
- 
+
           <View style={[styles.responseRow]}>
             {radioButtons({ field: communityVisit, action: setCommunityVisit, prompt: LocalizedStrings[language].communityVisit, language })}
-            <View style={{ paddingLeft: 20 }}>{communityVisit ? datePicker({ placeholder: LocalizedStrings[language].date, date: communityVisitDate, action: setCommunityVisitDate, language }) : null}</View>
           </View>
+          <View>{communityVisit ? datePicker({ placeholder: LocalizedStrings[language].date, date: communityVisitDate, action: setCommunityVisitDate, language }) : null}</View>
 
           <View style={[styles.responseRow]}>
             {radioButtons({ field: promoterVisit, action: setPromoterVisit, prompt: LocalizedStrings[language].promoterVisit, language })}
-            <View style={{ paddingLeft: 20 }}>{promoterVisit ? datePicker({ placeholder: LocalizedStrings[language].date, date: promoterVisitDate, action: setPromoterVisitDate, language }) : null}</View>
           </View>
+          <View>{promoterVisit ? datePicker({ placeholder: LocalizedStrings[language].date, date: promoterVisitDate, action: setPromoterVisitDate, language }) : null}</View>
+
 
           <View style={[styles.responseRow]}>
             {radioButtons({ field: refusal, action: setRefusal, prompt: LocalizedStrings[language].refusal, language })}
-            <View style={{ paddingLeft: 20 }}>{refusal ? datePicker({ placeholder: LocalizedStrings[language].date, date: refusalDate, action: setRefusalDate, language }) : null}</View>
           </View>
+          <View>{refusal ? datePicker({ placeholder: LocalizedStrings[language].date, date: refusalDate, action: setRefusalDate, language }) : null}</View>
 
           <View style={[styles.responseRow, { paddingVertical: 0 }]}>
             <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].nextVisitDate}</Text>
           </View>
-          <View style={{ paddingLeft: 20 }}>{datePicker({ placeholder: LocalizedStrings[language].nextVisit, date: nextVisitDate, action: setNextVisitDate, future: true, language })}</View>
+          <View>{datePicker({ placeholder: LocalizedStrings[language].nextVisit, date: nextVisitDate, action: setNextVisitDate, future: true, language })}</View>
 
           <View style={[styles.responseRow, { paddingVertical: 0 }]}>
             <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].nextVisitReason}</Text>

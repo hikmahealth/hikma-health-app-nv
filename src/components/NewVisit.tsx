@@ -12,29 +12,16 @@ import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 
 const NewVisit = (props) => {
-  const [camp, setCamp] = useState('');
-  const [visitType, setVisitType] = useState('');
   const [visitDate, setVisitDate] = useState(new Date().toISOString().split('T')[0]);
   const [language, setLanguage] = useState(props.navigation.getParam('language', 'en'))
-  const [campTextColor, setCampTextColor] = useState('#A9A9A9')
-  const [typeTextColor, setTypeTextColor] = useState('#A9A9A9')
   const patient = props.navigation.getParam('patient');
   const visitId = props.navigation.getParam('visitId');
   const userName = props.navigation.getParam('userName');
+  const existingVisit = props.navigation.getParam('existingVisit');
+
   const today = new Date();
 
   useEffect(() => {
-    let patientId = props.navigation.state.params.patient.id;
-    database.getLatestPatientEventByType(patientId, EventTypes.Camp).then((response: string) => {
-      if (response.length > 0) {
-        setCamp(response)
-      }
-    })
-    database.getLatestPatientEventByType(patientId, EventTypes.VisitType).then((response: string) => {
-      if (response.length > 0) {
-        setVisitType(response)
-      }
-    })
 
     if (!!props.navigation.getParam('language') && language !== props.navigation.getParam('language')) {
       setLanguage(props.navigation.getParam('language'));
@@ -59,82 +46,68 @@ const NewVisit = (props) => {
     props.navigation.navigate('OpenTextEvent', { patientId: patient.id, visitId: visitId, eventType: eventType, language: language })
   }
 
-  const handleSaveCamp = () => {
-    database.addEvent({
-      id: uuid(),
-      patient_id: patient.id,
-      visit_id: visitId,
-      event_type: EventTypes.Camp,
-      event_metadata: camp
-    }).then(() => console.log('camp saved'))
-  }
-
-  const handleSaveVisitType = () => {
-    database.addEvent({
-      id: uuid(),
-      patient_id: patient.id,
-      visit_id: visitId,
-      event_type: EventTypes.VisitType,
-      event_metadata: visitType
-    }).then(() => console.log('visit type saved'))
-  }
-
   return (
     <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.main}>
       <View style={styles.listContainer}>
         <View style={styles.searchBar}>
-          <TouchableOpacity onPress={() => props.navigation.navigate('PatientView', { language: language, patient: patient })}>
+          <TouchableOpacity onPress={() => existingVisit ?
+            props.navigation.navigate('EventList', { language, patient }) :
+            props.navigation.navigate('PatientView', { language, patient })
+          }>
             <Text style={styles.text}>{LocalizedStrings[language].back}</Text>
           </TouchableOpacity>
           {LanguageToggle()}
         </View>
 
-        <View style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+        {existingVisit ?
+          null :
+          <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
 
-          <View style={styles.inputRow}>
-            <DatePicker
-              style={styles.datePicker}
-              date={visitDate}
-              mode="date"
-              placeholder={LocalizedStrings[language].selectDob}
-              format="YYYY-MM-DD"
-              minDate="1900-05-01"
-              maxDate={today.toISOString().split('T')[0]}
-              confirmBtnText={LocalizedStrings[language].confirm}
-              cancelBtnText={LocalizedStrings[language].cancel}
-              customStyles={{
-                dateInput: {
-                  alignItems: 'flex-start',
-                  borderWidth: 0
-                }
-              }}
-              androidMode='spinner'
-              onDateChange={(date) => {
-                setVisitDate(date)
-                database.editVisitDate(visitId, moment(date).toISOString())
-              }}
-            />
-            <Text style={styles.inputs}>
-              {userName}
-            </Text>
+            <View style={styles.inputRow}>
+              <DatePicker
+                style={styles.datePicker}
+                date={visitDate}
+                mode="date"
+                placeholder={LocalizedStrings[language].selectDob}
+                format="YYYY-MM-DD"
+                minDate="1900-05-01"
+                maxDate={today.toISOString().split('T')[0]}
+                confirmBtnText={LocalizedStrings[language].confirm}
+                cancelBtnText={LocalizedStrings[language].cancel}
+                customStyles={{
+                  dateInput: {
+                    alignItems: 'flex-start',
+                    borderWidth: 0
+                  }
+                }}
+                androidMode='spinner'
+                onDateChange={(date) => {
+                  setVisitDate(date)
+                  database.editVisitDate(visitId, moment(date).toISOString())
+                }}
+              />
+              <Text style={styles.inputs}>
+                {userName}
+              </Text>
+            </View>
           </View>
-        </View>
+        }
 
         <ScrollView style={styles.scroll}>
 
           {/* 1-3 */}
           <View style={styles.gridContainer}>
-            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('MedicalHistory', { patientId: patient.id, visitId: visitId, language: language })}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('MedicalHistory', { patientId: patient.id, visitId, language, userName })}>
               <View style={styles.actionIcon}>
                 <Image source={require('../images/medicalHistory.png')} style={{ width: 53, height: 51 }} />
               </View>
               <Text style={styles.actionText}>{LocalizedStrings[language].medicalHistory}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('VitalSigns', { patientId: patient.id, visitId: visitId, language: language })}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('VitalSigns', { patientId: patient.id, visitId, language, userName })}>
               <View style={styles.actionIcon}>
                 <Image source={require('../images/vitals.png')} style={{ width: 66, height: 31 }} />
               </View>
@@ -150,19 +123,19 @@ const NewVisit = (props) => {
           </View>
           {/* 4-6 */}
           <View style={styles.gridContainer}>
-            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('Medicines', { eventType: EventTypes.MedicinesInStock, patientId: patient.id, visitId: visitId, language: language })}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('Medicines', { eventType: EventTypes.MedicinesInStock, patientId: patient.id, visitId, language, userName })}>
               <View style={styles.actionIcon}>
                 <Image source={require('../images/medicine.png')} style={{ width: 77, height: 38 }} />
               </View>
               <Text style={styles.actionText}>{LocalizedStrings[language].medicinesInStock}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('Medicines', { eventType: EventTypes.MedicinesOTC, patientId: patient.id, visitId: visitId, language: language })}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('Medicines', { eventType: EventTypes.MedicinesOTC, patientId: patient.id, visitId, language, userName })}>
               <View style={styles.actionIcon}>
                 <Image source={require('../images/medicine.png')} style={{ width: 77, height: 38 }} />
               </View>
               <Text style={styles.actionText}>{LocalizedStrings[language].medicinesOTC}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('Medicines', { eventType: EventTypes.ControlledMedicines, patientId: patient.id, visitId: visitId, language: language })}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('Medicines', { eventType: EventTypes.ControlledMedicines, patientId: patient.id, visitId, language, userName })}>
               <View style={styles.actionIcon}>
                 <Image source={require('../images/medicine.png')} style={{ width: 77, height: 38 }} />
               </View>
@@ -172,7 +145,7 @@ const NewVisit = (props) => {
           {/* 7-9 */}
           <View style={styles.gridContainer}>
             <TouchableOpacity style={styles.actionButton}
-              onPress={() => props.navigation.navigate('MedicalPathologies', { patientId: patient.id, visitId: visitId, language: language })}>
+              onPress={() => props.navigation.navigate('MedicalPathologies', { patientId: patient.id, visitId, language, userName })}>
               <View style={styles.actionIcon}>
                 <Image source={require('../images/doctor.png')} style={{ width: 40, height: 48 }} />
               </View>

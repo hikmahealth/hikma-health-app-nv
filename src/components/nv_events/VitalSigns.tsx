@@ -43,6 +43,7 @@ const VitalSigns = (props) => {
   const patientId = props.navigation.getParam('patientId');
   const visitId = props.navigation.getParam('visitId');
   const language = props.navigation.getParam('language', 'en');
+  const userName = props.navigation.getParam('userName');
 
   const bloodToggle = () => {
     return (
@@ -67,6 +68,7 @@ const VitalSigns = (props) => {
       visit_id: visitId,
       event_type: EventTypes.Vitals,
       event_metadata: JSON.stringify({
+        doctor: userName,
         glycemia,
         weight,
         idealWeight,

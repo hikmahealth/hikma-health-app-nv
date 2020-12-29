@@ -29,6 +29,7 @@ const Medicines = (props) => {
   const patientId = props.navigation.getParam('patientId');
   const visitId = props.navigation.getParam('visitId');
   const language = props.navigation.getParam('language', 'en');
+  const userName = props.navigation.getParam('userName');
 
   const submit = async () => {
     database.addEvent({
@@ -37,6 +38,7 @@ const Medicines = (props) => {
       visit_id: visitId,
       event_type: eventType,
       event_metadata: JSON.stringify({
+        doctor: userName,
         medicine,
         format,
         dosage,

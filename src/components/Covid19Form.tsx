@@ -23,7 +23,7 @@ export const datePicker = (props) => {
   }
   return (
     <DatePicker
-      style={{ width: 120 }}
+      style={{ width: 140, paddingLeft: 20 }}
       date={props.date}
       mode="date"
       placeholder={props.placeholder}
@@ -58,23 +58,27 @@ export const datePicker = (props) => {
 
 export const radioButtons = (props) => {
   return (
-    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-      <Text style={{ color: '#FFFFFF' }}>{props.prompt}</Text>
-      <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity onPress={() => props.action(!props.field)}>
-          <View style={styles.outerRadioButton}>
-            {props.field ? <View style={styles.selectedRadioButton} /> : null}
-          </View>
-        </TouchableOpacity>
-        <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[props.language].yes}</Text>
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity onPress={() => props.action(!props.field)}>
-          <View style={styles.outerRadioButton}>
-            {!props.field ? <View style={styles.selectedRadioButton} /> : null}
-          </View>
-        </TouchableOpacity>
-        <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[props.language].no}</Text>
+    <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
+      <Text style={{ color: '#FFFFFF', flex: 1, flexDirection: 'column', flexWrap: 'wrap' }}>{props.prompt}</Text>
+      <View>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity onPress={() => props.action(!props.field)}>
+            <View style={styles.outerRadioButton}>
+              {props.field ? <View style={styles.selectedRadioButton} /> : null}
+            </View>
+          </TouchableOpacity>
+          <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[props.language].yes}</Text>
+
+          <TouchableOpacity onPress={() => {
+            props.field === null ? props.action(false) : props.action(!props.field)
+          }
+          }>
+            <View style={styles.outerRadioButton}>
+              {(!props.field && props.field !== null) ? <View style={styles.selectedRadioButton} /> : null}
+            </View>
+          </TouchableOpacity>
+          <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[props.language].no}</Text>
+        </View>
       </View>
     </View>
   )

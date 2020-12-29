@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, TouchableOpacity, Picker } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Picker, Button } from "react-native";
 import { database } from "../storage/Database";
 import styles from './Style';
 import LinearGradient from 'react-native-linear-gradient';
@@ -15,6 +15,7 @@ import { MedicinesDisplay } from "./nv_events/Medicines";
 const EventList = (props) => {
   const visit = props.navigation.getParam('visit');
   const patient = props.navigation.getParam('patient');
+  const userName = props.navigation.getParam('userName');
 
   const [list, setList] = useState(props.navigation.getParam('events', []));
   const [language, setLanguage] = useState(props.navigation.getParam('language', 'en'));
@@ -49,23 +50,30 @@ const EventList = (props) => {
     }
   }
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onLongPress={() => editEvent(item)}>
-      <View style={styles.cardContent} >
-        <View style={{ margin: 10 }}>
-          <Text>{`${LocalizedStrings[language].eventType}: ${item.event_type}`}</Text>
-          <View
-            style={{
-              marginVertical: 5,
-              borderBottomColor: 'black',
-              borderBottomWidth: 1,
-            }}
-          />
-          {renderMetadata(item.event_type, item.event_metadata)}
+  const renderItem = ({ item }) => {
+    const metadataObj = parseMetadata(item.event_metadata)
+    const time = new Date(item.event_timestamp).toLocaleTimeString()
+
+    return (
+      <TouchableOpacity style={styles.card} 
+      // onLongPress={() => editEvent(item)}
+      >
+        <View style={styles.cardContent} >
+          <View style={{ margin: 10 }}>
+            <Text>{`${item.event_type}, ${metadataObj.doctor}, ${time} `}</Text>
+            <View
+              style={{
+                marginVertical: 5,
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+              }}
+            />
+            {renderMetadata(item.event_type, metadataObj)}
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
-  )
+      </TouchableOpacity>
+    )
+  }
 
   const parseMetadata = (metadata: string) => {
     try {
@@ -76,8 +84,8 @@ const EventList = (props) => {
     return JSON.parse(metadata);
   }
 
-  const renderMetadata = (type: EventTypes, metadata: string) => {
-    const metadataObj = parseMetadata(metadata)
+  const renderMetadata = (type: EventTypes, metadataObj: any) => {
+    // const metadataObj = parseMetadata(metadata)
 
     switch (type) {
       case EventTypes.Covid19Screening:
@@ -91,7 +99,7 @@ const EventList = (props) => {
       case EventTypes.MedicalPathologies:
         return MedicalPathologiesDisplay(metadataObj, language)
       case EventTypes.MedicinesInStock:
-      case EventTypes.MedicinesOTC: 
+      case EventTypes.MedicinesOTC:
       case EventTypes.ControlledMedicines:
         return MedicinesDisplay(metadataObj, language)
       default:
@@ -122,7 +130,7 @@ const EventList = (props) => {
         {LanguageToggle()}
       </View>
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        <Text style={styles.text}>{LocalizedStrings[language].visitEvents}</Text>
+        <Text style={styles.text}>{visit.check_in_timestamp.split('T')[0]}</Text>
       </View>
       <View style={styles.listContainer}>
 
@@ -134,6 +142,22 @@ const EventList = (props) => {
           />
         </View>
 
+      </View>
+      <View style={{ position: 'absolute', bottom: 20, right: 20 }}>
+        <Button
+          title={LocalizedStrings[language].newEntry}
+          color={'#F77824'}
+          onPress={() => {
+            props.navigation.navigate('NewVisit',
+              {
+                language: language,
+                patient: patient,
+                visitId: visit.id,
+                userName: userName,
+                existingVisit: true
+              }
+            )
+          }} />
       </View>
     </LinearGradient>
   )

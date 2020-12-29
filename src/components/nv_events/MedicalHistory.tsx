@@ -40,6 +40,7 @@ const MedicalHistory = (props) => {
   const patientId = props.navigation.getParam('patientId');
   const visitId = props.navigation.getParam('visitId');
   const language = props.navigation.getParam('language', 'en');
+  const userName = props.navigation.getParam('userName');
 
   const submit = async () => {
     database.addEvent({
@@ -48,6 +49,7 @@ const MedicalHistory = (props) => {
       visit_id: visitId,
       event_type: EventTypes.MedicalHistory,
       event_metadata: JSON.stringify({
+        doctor: userName,
         malnutrition,
         prenatal,
         sexualHx,
@@ -113,7 +115,7 @@ const MedicalHistory = (props) => {
           <View style={[styles.responseRow, { paddingVertical: 0 }]}>
             <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].parasiteTreatment}</Text>
           </View>
-          <View style={{ paddingLeft: 20 }}>{datePicker({ placeholder: LocalizedStrings[language].treatmentDate, date: parasiteTreatment, action: setParasiteTreatment, language })}</View>
+          <View>{datePicker({ placeholder: LocalizedStrings[language].treatmentDate, date: parasiteTreatment, action: setParasiteTreatment, language })}</View>
 
 
           <View style={[styles.responseRow, { paddingVertical: 0 }]}>
