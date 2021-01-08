@@ -13,15 +13,15 @@ import { LocalizedStrings } from '../../enums/LocalizedStrings';
 export const VitalSignsDisplay = (metadataObj, language) => {
   return (
     <View>
-      <Text>{LocalizedStrings[language].glycemia}: {metadataObj.glycemia} mg</Text>
-      <Text>{LocalizedStrings[language].weight}: {metadataObj.weight} kg</Text>
-      <Text>{LocalizedStrings[language].idealWeight}: {metadataObj.idealWeight} kg</Text>
+      <Text>{LocalizedStrings[language].glycemia}: {metadataObj.glycemia}</Text>
+      <Text>{LocalizedStrings[language].weight}: {metadataObj.weight}</Text>
+      <Text>{LocalizedStrings[language].idealWeight}: {metadataObj.idealWeight}</Text>
       <Text>{LocalizedStrings[language].bloodPressure}: {metadataObj.systolic}/{metadataObj.diastolic}</Text>
       <Text>{LocalizedStrings[language].pulse}: {metadataObj.pulse}</Text>
       <Text>{LocalizedStrings[language].respiration}: {metadataObj.respiration}</Text>
-      <Text>{LocalizedStrings[language].sats}: {metadataObj.sats}%</Text>
-      <Text>{LocalizedStrings[language].height}: {metadataObj.height} m</Text>
-      <Text>{LocalizedStrings[language].temp}: {metadataObj.temp} °C</Text>
+      <Text>{LocalizedStrings[language].sats}: {metadataObj.sats}</Text>
+      <Text>{LocalizedStrings[language].height}: {metadataObj.height}</Text>
+      <Text>{LocalizedStrings[language].temp}: {metadataObj.temp}</Text>
       <Text>{LocalizedStrings[language].bloodType}: {metadataObj.bloodType}</Text>
     </View>)
 }
@@ -56,6 +56,10 @@ const VitalSigns = (props) => {
         <Picker.Item value='B+' label='B+' />
         <Picker.Item value='AB+' label='AB+' />
         <Picker.Item value='O+' label='O+' />
+        <Picker.Item value='A-' label='A-' />
+        <Picker.Item value='B-' label='B-' />
+        <Picker.Item value='AB-' label='AB-' />
+        <Picker.Item value='O-' label='O-' />
 
       </Picker>
     )

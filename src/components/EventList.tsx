@@ -52,7 +52,7 @@ const EventList = (props) => {
 
   const renderItem = ({ item }) => {
     const metadataObj = parseMetadata(item.event_metadata)
-    const time = new Date(item.event_timestamp).toLocaleTimeString()
+    const time = new Date(item.event_timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true})
 
     return (
       <TouchableOpacity style={styles.card} 

@@ -61,7 +61,7 @@ const SnapshotList = (props) => {
 
     const renderItem = ({ item }) => {
         const metadataObj = parseMetadata(item.event_metadata)
-        const time = new Date(item.edited_at).toLocaleTimeString()
+        const time = new Date(item.edited_at).toLocaleString([], {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute:'2-digit', hour12: true})
 
         return (
             <TouchableOpacity style={styles.card}
