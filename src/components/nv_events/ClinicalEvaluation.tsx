@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  View, Text, Image, TextInput, TouchableOpacity, ScrollView
+  View, Text, TextInput, ScrollView, Button
 } from 'react-native';
 
 import { database } from "../../storage/Database";
@@ -19,12 +19,12 @@ export const ClinicalEvaluationDisplay = (metadataObj, language) => {
       <Text>{LocalizedStrings[language].reason}: {metadataObj.reason}</Text>
       <Text>{LocalizedStrings[language].observations}: {metadataObj.observations}</Text>
       <Text>{LocalizedStrings[language].medications}: {metadataObj.medications}</Text>
-      <Text>{LocalizedStrings[language].breastExam}: {metadataObj.breastExam ? LocalizedStrings[language].true : LocalizedStrings[language].false}</Text>
+      <Text>{LocalizedStrings[language].breastExam}: {metadataObj.breastExam ? LocalizedStrings[language].true : LocalizedStrings[language].no}</Text>
       <Text>{LocalizedStrings[language].diagnosis}: {metadataObj.diagnosis}</Text>
       <Text>{LocalizedStrings[language].treatment}: {metadataObj.treatment}</Text>
-      <Text>{LocalizedStrings[language].communityVisit}: {metadataObj.communityVisit ? metadataObj.communityVisitDate : LocalizedStrings[language].false}</Text>
-      <Text>{LocalizedStrings[language].promoterVisit}: {metadataObj.promoterVisit ? metadataObj.promoterVisitDate : LocalizedStrings[language].false}</Text>
-      <Text>{LocalizedStrings[language].refusal}: {metadataObj.refusal ? metadataObj.refusalDate : LocalizedStrings[language].false}</Text>
+      <Text>{LocalizedStrings[language].communityVisit}: {metadataObj.communityVisit ? metadataObj.communityVisitDate : LocalizedStrings[language].no}</Text>
+      <Text>{LocalizedStrings[language].promoterVisit}: {metadataObj.promoterVisit ? metadataObj.promoterVisitDate : LocalizedStrings[language].no}</Text>
+      <Text>{LocalizedStrings[language].refusal}: {metadataObj.refusal ? metadataObj.refusalDate : LocalizedStrings[language].no}</Text>
       <Text>{LocalizedStrings[language].nextVisitDate}: {metadataObj.nextVisitDate}</Text>
       <Text>{LocalizedStrings[language].nextVisitReason}: {metadataObj.nextVisitReason}</Text>
     </View>)
@@ -61,6 +61,7 @@ const ClinicalEvaluation = (props) => {
       event_type: EventTypes.Evaluation,
       event_metadata: JSON.stringify({
         doctor: userName,
+        visitDate,
         reason,
         observations,
         medications,
@@ -182,9 +183,10 @@ const ClinicalEvaluation = (props) => {
           </View>
         </View>
         <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity onPress={() => submit()}>
-            <Image source={require('../../images/login.png')} style={{ width: 75, height: 75 }} />
-          </TouchableOpacity>
+        <Button
+          title={LocalizedStrings[language].save}
+          color={'#F77824'}
+          onPress={() => submit()}/>
         </View>
       </LinearGradient>
     </ScrollView>

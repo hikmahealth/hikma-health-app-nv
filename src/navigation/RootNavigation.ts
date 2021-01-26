@@ -23,6 +23,8 @@ import MedicalPathologies from '../components/nv_events/MedicalPathologies';
 import PatientDetails from '../components/nv_events/PatientDetails';
 import Medicines from '../components/nv_events/Medicines';
 import SnapshotList from '../components/SnapshotList';
+import PsychologicalPathologies from '../components/nv_events/PsychologicalPathologies';
+import HouseholdEnvironment from '../components/nv_events/HouseholdEnvironment';
 
 const rootNavigator = createStackNavigator(
   {
@@ -163,6 +165,20 @@ const rootNavigator = createStackNavigator(
       screen: Medicines,
       navigationOptions: () => ({
         title: 'Medicines',
+        header: null
+      })
+    },
+    PsychologicalPathologies: {
+      screen: PsychologicalPathologies,
+      navigationOptions: () => ({
+        title: 'PsychologicalPathologies',
+        header: null
+      })
+    },
+    HouseholdEnvironment: {
+      screen: HouseholdEnvironment,
+      navigationOptions: () => ({
+        title: 'HouseholdEnvironment',
         header: null
       })
     },

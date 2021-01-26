@@ -150,18 +150,18 @@ const PatientView = (props) => {
           </View>
         </View>
         <View style={{ alignItems: 'center' }}>
-            <TouchableOpacity
-              style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('VisitList', { language, patient, userName })}>
-              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
-                <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].visitHistory}</Text>
-                <Text style={{ fontSize: 15 }}>></Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
+            onPress={() => props.navigation.navigate('VisitList', { language, patient, userName })}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
+              <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].visitHistory}</Text>
+              <Text style={{ fontSize: 15 }}>></Text>
+            </View>
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity onPress={() => setIsCollapsed(!isCollapsed)} style={{flexDirection: 'row', justifyContent: "flex-end", alignItems: 'center',}}>
-            <Text>{LocalizedStrings[language].patientSnapshot}</Text>
+        <TouchableOpacity onPress={() => setIsCollapsed(!isCollapsed)} style={{ flexDirection: 'row', justifyContent: "flex-end", alignItems: 'center', }}>
+          <Text>{isCollapsed ? LocalizedStrings[language].patientSnapshot : LocalizedStrings[language].closeSnapshot}</Text>
           <Image source={require('../images/menu.png')} style={{ width: 50, height: 50 }} />
         </TouchableOpacity>
 
@@ -197,6 +197,23 @@ const PatientView = (props) => {
               onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.MedicalPathologies, language: language, patient: patient })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].medicalPathologies}</Text>
+                <Text style={{ fontSize: 15 }}>></Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.PsychologicalPathologies, language: language, patient: patient })}>
+              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
+                <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].psychologicalPathologies}</Text>
+
+                <Text style={{ fontSize: 15 }}>></Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.HouseholdEnvironment, language: language, patient: patient })}>
+              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
+                <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].householdEnvironment}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
               </View>
             </TouchableOpacity>

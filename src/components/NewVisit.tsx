@@ -151,17 +151,17 @@ const NewVisit = (props) => {
               </View>
               <Text style={styles.actionText}>{LocalizedStrings[language].medicalPathologies}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton} onPress={() => openTextEvent(EventTypes.Diagnosis)}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('PsychologicalPathologies', { patientId: patient.id, visitId, language, userName })}>
               <View style={styles.actionIcon}>
                 <Image source={require('../images/diagnosis.png')} style={{ width: 42, height: 52 }} />
               </View>
-              <Text style={styles.actionText}>{LocalizedStrings[language].diagnosis}</Text>
+              <Text style={styles.actionText}>{LocalizedStrings[language].psychologicalPathologies}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton} onPress={() => openTextEvent(EventTypes.Allergies)}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('HouseholdEnvironment', { patientId: patient.id, visitId, language, userName })}>
               <View style={styles.actionIcon}>
                 <Image source={require('../images/fee.png')} style={{ width: 50, height: 41 }} />
               </View>
-              <Text style={styles.actionText}>{LocalizedStrings[language].allergies}</Text>
+              <Text style={styles.actionText}>{LocalizedStrings[language].householdEnvironment}</Text>
             </TouchableOpacity>
           </View>
           <View style={[styles.gridContainer, { width: '66%' }]}>

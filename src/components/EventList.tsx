@@ -11,6 +11,8 @@ import { VitalSignsDisplay } from "./nv_events/VitalSigns";
 import { ClinicalEvaluationDisplay } from "./nv_events/ClinicalEvaluation";
 import { MedicalPathologiesDisplay } from "./nv_events/MedicalPathologies";
 import { MedicinesDisplay } from "./nv_events/Medicines";
+import { PsychologicalPathologiesDisplay } from "./nv_events/PsychologicalPathologies";
+import { HouseholdEnvironmentDisplay } from "./nv_events/HouseholdEnvironment";
 
 const EventList = (props) => {
   const visit = props.navigation.getParam('visit');
@@ -52,15 +54,63 @@ const EventList = (props) => {
 
   const renderItem = ({ item }) => {
     const metadataObj = parseMetadata(item.event_metadata)
-    const time = new Date(item.event_timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true})
+    let eventTypeText: string
+    let display
+    switch (item.event_type) {
+      case EventTypes.Covid19Screening:
+        eventTypeText = LocalizedStrings[language].covidScreening
+        display = <Text>Test/Isolate Patient: {metadataObj.testAndIsolate.toString()}</Text>
+        break
+      case EventTypes.Vitals:
+        eventTypeText = LocalizedStrings[language].vitals
+        display = VitalSignsDisplay(metadataObj, language)
+        break
+      case EventTypes.MedicalHistory:
+        eventTypeText = LocalizedStrings[language].medicalHistory
+        display = MedicalHistoryDisplay(metadataObj, language)
+        break
+      case EventTypes.Evaluation:
+        eventTypeText = LocalizedStrings[language].clinicalEvaluation
+        display = ClinicalEvaluationDisplay(metadataObj, language)
+        break
+      case EventTypes.MedicinesInStock:
+        eventTypeText = LocalizedStrings[language].medicinesInStock
+        display = MedicinesDisplay(metadataObj, language)
+        break
+      case EventTypes.MedicinesOTC:
+        eventTypeText = LocalizedStrings[language].medicinesOTC
+        display = MedicinesDisplay(metadataObj, language)
+        break
+      case EventTypes.ControlledMedicines:
+        eventTypeText = LocalizedStrings[language].controlledMedicines
+        display = MedicinesDisplay(metadataObj, language)
+        break
+      case EventTypes.MedicalPathologies:
+        eventTypeText = LocalizedStrings[language].medicalPathologies
+        display = MedicalPathologiesDisplay(metadataObj, language)
+        break
+      case EventTypes.PsychologicalPathologies:
+        eventTypeText = LocalizedStrings[language].psychologicalPathologies
+        display = PsychologicalPathologiesDisplay(metadataObj, language)
+        break
+      case EventTypes.HouseholdEnvironment:
+        eventTypeText = LocalizedStrings[language].householdEnvironment
+        display = HouseholdEnvironmentDisplay(metadataObj, language)
+        break
+      default:
+        eventTypeText = item.event_type
+        display = <Text>{metadataObj}</Text>
+        break
+    }
+    const time = new Date(item.event_timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })
 
     return (
-      <TouchableOpacity style={styles.card} 
+      <TouchableOpacity style={styles.card}
       // onLongPress={() => editEvent(item)}
       >
         <View style={styles.cardContent} >
           <View style={{ margin: 10 }}>
-            <Text>{`${item.event_type}, ${metadataObj.doctor}, ${time} `}</Text>
+            <Text>{`${eventTypeText}, ${metadataObj.doctor}, ${time} `}</Text>
             <View
               style={{
                 marginVertical: 5,
@@ -68,7 +118,7 @@ const EventList = (props) => {
                 borderBottomWidth: 1,
               }}
             />
-            {renderMetadata(item.event_type, metadataObj)}
+            {display}
           </View>
         </View>
       </TouchableOpacity>
@@ -82,29 +132,6 @@ const EventList = (props) => {
       return metadata;
     }
     return JSON.parse(metadata);
-  }
-
-  const renderMetadata = (type: EventTypes, metadataObj: any) => {
-    // const metadataObj = parseMetadata(metadata)
-
-    switch (type) {
-      case EventTypes.Covid19Screening:
-        return (<Text>Test/Isolate Patient: {metadataObj.testAndIsolate.toString()}</Text>)
-      case EventTypes.Vitals:
-        return VitalSignsDisplay(metadataObj, language)
-      case EventTypes.MedicalHistory:
-        return MedicalHistoryDisplay(metadataObj, language)
-      case EventTypes.Evaluation:
-        return ClinicalEvaluationDisplay(metadataObj, language)
-      case EventTypes.MedicalPathologies:
-        return MedicalPathologiesDisplay(metadataObj, language)
-      case EventTypes.MedicinesInStock:
-      case EventTypes.MedicinesOTC:
-      case EventTypes.ControlledMedicines:
-        return MedicinesDisplay(metadataObj, language)
-      default:
-        return (<Text>{metadataObj}</Text>)
-    }
   }
 
   const LanguageToggle = () => {

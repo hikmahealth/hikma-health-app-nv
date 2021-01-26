@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  View, Text, Image, TextInput, TouchableOpacity, ScrollView, Picker
+  View, Text, TextInput, ScrollView, Picker, Button
 } from 'react-native';
 
 import { database } from "../../storage/Database";
@@ -229,9 +229,10 @@ const VitalSigns = (props) => {
         </View>
 
         <View style={{ marginTop: 30, alignItems: 'center' }}>
-          <TouchableOpacity onPress={() => setVitals()}>
-            <Image source={require('../../images/login.png')} style={{ width: 75, height: 75 }} />
-          </TouchableOpacity>
+          <Button
+            title={LocalizedStrings[language].save}
+            color={'#F77824'}
+            onPress={() => setVitals()} />
         </View>
       </LinearGradient>
     </ScrollView>

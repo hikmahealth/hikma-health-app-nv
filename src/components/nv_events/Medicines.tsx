@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, Image, TextInput, TouchableOpacity, ScrollView
+  View, Text, TextInput, Button
 } from 'react-native';
 
 import { database } from "../../storage/Database";
@@ -31,6 +31,18 @@ const Medicines = (props) => {
   const language = props.navigation.getParam('language', 'en');
   const userName = props.navigation.getParam('userName');
 
+  useEffect(() => {
+    database.getLatestPatientEventByType(patientId, eventType).then((response: any) => {
+      if (response.length > 0) {
+        const responseObj = JSON.parse(response)
+        setMedicine(responseObj.medicine)
+        setFormat(responseObj.format)
+        setDosage(responseObj.dosage)
+        setDays(responseObj.days)
+      }
+    })
+  }, [])
+
   const submit = async () => {
     database.addEvent({
       id: uuid(),
@@ -51,7 +63,7 @@ const Medicines = (props) => {
 
   return (
     <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={[styles.containerLeft]}>
-      <View style={[styles.inputsContainer, { alignItems: 'flex-start',}]}>
+      <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
         <View style={[styles.responseRow, { paddingBottom: 0 }]}>
           <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].medicine}</Text>
         </View>
@@ -94,9 +106,10 @@ const Medicines = (props) => {
         </View>
       </View>
       <View style={{ alignItems: 'center' }}>
-        <TouchableOpacity onPress={() => submit()}>
-          <Image source={require('../../images/login.png')} style={{ width: 75, height: 75 }} />
-        </TouchableOpacity>
+        <Button
+          title={LocalizedStrings[language].save}
+          color={'#F77824'}
+          onPress={() => submit()} />
       </View>
     </LinearGradient>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    View, Text, Image, TextInput, TouchableOpacity, ScrollView
+    View, Text, Image, TextInput, TouchableOpacity, ScrollView, Button
 } from 'react-native';
 
 import { database } from "../../storage/Database";
@@ -11,91 +11,102 @@ import LinearGradient from 'react-native-linear-gradient';
 import { datePicker, radioButtons } from '../Covid19Form'
 import { LocalizedStrings } from '../../enums/LocalizedStrings';
 
+const formatDisplay = (field, textField, language) => {
+    if (field == null) {
+        return null
+    }
+    if (!!field && textField == null) {
+        return field
+    }
+    return field ? textField : LocalizedStrings[language].no
+
+}
+
 export const MedicalPathologiesDisplay = (metadataObj, language) => {
 
     return (
         <View>
             <Text>{LocalizedStrings[language].doctor}: {metadataObj.doctor} </Text>
-            <Text>{LocalizedStrings[language].miscarriages}: {metadataObj.miscarriages ? metadataObj.miscarriagesNumber : LocalizedStrings[language].false} </Text>
-            <Text>{LocalizedStrings[language].foodAllergies}: {metadataObj.foodAllergies ? metadataObj.foodAllergiesText : LocalizedStrings[language].false} </Text>
-            <Text>{LocalizedStrings[language].animalAllergies}: {metadataObj.animalAllergies ? metadataObj.animalAllergiesText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].atmosphereAllergies}: {metadataObj.atmosphereAllergies ? metadataObj.atmosphereAllergiesText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].insectAllergies}: {metadataObj.insectAllergies ? metadataObj.insectAllergiesText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].latexAllergies}: {metadataObj.latexAllergies ? metadataObj.latexAllergiesText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].medicineAllergies}: {metadataObj.medicineAllergies ? metadataObj.medicineAllergiesText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].otherAllergies}: {metadataObj.otherAllergies ? metadataObj.otherAllergiesText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].tonsillitis}: {metadataObj.tonsillitis ? metadataObj.tonsillitisText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].anemic}: {metadataObj.anemic ? metadataObj.anemicText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].arthritis}: {metadataObj.arthritis ? metadataObj.arthritisText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].asthma}: {metadataObj.asthma ? metadataObj.asthmaText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].neckPain}: {metadataObj.neckPain ? metadataObj.neckPainText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].cervicovaginitis}: {metadataObj.cervicovaginitis ? metadataObj.cervicovaginitisText : LocalizedStrings[language].false}</Text>
+            <Text>{LocalizedStrings[language].miscarriages}: {formatDisplay(metadataObj.miscarriages, metadataObj.miscarriagesNumber, language)} </Text>
+            <Text>{LocalizedStrings[language].foodAllergies}: {formatDisplay(metadataObj.foodAllergies, metadataObj.foodAllergiesText, language)} </Text>
+            <Text>{LocalizedStrings[language].animalAllergies}: {formatDisplay(metadataObj.animalAllergies, metadataObj.animalAllergiesText, language)}</Text>
+            <Text>{LocalizedStrings[language].atmosphereAllergies}: {formatDisplay(metadataObj.atmosphereAllergies, metadataObj.atmosphereAllergiesText, language)}</Text>
+            <Text>{LocalizedStrings[language].insectAllergies}: {formatDisplay(metadataObj.insectAllergies, metadataObj.insectAllergiesText, language)}</Text>
+            <Text>{LocalizedStrings[language].latexAllergies}: {formatDisplay(metadataObj.latexAllergies, metadataObj.latexAllergiesText, language)}</Text>
+            <Text>{LocalizedStrings[language].medicineAllergies}: {formatDisplay(metadataObj.medicineAllergies, metadataObj.medicineAllergiesText, language)}</Text>
+            <Text>{LocalizedStrings[language].otherAllergies}: {formatDisplay(metadataObj.otherAllergies, metadataObj.otherAllergiesText, language)}</Text>
+            <Text>{LocalizedStrings[language].tonsillitis}: {formatDisplay(metadataObj.tonsillitis, metadataObj.tonsillitisText, language)}</Text>
+            <Text>{LocalizedStrings[language].anemic}: {formatDisplay(metadataObj.anemic, metadataObj.anemicText, language)}</Text>
+            <Text>{LocalizedStrings[language].arthritis}: {formatDisplay(metadataObj.arthritis, metadataObj.arthritisText, language)}</Text>
+            <Text>{LocalizedStrings[language].asthma}: {formatDisplay(metadataObj.asthma, metadataObj.asthmaText, language)}</Text>
+            <Text>{LocalizedStrings[language].neckPain}: {formatDisplay(metadataObj.neckPain, metadataObj.neckPainText, language)}</Text>
+            <Text>{LocalizedStrings[language].cervicovaginitis}: {formatDisplay(metadataObj.cervicovaginitis, metadataObj.cervicovaginitisText, language)}</Text>
 
-            <Text>{LocalizedStrings[language].cSection}: {metadataObj.cSection}</Text>
+            <Text>{LocalizedStrings[language].cSection}: {formatDisplay(metadataObj.cSection, null, language)}</Text>
 
-            <Text>{LocalizedStrings[language].sciaticPain}: {metadataObj.sciaticPain ? metadataObj.sciaticPainText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].cholesterol}: {metadataObj.cholesterol ? metadataObj.cholesterolText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].infantColic}: {metadataObj.infantColic ? metadataObj.infantColicText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].conjunctivitis}: {metadataObj.conjunctivitis ? metadataObj.conjunctivitisText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].covid}: {metadataObj.covid ? metadataObj.covidText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].malnourishment}: {metadataObj.malnourishment ? metadataObj.malnourishmentText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].migraines}: {metadataObj.migraines ? metadataObj.migrainesText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].diarrhea}: {metadataObj.diarrhea ? metadataObj.diarrheaText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].ecocardiogram}: {metadataObj.ecocardiogram ? metadataObj.ecocardiogramText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].electrocardiogram}: {metadataObj.electrocardiogram ? metadataObj.electrocardiogramText : LocalizedStrings[language].false}</Text>
+            <Text>{LocalizedStrings[language].sciaticPain}: {formatDisplay(metadataObj.sciaticPain, metadataObj.sciaticPainText, language)}</Text>
+            <Text>{LocalizedStrings[language].cholesterol}: {formatDisplay(metadataObj.cholesterol, metadataObj.cholesterolText, language)}</Text>
+            <Text>{LocalizedStrings[language].infantColic}: {formatDisplay(metadataObj.infantColic, metadataObj.infantColicText, language)}</Text>
+            <Text>{LocalizedStrings[language].conjunctivitis}: {formatDisplay(metadataObj.conjunctivitis, metadataObj.conjunctivitisText, language)}</Text>
+            <Text>{LocalizedStrings[language].covid}: {formatDisplay(metadataObj.covid, metadataObj.covidText, language)}</Text>
+            <Text>{LocalizedStrings[language].malnourishment}: {formatDisplay(metadataObj.malnourishment, metadataObj.malnourishmentText, language)}</Text>
+            <Text>{LocalizedStrings[language].migraines}: {formatDisplay(metadataObj.migraines, metadataObj.migrainesText, language)}</Text>
+            <Text>{LocalizedStrings[language].diarrhea}: {formatDisplay(metadataObj.diarrhea, metadataObj.diarrheaText, language)}</Text>
+            <Text>{LocalizedStrings[language].ecocardiogram}: {formatDisplay(metadataObj.ecocardiogram, metadataObj.ecocardiogramText, language)}</Text>
+            <Text>{LocalizedStrings[language].electrocardiogram}: {formatDisplay(metadataObj.electrocardiogram, metadataObj.electrocardiogramText, language)}</Text>
 
-            <Text>{LocalizedStrings[language].pregnant}: {metadataObj.pregnant ? LocalizedStrings[language].true : LocalizedStrings[language].false }</Text>
-            <Text>{LocalizedStrings[language].pregnancies}: {metadataObj.pregnancies}</Text>
+            <Text>{LocalizedStrings[language].pregnant}: {formatDisplay(metadataObj.pregnant, LocalizedStrings[language].true, language)}</Text>
+            <Text>{LocalizedStrings[language].pregnancies}: {formatDisplay(metadataObj.pregnancies, null, language)}</Text>
 
-            <Text>{LocalizedStrings[language].chikungunya}: {metadataObj.chikungunya ? metadataObj.chikungunyaText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].dengue}: {metadataObj.dengue ? metadataObj.dengueText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].malaria}: {metadataObj.malaria ? metadataObj.malariaText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].otherMosquito}: {metadataObj.otherMosquito ? metadataObj.otherMosquitoText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].zika}: {metadataObj.zika ? metadataObj.zikaText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].copd}: {metadataObj.copd ? metadataObj.copdText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].gastritis}: {metadataObj.gastritis ? metadataObj.gastritisText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].scabies}: {metadataObj.scabies ? metadataObj.scabiesText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].lastPAP}: {metadataObj.lastPAP}</Text>
+            <Text>{LocalizedStrings[language].chikungunya}: {formatDisplay(metadataObj.chikungunya, metadataObj.chikungunyaText, language)}</Text>
+            <Text>{LocalizedStrings[language].dengue}: {formatDisplay(metadataObj.dengue, metadataObj.dengueText, language)}</Text>
+            <Text>{LocalizedStrings[language].malaria}: {formatDisplay(metadataObj.malaria, metadataObj.malariaText, language)}</Text>
+            <Text>{LocalizedStrings[language].otherMosquito}: {formatDisplay(metadataObj.otherMosquito, metadataObj.otherMosquitoText, language)}</Text>
+            <Text>{LocalizedStrings[language].zika}: {formatDisplay(metadataObj.zika, metadataObj.zikaText, language)}</Text>
+            <Text>{LocalizedStrings[language].copd}: {formatDisplay(metadataObj.copd, metadataObj.copdText, language)}</Text>
+            <Text>{LocalizedStrings[language].gastritis}: {formatDisplay(metadataObj.gastritis, metadataObj.gastritisText, language)}</Text>
+            <Text>{LocalizedStrings[language].scabies}: {formatDisplay(metadataObj.scabies, metadataObj.scabiesText, language)}</Text>
+            <Text>{LocalizedStrings[language].lastPAP}: {formatDisplay(metadataObj.lastPAP, null, language)}</Text>
 
-            <Text>{LocalizedStrings[language].vaginalFluid}: {metadataObj.vaginalFluid ? metadataObj.vaginalFluidText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].hypertension}: {metadataObj.hypertension ? metadataObj.hypertensionText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].hypothyroidism}: {metadataObj.hypothyroidism ? metadataObj.hypothyroidismText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].bacterialResp}: {metadataObj.bacterialResp ? metadataObj.bacterialRespText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].viralResp}: {metadataObj.miscarriaviralRespges ? metadataObj.viralRespText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].uti}: {metadataObj.uti ? metadataObj.utiText : LocalizedStrings[language].false}</Text> 
-            <Text>{LocalizedStrings[language].renalFailure}: {metadataObj.renalFailure ? metadataObj.renalFailureText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].breastfeeding}: {metadataObj.breastfeeding ? metadataObj.breastfeedingText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].lumbago}: {metadataObj.lumbago ? metadataObj.lumbagoText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].menopause}: {metadataObj.menopause ? metadataObj.menopauseText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].nausea}: {metadataObj.nausea ? metadataObj.nauseaText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].nephrolithiasisRenal}: {metadataObj.nephrolithiasisRenal ? metadataObj.nephrolithiasisRenalText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].diabeticNeuropathy}: {metadataObj.diabeticNeuropathy ? metadataObj.diabeticNeuropathyText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].obesity}: {metadataObj.obesity ? metadataObj.obesityText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].osteoarthritis}: {metadataObj.osteoarthritis ? metadataObj.osteoarthritisText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].otitis}: {metadataObj.otitis ? metadataObj.otitisText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].paralysis}: {metadataObj.paralysis ? metadataObj.paralysisText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].parasites}: {metadataObj.parasites ? metadataObj.parasitesText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].skinHealthy}: {metadataObj.skinHealthy ? metadataObj.skinHealthyText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].skinUlcers}: {metadataObj.skinUlcers ? metadataObj.skinUlcersText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].skinInfected}: {metadataObj.skinInfected ? metadataObj.skinInfectedText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].lice}: {metadataObj.lice ? metadataObj.liceText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].postnatalVisit}: {metadataObj.postnatalVisit ? LocalizedStrings[language].true : LocalizedStrings[language].false }</Text>
-            <Text>{LocalizedStrings[language].prenatalVisit}: {metadataObj.prenatalVisit  ? LocalizedStrings[language].true : LocalizedStrings[language].false }</Text>
+            <Text>{LocalizedStrings[language].vaginalFluid}: {formatDisplay(metadataObj.vaginalFluid, metadataObj.vaginalFluidText, language)}</Text>
+            <Text>{LocalizedStrings[language].hypertension}: {formatDisplay(metadataObj.hypertension, metadataObj.hypertensionText, language)}</Text>
+            <Text>{LocalizedStrings[language].hypothyroidism}: {formatDisplay(metadataObj.hypothyroidism, metadataObj.hypothyroidismText, language)}</Text>
+            <Text>{LocalizedStrings[language].bacterialResp}: {formatDisplay(metadataObj.bacterialResp, metadataObj.bacterialRespText, language)}</Text>
+            <Text>{LocalizedStrings[language].viralResp}: {formatDisplay(metadataObj.miscarriaviralRespges, metadataObj.viralRespText, language)}</Text>
+            <Text>{LocalizedStrings[language].uti}: {formatDisplay(metadataObj.uti, metadataObj.utiText, language)}</Text>
+            <Text>{LocalizedStrings[language].renalFailure}: {formatDisplay(metadataObj.renalFailure, metadataObj.renalFailureText, language)}</Text>
+            <Text>{LocalizedStrings[language].breastfeeding}: {formatDisplay(metadataObj.breastfeeding, metadataObj.breastfeedingText, language)}</Text>
+            <Text>{LocalizedStrings[language].lumbago}: {formatDisplay(metadataObj.lumbago, metadataObj.lumbagoText, language)}</Text>
+            <Text>{LocalizedStrings[language].menopause}: {formatDisplay(metadataObj.menopause, metadataObj.menopauseText, language)}</Text>
+            <Text>{LocalizedStrings[language].nausea}: {formatDisplay(metadataObj.nausea, metadataObj.nauseaText, language)}</Text>
+            <Text>{LocalizedStrings[language].nephrolithiasisRenal}: {formatDisplay(metadataObj.nephrolithiasisRenal, metadataObj.nephrolithiasisRenalText, language)}</Text>
+            <Text>{LocalizedStrings[language].diabeticNeuropathy}: {formatDisplay(metadataObj.diabeticNeuropathy, metadataObj.diabeticNeuropathyText, language)}</Text>
+            <Text>{LocalizedStrings[language].obesity}: {formatDisplay(metadataObj.obesity, metadataObj.obesityText, language)}</Text>
+            <Text>{LocalizedStrings[language].osteoarthritis}: {formatDisplay(metadataObj.osteoarthritis, metadataObj.osteoarthritisText, language)}</Text>
+            <Text>{LocalizedStrings[language].otitis}: {formatDisplay(metadataObj.otitis, metadataObj.otitisText, language)}</Text>
+            <Text>{LocalizedStrings[language].paralysis}: {formatDisplay(metadataObj.paralysis, metadataObj.paralysisText, language)}</Text>
+            <Text>{LocalizedStrings[language].parasites}: {formatDisplay(metadataObj.parasites, metadataObj.parasitesText, language)}</Text>
+            <Text>{LocalizedStrings[language].skinHealthy}: {formatDisplay(metadataObj.skinHealthy, metadataObj.skinHealthyText, language)}</Text>
+            <Text>{LocalizedStrings[language].skinUlcers}: {formatDisplay(metadataObj.skinUlcers, metadataObj.skinUlcersText, language)}</Text>
+            <Text>{LocalizedStrings[language].skinInfected}: {formatDisplay(metadataObj.skinInfected, metadataObj.skinInfectedText, language)}</Text>
+            <Text>{LocalizedStrings[language].lice}: {formatDisplay(metadataObj.lice, metadataObj.liceText, language)}</Text>
+            <Text>{LocalizedStrings[language].postnatalVisit}: {formatDisplay(metadataObj.postnatalVisit, LocalizedStrings[language].true, language)}</Text>
+            <Text>{LocalizedStrings[language].prenatalVisit}: {formatDisplay(metadataObj.prenatalVisit, LocalizedStrings[language].true, language)}</Text>
 
-            <Text>{LocalizedStrings[language].eyeProb}: {metadataObj.eyeProb ? metadataObj.eyeProbText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].emotionalProb}: {metadataObj.emotionalProb ? metadataObj.emotionalProbText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].gynecologicalProb}: {metadataObj.gynecologicalProb ? metadataObj.gynecologicalProbText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].parkinsons}: {metadataObj.parkinsons ? metadataObj.parkinsonsText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].epilepsy}: {metadataObj.epilepsy ? metadataObj.epilepsyText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].neurologicalProb}: {metadataObj.neurologicalProb ? metadataObj.neurologicalProbText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].therapistReferred}: {metadataObj.therapistReferred ? metadataObj.therapistReferredText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].developmentallyDelayed}: {metadataObj.developmentallyDelayed ? metadataObj.developmentallyDelayedText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].vitamins}: {metadataObj.vitamins ? metadataObj.vitaminsText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].lastMenstruation}: {metadataObj.lastMenstruation}</Text>
+            <Text>{LocalizedStrings[language].eyeProb}: {formatDisplay(metadataObj.eyeProb, metadataObj.eyeProbText, language)}</Text>
+            <Text>{LocalizedStrings[language].emotionalProb}: {formatDisplay(metadataObj.emotionalProb, metadataObj.emotionalProbText, language)}</Text>
+            <Text>{LocalizedStrings[language].gynecologicalProb}: {formatDisplay(metadataObj.gynecologicalProb, metadataObj.gynecologicalProbText, language)}</Text>
+            <Text>{LocalizedStrings[language].parkinsons}: {formatDisplay(metadataObj.parkinsons, metadataObj.parkinsonsText, language)}</Text>
+            <Text>{LocalizedStrings[language].epilepsy}: {formatDisplay(metadataObj.epilepsy, metadataObj.epilepsyText, language)}</Text>
+            <Text>{LocalizedStrings[language].neurologicalProb}: {formatDisplay(metadataObj.neurologicalProb, metadataObj.neurologicalProbText, language)}</Text>
+            <Text>{LocalizedStrings[language].therapistReferred}: {formatDisplay(metadataObj.therapistReferred, metadataObj.therapistReferredText, language)}</Text>
+            <Text>{LocalizedStrings[language].developmentallyDelayed}: {formatDisplay(metadataObj.developmentallyDelayed, metadataObj.developmentallyDelayedText, language)}</Text>
+            <Text>{LocalizedStrings[language].vitamins}: {formatDisplay(metadataObj.vitamins, metadataObj.vitaminsText, language)}</Text>
+            <Text>{LocalizedStrings[language].lastMenstruation}: {formatDisplay(metadataObj.lastMenstruation, null, language)}</Text>
 
-            <Text>{LocalizedStrings[language].hiv}: {metadataObj.hiv ? metadataObj.hivText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].vomiting}: {metadataObj.vomiting ? metadataObj.vomitingText : LocalizedStrings[language].false}</Text>
-            <Text>{LocalizedStrings[language].other}: {metadataObj.other}</Text>
+            <Text>{LocalizedStrings[language].hiv}: {formatDisplay(metadataObj.hiv, metadataObj.hivText, language)}</Text>
+            <Text>{LocalizedStrings[language].vomiting}: {formatDisplay(metadataObj.vomiting, metadataObj.vomitingText, language)}</Text>
+            <Text>{LocalizedStrings[language].other}: {formatDisplay(metadataObj.other, null, language)}</Text>
 
         </View>)
 }
@@ -255,6 +266,154 @@ const MedicalPathologies = (props) => {
     const visitId = props.navigation.getParam('visitId');
     const language = props.navigation.getParam('language', 'en');
     const userName = props.navigation.getParam('userName');
+
+    useEffect(() => {
+        database.getLatestPatientEventByType(patientId, EventTypes.MedicalPathologies).then((response: any) => {
+            if (response.length > 0) {
+                const responseObj = JSON.parse(response)
+
+                setMiscarriages(responseObj.miscarriages)
+                setMiscarriagesNumber(responseObj.miscarriagesNumber)
+                setFoodAllergies(responseObj.foodAllergies)
+                setFoodAllergiesText(responseObj.foodAllergiesText)
+                setAnimalAllergies(responseObj.animalAllergies)
+                setAnimalAllergiesText(responseObj.animalAllergiesText)
+                setAtmosphereAllergies(responseObj.atmosphereAllergies)
+                setAtmosphereAllergiesText(responseObj.atmosphereAllergiesText)
+                setInsectAllergies(responseObj.insectAllergies)
+                setInsectAllergiesText(responseObj.insectAllergiesText)
+                setLatexAllergies(responseObj.latexAllergies)
+                setLatexAllergiesText(responseObj.latexAllergiesText)
+                setMedicineAllergies(responseObj.medicineAllergies)
+                setMedicineAllergiesText(responseObj.medicineAllergiesText)
+                setOtherAllergies(responseObj.otherAllergies)
+                setOtherAllergiesText(responseObj.otherAllergiesText)
+                setTonsillitis(responseObj.tonsillitis)
+                setTonsillitisText(responseObj.tonsillitisText)
+                setAnemic(responseObj.anemic)
+                setAnemicText(responseObj.anemicText)
+                setArthritis(responseObj.arthritis)
+                setArthritisText(responseObj.arthritisText)
+                setAsthma(responseObj.asthma)
+                setAsthmaText(responseObj.asthmaText)
+                setNeckPain(responseObj.neckPain)
+                setNeckPainText(responseObj.neckPainText)
+                setCervicovaginitis(responseObj.cervicovaginitis)
+                setCervicovaginitisText(responseObj.cervicovaginitisText)
+                setCSection(responseObj.cSection)
+                setSciaticPain(responseObj.sciaticPain)
+                setSciaticPainText(responseObj.sciaticPainText)
+                setCholesterol(responseObj.cholesterol)
+                setCholesterolText(responseObj.cholesterolText)
+                setInfantColic(responseObj.infantColic)
+                setInfantColicText(responseObj.infantColicText)
+                setConjunctivitis(responseObj.conjunctivitis)
+                setConjunctivitisText(responseObj.conjunctivitisText)
+                setCovid(responseObj.covid)
+                setCovidText(responseObj.covidText)
+                setMalnourishment(responseObj.malnourishment)
+                setMalnourishmentText(responseObj.malnourishmentText)
+                setMigraines(responseObj.migraines)
+                setMigrainesText(responseObj.migrainesText)
+                setDiarrhea(responseObj.diarrhea)
+                setDiarrheaText(responseObj.diarrheaText)
+                setEcocardiogram(responseObj.ecocardiogram)
+                setEcocardiogramText(responseObj.ecocardiogramText)
+                setElectrocardiogram(responseObj.electrocardiogram)
+                setElectrocardiogramText(responseObj.electrocardiogramText)
+                setPregnant(responseObj.pregnant)
+                setPregnancies(responseObj.pregnancies)
+                setChikungunya(responseObj.chikungunya)
+                setChikungunyaText(responseObj.chikungunyaText)
+                setDengue(responseObj.dengue)
+                setDengueText(responseObj.dengueText)
+                setMalaria(responseObj.malaria)
+                setMalariaText(responseObj.malariaText)
+                setOtherMosquito(responseObj.otherMosquito)
+                setOtherMosquitoText(responseObj.otherMosquitoText)
+                setZika(responseObj.zika)
+                setZikaText(responseObj.zikaText)
+                setCopd(responseObj.copd)
+                setCopdText(responseObj.copdText)
+                setGastritis(responseObj.gastritis)
+                setGastritisText(responseObj.gastritisText)
+                setScabies(responseObj.scabies)
+                setScabiesText(responseObj.scabiesText)
+                setLastPAP(responseObj.lastPAP)
+                setVaginalFluid(responseObj.vaginalFluid)
+                setVaginalFluidText(responseObj.vaginalFluidText)
+                setHypertension(responseObj.hypertension)
+                setHypertensionText(responseObj.hypertensionText)
+                setHypothyroidism(responseObj.hypothyroidism)
+                setHypothyroidismText(responseObj.hypothyroidismText)
+                setBacterialResp(responseObj.bacterialResp)
+                setBacterialRespText(responseObj.bacterialRespText)
+                setViralResp(responseObj.viralResp)
+                setViralRespText(responseObj.viralRespText)
+                setUti(responseObj.uti)
+                setUtiText(responseObj.utiText)
+                setRenalFailure(responseObj.renalFailure)
+                setRenalFailureText(responseObj.renalFailureText)
+                setBreastfeeding(responseObj.breastfeeding)
+                setBreastfeedingText(responseObj.breastfeedingText)
+                setLumbago(responseObj.lumbago)
+                setLumbagoText(responseObj.lumbagoText)
+                setMenopause(responseObj.menopause)
+                setMenopauseText(responseObj.menopauseText)
+                setNausea(responseObj.nausea)
+                setNauseaText(responseObj.nauseaText)
+                setNephrolithiasisRenal(responseObj.nephrolithiasisRenal)
+                setNephrolithiasisRenalText(responseObj.nephrolithiasisRenalText)
+                setDiabeticNeuropathy(responseObj.diabeticNeuropathy)
+                setDiabeticNeuropathyText(responseObj.diabeticNeuropathyText)
+                setObesity(responseObj.obesity)
+                setObesityText(responseObj.obesityText)
+                setOsteoarthritis(responseObj.osteoarthritis)
+                setOsteoarthritisText(responseObj.osteoarthritisText)
+                setOtitis(responseObj.otitis)
+                setOtitisText(responseObj.otitisText)
+                setParalysis(responseObj.paralysis)
+                setParalysisText(responseObj.paralysisText)
+                setParasites(responseObj.parasites)
+                setParasitesText(responseObj.parasitesText)
+                setSkinHealthy(responseObj.skinHealthy)
+                setSkinHealthyText(responseObj.skinHealthyText)
+                setSkinUlcers(responseObj.skinUlcers)
+                setSkinUlcersText(responseObj.skinUlcersText)
+                setSkinInfected(responseObj.skinInfected)
+                setSkinInfectedText(responseObj.skinInfectedText)
+                setLice(responseObj.lice)
+                setLiceText(responseObj.liceText)
+                setPostnatalVisit(responseObj.postnatalVisit)
+                setPrenatalVisit(responseObj.prenatalVisit)
+                setEyeProb(responseObj.eyeProb)
+                setEyeProbText(responseObj.eyeProbText)
+                setEmotionalProb(responseObj.emotionalProb)
+                setEmotionalProbText(responseObj.emotionalProbText)
+                setGynecologicalProb(responseObj.gynecologicalProb)
+                setGynecologicalProbText(responseObj.gynecologicalProbText)
+                setParkinsons(responseObj.parkinsons)
+                setParkinsonsText(responseObj.parkinsonsText)
+                setEpilepsy(responseObj.epilepsy)
+                setEpilepsyText(responseObj.epilepsyText)
+                setNeurologicalProb(responseObj.neurologicalProb)
+                setNeurologicalProbText(responseObj.neurologicalProbText)
+                setTherapistReferred(responseObj.therapistReferred)
+                setTherapistReferredText(responseObj.therapistReferredText)
+                setDevelopmentallyDelayed(responseObj.developmentallyDelayed)
+                setDevelopmentallyDelayedText(responseObj.developmentallyDelayedText)
+                setVitamins(responseObj.vitamins)
+                setVitaminsText(responseObj.vitaminsText)
+                setLastMenstruation(responseObj.lastMenstruation)
+                setHiv(responseObj.hiv)
+                setHivText(responseObj.hivText)
+                setVomiting(responseObj.vomiting)
+                setVomitingText(responseObj.vomitingText)
+                setOther(responseObj.other)
+            }
+        })
+    }, [])
+
 
 
     const submit = async () => {
@@ -563,9 +722,10 @@ const MedicalPathologies = (props) => {
                     </View>
                 </View>
                 <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => submit()}>
-                        <Image source={require('../../images/login.png')} style={{ width: 75, height: 75 }} />
-                    </TouchableOpacity>
+                    <Button
+                        title={LocalizedStrings[language].save}
+                        color={'#F77824'}
+                        onPress={() => submit()} />
                 </View>
             </LinearGradient>
         </ScrollView>

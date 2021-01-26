@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    View, Text, Image, TextInput, TouchableOpacity, ScrollView
+    View, Text, TextInput, ScrollView, Button
 } from 'react-native';
 
 import { database } from "../../storage/Database";
@@ -266,9 +266,10 @@ const PatientDetails = (props) => {
                     </View>
                 </View>
                 <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => submit()}>
-                        <Image source={require('../../images/login.png')} style={{ width: 75, height: 75 }} />
-                    </TouchableOpacity>
+                    <Button
+                        title={LocalizedStrings[language].save}
+                        color={'#F77824'}
+                        onPress={() => submit()} />
                 </View>
             </LinearGradient>
         </ScrollView>

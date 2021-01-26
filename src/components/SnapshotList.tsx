@@ -6,10 +6,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import { LocalizedStrings } from '../enums/LocalizedStrings'
 import { MedicinesDisplay } from "./nv_events/Medicines";
 import { EventTypes } from "../enums/EventTypes";
-import { VitalSignsDisplay } from "./nv_events/VitalSigns";
-import { MedicalHistoryDisplay } from "./nv_events/MedicalHistory";
-import { ClinicalEvaluationDisplay } from "./nv_events/ClinicalEvaluation";
 import { MedicalPathologiesDisplay } from "./nv_events/MedicalPathologies";
+import { PsychologicalPathologiesDisplay } from "./nv_events/PsychologicalPathologies";
+import { HouseholdEnvironmentDisplay } from "./nv_events/HouseholdEnvironment";
 
 const SnapshotList = (props) => {
     const language = props.navigation.getParam('language', 'en');
@@ -38,30 +37,45 @@ const SnapshotList = (props) => {
         return JSON.parse(metadata);
     }
 
-    const renderDisplay = (item, metadataObj) => {
-        switch (item.event_type) {
-            case EventTypes.Covid19Screening:
-                return (<Text>Test/Isolate Patient: {metadataObj.testAndIsolate.toString()}</Text>)
-            case EventTypes.Vitals:
-                return VitalSignsDisplay(metadataObj, language)
-            case EventTypes.MedicalHistory:
-                return MedicalHistoryDisplay(metadataObj, language)
-            case EventTypes.Evaluation:
-                return ClinicalEvaluationDisplay(metadataObj, language)
-            case EventTypes.MedicalPathologies:
-                return MedicalPathologiesDisplay(metadataObj, language)
-            case EventTypes.MedicinesInStock:
-            case EventTypes.MedicinesOTC:
-            case EventTypes.ControlledMedicines:
-                return MedicinesDisplay(metadataObj, language)
-            default:
-                return (<Text>{metadataObj}</Text>)
-        }
-    }
-
     const renderItem = ({ item }) => {
+
         const metadataObj = parseMetadata(item.event_metadata)
-        const time = new Date(item.edited_at).toLocaleString([], {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute:'2-digit', hour12: true})
+
+        let eventTypeText: string
+        let display
+        switch (item.event_type) {
+            case EventTypes.MedicalPathologies:
+                eventTypeText = LocalizedStrings[language].medicalPathologies
+                display = MedicalPathologiesDisplay(metadataObj, language)
+                break
+            case EventTypes.PsychologicalPathologies:
+                eventTypeText = LocalizedStrings[language].psychologicalPathologies
+                display = PsychologicalPathologiesDisplay(metadataObj, language)
+                break
+            case EventTypes.HouseholdEnvironment:
+                eventTypeText = LocalizedStrings[language].householdEnvironment
+                display = HouseholdEnvironmentDisplay(metadataObj, language)
+                break
+            case EventTypes.MedicinesInStock:
+                eventTypeText = LocalizedStrings[language].medicinesInStock
+                display = MedicinesDisplay(metadataObj, language)
+                break
+            case EventTypes.MedicinesOTC:
+                eventTypeText = LocalizedStrings[language].medicinesOTC
+                display = MedicinesDisplay(metadataObj, language)
+                break
+            case EventTypes.ControlledMedicines:
+                eventTypeText = LocalizedStrings[language].controlledMedicines
+                display = MedicinesDisplay(metadataObj, language)
+                break
+            default:
+                eventTypeText = item.event_type
+                display = <Text>{metadataObj}</Text>
+                break
+
+        }
+
+        const time = new Date(item.edited_at).toLocaleString([], { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true })
 
         return (
             <TouchableOpacity style={styles.card}
@@ -69,7 +83,7 @@ const SnapshotList = (props) => {
             >
                 <View style={styles.cardContent} >
                     <View style={{ margin: 10 }}>
-                        <Text>{`${item.event_type}, ${metadataObj.doctor}, ${time} `}</Text>
+                        <Text>{`${eventTypeText}, ${metadataObj.doctor}, ${time} `}</Text>
                         <View
                             style={{
                                 marginVertical: 5,
@@ -77,7 +91,7 @@ const SnapshotList = (props) => {
                                 borderBottomWidth: 1,
                             }}
                         />
-                        {renderDisplay(item, metadataObj)}
+                        {display}
                     </View>
                 </View>
             </TouchableOpacity>
