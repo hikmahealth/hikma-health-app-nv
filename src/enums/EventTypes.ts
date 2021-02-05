@@ -19,5 +19,8 @@ export enum EventTypes {
   PatientDetails = 'Patient Details',
   PsychologicalPathologies = 'Psychological Pathologies',
   HouseholdEnvironment = 'Household Environment',
+  UrineTests = 'Urine Tests',
+  PAPResults = 'PAP Results',
+  Ultrasound = 'Ultrasound',
   DentalTreatment = 'Dental Treatment'
 }

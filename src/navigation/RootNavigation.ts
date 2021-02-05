@@ -25,6 +25,10 @@ import Medicines from '../components/nv_events/Medicines';
 import SnapshotList from '../components/SnapshotList';
 import PsychologicalPathologies from '../components/nv_events/PsychologicalPathologies';
 import HouseholdEnvironment from '../components/nv_events/HouseholdEnvironment';
+import DentalTreatment from '../components/nv_events/DentalTreatment';
+import UrineTests from '../components/nv_events/UrineTests';
+import PAPResults from '../components/nv_events/PAPResults';
+import Ultrasound from '../components/nv_events/Ultrasound';
 
 const rootNavigator = createStackNavigator(
   {
@@ -188,7 +192,35 @@ const rootNavigator = createStackNavigator(
         title: 'SnapshotList',
         header: null
       })
-    }
+    },
+    UrineTests: {
+      screen: UrineTests,
+      navigationOptions: () => ({
+        title: 'UrineTests',
+        header: null
+      })
+    },
+    PAPResults: {
+      screen: PAPResults,
+      navigationOptions: () => ({
+        title: 'PAPResults',
+        header: null
+      })
+    },
+    Ultrasound: {
+      screen: Ultrasound,
+      navigationOptions: () => ({
+        title: 'Ultrasound',
+        header: null
+      })
+    },
+    DentalTreatment: {
+      screen: DentalTreatment,
+      navigationOptions: () => ({
+        title: 'DentalTreatment',
+        header: null
+      })
+    },
   },
   {
     initialRouteName: 'Home'

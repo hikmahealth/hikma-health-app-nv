@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-    View, Text, TextInput, ScrollView, Button
+    View, Text, TextInput, Button
 } from 'react-native';
 
 import { database } from "../../storage/Database";
@@ -14,13 +14,12 @@ import { LocalizedStrings } from '../../enums/LocalizedStrings';
 export const HouseholdEnvironmentDisplay = (metadataObj, language) => {
     return (
         <View>
-            {/* <Text>{LocalizedStrings[language].visitDate}: {metadataObj.visitDate} </Text> */}
             <Text>{LocalizedStrings[language].doctor}: {metadataObj.doctor} </Text>
             <Text>{LocalizedStrings[language].potableWater}: {metadataObj.potableWater ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
             <Text>{LocalizedStrings[language].animals}: {metadataObj.animals} </Text>
             <Text>{LocalizedStrings[language].gasCooking}: {metadataObj.gasCooking ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
             <Text>{LocalizedStrings[language].woodCooking}: {metadataObj.woodCooking ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].householdSize}: {metadataObj.householdSize ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
+            <Text>{LocalizedStrings[language].householdSize}: {metadataObj.householdSize}</Text>
             <Text>{LocalizedStrings[language].toilet}: {metadataObj.toilet ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
             <Text>{LocalizedStrings[language].latrine}: {metadataObj.latrine ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
             <Text>{LocalizedStrings[language].familyViolence}: {metadataObj.familyViolence ? metadataObj.familyViolenceText : LocalizedStrings[language].no}</Text>
@@ -41,8 +40,24 @@ const HouseholdEnvironment = (props) => {
     const patientId = props.navigation.getParam('patientId');
     const visitId = props.navigation.getParam('visitId');
     const language = props.navigation.getParam('language', 'en');
-    const visitDate = props.navigation.getParam('visitDate');
     const userName = props.navigation.getParam('userName');
+
+    useEffect(() => {
+        database.getLatestPatientEventByType(patientId, EventTypes.HouseholdEnvironment).then((response: any) => {
+            if (response.length > 0) {
+                const responseObj = JSON.parse(response)
+                setPotableWater(responseObj.potableWater)
+                setAnimals(responseObj.animals)
+                setGasCooking(responseObj.gasCooking)
+                setWoodCooking(responseObj.woodCooking)
+                setHouseholdSize(responseObj.householdSize)
+                setToilet(responseObj.toilet)
+                setLatrine(responseObj.latrine)
+                setFamilyViolence(responseObj.familyViolence)
+                setFamilyViolenceText(responseObj.familyViolenceText)
+            }
+        })
+    }, [])
 
     const submit = async () => {
         database.addEvent({

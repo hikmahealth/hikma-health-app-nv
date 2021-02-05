@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View, Text, TextInput, ScrollView, Button
 } from 'react-native';
@@ -21,7 +21,6 @@ export const MedicalHistoryDisplay = (metadataObj, language) => {
       <Text>{LocalizedStrings[language].parasiteTreatment}: {metadataObj.parasiteTreatment}</Text>
       <Text>{LocalizedStrings[language].familyHx}: {metadataObj.familyHx}</Text>
       <Text>{LocalizedStrings[language].surgeryHx}: {metadataObj.surgeryHx}</Text>
-      <Text>{LocalizedStrings[language].familyHx}: {metadataObj.familyHx}</Text>
       <Text>{LocalizedStrings[language].vaccinations}: {metadataObj.vaccinations}</Text>
     </View>)
 }
@@ -41,6 +40,22 @@ const MedicalHistory = (props) => {
   const visitId = props.navigation.getParam('visitId');
   const language = props.navigation.getParam('language', 'en');
   const userName = props.navigation.getParam('userName');
+
+  useEffect(() => {
+    database.getLatestPatientEventByType(patientId, EventTypes.MedicalHistory).then((response: any) => {
+      if (response.length > 0) {
+        const responseObj = JSON.parse(response)
+        setMalnutrition(responseObj.malnutrition)
+        setPrenatal(responseObj.prenatal)
+        setSexualHx(responseObj.sexualHx)
+        setNutrition(responseObj.nutrition)
+        setParasiteTreatment(responseObj.parasiteTreatment)
+        setFamilyHx(responseObj.familyHx)
+        setSurgeryHx(responseObj.surgeryHx)
+        setVaccinations(responseObj.vaccinations)
+      }
+    })
+  }, [])
 
   const submit = async () => {
     database.addEvent({
@@ -150,10 +165,10 @@ const MedicalHistory = (props) => {
           </View>
         </View>
         <View style={{ alignItems: 'center' }}>
-        <Button
-          title={LocalizedStrings[language].save}
-          color={'#F77824'}
-          onPress={() => submit()}/>
+          <Button
+            title={LocalizedStrings[language].save}
+            color={'#F77824'}
+            onPress={() => submit()} />
         </View>
       </LinearGradient>
     </ScrollView>

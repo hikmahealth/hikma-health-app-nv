@@ -19,6 +19,8 @@ export const LocalizedStrings = {
     cancel: "CANCEL",
     yes: "Y",
     no: "N",
+    positive: "Positive",
+    negative: "Negative",
     true: "True",
     false: "False",
     newVisit: "New Visit",
@@ -322,6 +324,7 @@ export const LocalizedStrings = {
     ESRSerology: "Serology - ESR",
 
     //12
+    labUrineTests: "Lab Urine Tests",
     colorPhysical: "Physical Color",
     aspectsPhysical: "Physical Aspects",
     sedimentPhysical: "Physical Sediment",
@@ -347,6 +350,7 @@ export const LocalizedStrings = {
     observationsMicro: "Microscopic - Observations",
 
     //13
+    PAPResults: "PAP Results",
     adequateCyto: "Cytological - Adequate smear",
     incompleteCyto: "Cytological - Adequate but limited smear - incomplete data",
     cellularityCyto: "Cytological - Adequate but limited smear - Poor cellularity",
@@ -386,6 +390,7 @@ export const LocalizedStrings = {
     trichomonas: "Others - Vaginal Trichomonas",
 
     //14
+    ultrasound: "Ultrasound",
     abdominal: "Abdominal",
     joints: "Joints",
     neck: "Neck",
@@ -418,7 +423,7 @@ export const LocalizedStrings = {
     moderateRenal: "Renal CKD - Moderate",
     severeRenal: "Renal CKD - Severe",
     nephrolithiasis: "Nephrolithiasis",
-    complesMasses: "Complex Masses",
+    complexMasses: "Complex Masses",
     benignNodules: "Benign Nodules",
     malignantNodules: "Malignant Nodules",
     thyroidNodules: "Thyroid Nodules",
@@ -469,6 +474,7 @@ export const LocalizedStrings = {
     otherFeedingCenter: "Other (name of feeding center)",
 
     //17
+    dentalTreatment: "Dental Treatment",
     toothbrush: "Toothbrush",
     consult: "Consult",
     extraction: "Extraction",
@@ -603,6 +609,8 @@ export const LocalizedStrings = {
     cancel: "CANCELAR",
     yes: "Sí",
     no: "No",
+    positive: "Positivo",
+    negative: "Negativo",
     true: "Verdader@",
     false: "Fals@",
     newVisit: "Visita Nueva",
@@ -637,7 +645,7 @@ export const LocalizedStrings = {
     medicineDispensed: "Medicamento suscrito",
     prescriptions: "Recetas de medicamentos",
     allergies: "Alergias",
-    medicalHistory: "Historial médico",
+    medicalHistory: "Historial Médico",
     covidScreening: "Prueba de COVID-19",
     enterTextHere: "Introduzca texto aquí",
     visitDate: "Fecha de la visita",
@@ -907,6 +915,7 @@ export const LocalizedStrings = {
     ESRSerology: "Serologia - VSG",
 
     //12
+    labUrineTests: "Examen de Orina",
     colorPhysical: "Fisico - Color",
     aspectsPhysical: "Fisico - Aspecto",
     sedimentPhysical: "Fisico - Sedimento",
@@ -932,6 +941,7 @@ export const LocalizedStrings = {
     observationsMicro: "Microscopico - Observaciones",
 
     //13
+    PAPResults: "Examenes de PAP",
     adequateCyto: "Citológico - Frotis adecuado",
     incompleteCyto: "Citológico - Frotis adecuado pero limitado - datos incompletos",
     cellularityCyto: "Citológico - Frotis adecuado pero limitado - Celularidad escasa",
@@ -971,6 +981,7 @@ export const LocalizedStrings = {
     trichomonas: "Otros - Tricomonas Vaginales",
 
     //14
+    ultrasound: "Ultrasonidos y Resultados",
     abdominal: "Abdominal",
     joints: "Articulaciones",
     neck: "Cuello",
@@ -1003,7 +1014,7 @@ export const LocalizedStrings = {
     moderateRenal: "IRC Renal - Moderada",
     severeRenal: "IRC Renal - Severe",
     nephrolithiasis: "Litiasis Renal",
-    complesMasses: "Masas Complejas",
+    complexMasses: "Masas Complejas",
     benignNodules: "Nodulos Benignos",
     malignantNodules: "Nodulos Malignos",
     thyroidNodules: "Nodulos Tiroideos",
@@ -1054,6 +1065,7 @@ export const LocalizedStrings = {
     otherFeedingCenter: "Other (name of feeding center)",
 
     //17
+    dentalTreatment: "Tratamientos Dental",
     toothbrush: "Cepillos",
     consult: "Consulta",
     extraction: "Extracción",

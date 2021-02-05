@@ -9,6 +9,7 @@ import { EventTypes } from "../enums/EventTypes";
 import { MedicalPathologiesDisplay } from "./nv_events/MedicalPathologies";
 import { PsychologicalPathologiesDisplay } from "./nv_events/PsychologicalPathologies";
 import { HouseholdEnvironmentDisplay } from "./nv_events/HouseholdEnvironment";
+import { MedicalHistoryDisplay } from "./nv_events/MedicalHistory";
 
 const SnapshotList = (props) => {
     const language = props.navigation.getParam('language', 'en');
@@ -44,6 +45,10 @@ const SnapshotList = (props) => {
         let eventTypeText: string
         let display
         switch (item.event_type) {
+            case EventTypes.MedicalHistory:
+                eventTypeText = LocalizedStrings[language].medicalHistory
+                display = MedicalHistoryDisplay(metadataObj, language)
+                break
             case EventTypes.MedicalPathologies:
                 eventTypeText = LocalizedStrings[language].medicalPathologies
                 display = MedicalPathologiesDisplay(metadataObj, language)

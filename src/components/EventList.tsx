@@ -13,6 +13,9 @@ import { MedicalPathologiesDisplay } from "./nv_events/MedicalPathologies";
 import { MedicinesDisplay } from "./nv_events/Medicines";
 import { PsychologicalPathologiesDisplay } from "./nv_events/PsychologicalPathologies";
 import { HouseholdEnvironmentDisplay } from "./nv_events/HouseholdEnvironment";
+import { PAPResultsDisplay } from "./nv_events/PAPResults";
+import { UrineTestsDisplay } from "./nv_events/UrineTests";
+import { UltrasoundDisplay } from "./nv_events/Ultrasound";
 
 const EventList = (props) => {
   const visit = props.navigation.getParam('visit');
@@ -97,9 +100,21 @@ const EventList = (props) => {
         eventTypeText = LocalizedStrings[language].householdEnvironment
         display = HouseholdEnvironmentDisplay(metadataObj, language)
         break
+      case EventTypes.PAPResults:
+        eventTypeText = LocalizedStrings[language].PAPResults
+        display = PAPResultsDisplay(metadataObj, language)
+        break
+      case EventTypes.UrineTests:
+        eventTypeText = LocalizedStrings[language].labUrineTests
+        display = UrineTestsDisplay(metadataObj, language)
+        break
+      case EventTypes.Ultrasound:
+        eventTypeText = LocalizedStrings[language].ultrasound
+        display = UltrasoundDisplay(metadataObj, language)
+        break
       default:
         eventTypeText = item.event_type
-        display = <Text>{metadataObj}</Text>
+        display = <Text>Display coming soon</Text>
         break
     }
     const time = new Date(item.event_timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })
@@ -142,7 +157,7 @@ const EventList = (props) => {
         style={styles.picker}
       >
         <Picker.Item value='en' label='en' />
-        <Picker.Item value='ar' label='ar' />
+        {/* <Picker.Item value='ar' label='ar' /> */}
         <Picker.Item value='sp' label='sp' />
       </Picker>
     )
