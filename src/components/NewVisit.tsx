@@ -165,12 +165,27 @@ const NewVisit = (props) => {
           </View>
           {/* */}
           <View style={[styles.gridContainer]}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('LabOrders', { patientId: patient.id, visitId, language, userName })}>
+              <View style={styles.actionIcon}>
+                <Image source={require('../images/complaint.png')} style={{ width: 42, height: 52 }} />
+              </View>
+              <Text style={styles.actionText}>{LocalizedStrings[language].labOrders}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('LabTests', { patientId: patient.id, visitId, language, userName })}>
+              <View style={styles.actionIcon}>
+                <Image source={require('../images/stethoscope.png')} style={{ width: 42, height: 52 }} />
+              </View>
+              <Text style={styles.actionText}>{LocalizedStrings[language].labTests}</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('UrineTests', { patientId: patient.id, visitId, language, userName })}>
               <View style={styles.actionIcon}>
                 <Image source={require('../images/diagnosis.png')} style={{ width: 42, height: 52 }} />
               </View>
               <Text style={styles.actionText}>{LocalizedStrings[language].labUrineTests}</Text>
             </TouchableOpacity>
+          </View>
+          {/* */}
+          <View style={[styles.gridContainer]}>
             <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('PAPResults', { patientId: patient.id, visitId, language, userName })}>
               <View style={styles.actionIcon}>
                 <Image source={require('../images/notes.png')} style={{ width: 42, height: 52 }} />
@@ -182,6 +197,70 @@ const NewVisit = (props) => {
                 <Image source={require('../images/notes.png')} style={{ width: 42, height: 52 }} />
               </View>
               <Text style={styles.actionText}>{LocalizedStrings[language].ultrasound}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('FamilyPlanning', { patientId: patient.id, visitId, language, userName })}>
+              <View style={styles.actionIcon}>
+                <Image source={require('../images/notes.png')} style={{ width: 42, height: 52 }} />
+              </View>
+              <Text style={styles.actionText}>{LocalizedStrings[language].familyPlanning}</Text>
+            </TouchableOpacity>
+          </View>
+          {/* */}
+          <View style={[styles.gridContainer]}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('DentalOrigin', { patientId: patient.id, visitId, language, userName })}>
+              <View style={styles.actionIcon}>
+                <Image source={require('../images/notes.png')} style={{ width: 42, height: 52 }} />
+              </View>
+              <Text style={styles.actionText}>{LocalizedStrings[language].dentalOrigin}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('DentalTreatment', { patientId: patient.id, visitId, language, userName })}>
+              <View style={styles.actionIcon}>
+                <Image source={require('../images/notes.png')} style={{ width: 42, height: 52 }} />
+              </View>
+              <Text style={styles.actionText}>{LocalizedStrings[language].dentalTreatment}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('ProgramTrainings', { patientId: patient.id, visitId, language, userName })}>
+              <View style={styles.actionIcon}>
+                <Image source={require('../images/notes.png')} style={{ width: 42, height: 52 }} />
+              </View>
+              <Text style={styles.actionText}>{LocalizedStrings[language].programTrainings}</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* */}
+          <View style={[styles.gridContainer]}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('XrayOrders', { patientId: patient.id, visitId, language, userName })}>
+              <View style={styles.actionIcon}>
+                <Image source={require('../images/notes.png')} style={{ width: 42, height: 52 }} />
+              </View>
+              <Text style={styles.actionText}>{LocalizedStrings[language].xrayOrders}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('XrayResults', { patientId: patient.id, visitId, language, userName })}>
+              <View style={styles.actionIcon}>
+                <Image source={require('../images/notes.png')} style={{ width: 42, height: 52 }} />
+              </View>
+              <Text style={styles.actionText}>{LocalizedStrings[language].xrayResults}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('Optometry', { patientId: patient.id, visitId, language, userName })}>
+              <View style={styles.actionIcon}>
+                <Image source={require('../images/notes.png')} style={{ width: 42, height: 52 }} />
+              </View>
+              <Text style={styles.actionText}>{LocalizedStrings[language].optometry}</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={[styles.gridContainer, {width: '67%'}]}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => props.navigation.navigate('AccidentReport', { patientId: patient.id, visitId, language, userName })}>
+              <View style={styles.actionIcon}>
+                <Image source={require('../images/notes.png')} style={{ width: 42, height: 52 }} />
+              </View>
+              <Text style={styles.actionText}>{LocalizedStrings[language].accidentReport}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionButton} onPress={() => openTextEvent(EventTypes.Notes)}>
+              <View style={styles.actionIcon}>
+                <Image source={require('../images/notes.png')} style={{ width: 43, height: 47 }} />
+              </View>
+              <Text style={styles.actionText}>{LocalizedStrings[language].notes}</Text>
             </TouchableOpacity>
           </View>
 

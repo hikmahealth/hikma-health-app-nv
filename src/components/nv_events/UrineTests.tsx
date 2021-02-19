@@ -26,7 +26,7 @@ const formatDisplay = (field, dateField, language) => {
     return null
 }
 
-const radioButtons = (props) => {
+export const radioButtons = (props) => {
     return (
         <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
             <Text style={{ color: '#FFFFFF', flex: 1, flexDirection: 'column', flexWrap: 'wrap' }}>{props.prompt}</Text>
@@ -57,6 +57,7 @@ const radioButtons = (props) => {
 export const UrineTestsDisplay = (metadataObj, language) => {
     return (
         <View>
+            <Text>{LocalizedStrings[language].doctor}: {metadataObj.doctor} </Text>
             <Text>{LocalizedStrings[language].colorPhysical}: {formatTextDisplay(metadataObj.colorPhysical, metadataObj.colorPhysicalDate)} </Text>
             <Text>{LocalizedStrings[language].aspectsPhysical}: {formatTextDisplay(metadataObj.aspectsPhysical, metadataObj.aspectsPhysicalDate)} </Text>
             <Text>{LocalizedStrings[language].sedimentPhysical}: {formatTextDisplay(metadataObj.sedimentPhysical, metadataObj.sedimentPhysicalDate)} </Text>

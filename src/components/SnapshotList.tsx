@@ -10,6 +10,10 @@ import { MedicalPathologiesDisplay } from "./nv_events/MedicalPathologies";
 import { PsychologicalPathologiesDisplay } from "./nv_events/PsychologicalPathologies";
 import { HouseholdEnvironmentDisplay } from "./nv_events/HouseholdEnvironment";
 import { MedicalHistoryDisplay } from "./nv_events/MedicalHistory";
+import { LabOrdersDisplay } from "./nv_events/LabOrders";
+import { FamilyPlanningDisplay } from "./nv_events/FamilyPlanning";
+import { ProgramTrainingsDisplay } from "./nv_events/ProgramTrainings";
+import { XrayOrderDisplay } from "./nv_events/XrayOrders";
 
 const SnapshotList = (props) => {
     const language = props.navigation.getParam('language', 'en');
@@ -61,6 +65,10 @@ const SnapshotList = (props) => {
                 eventTypeText = LocalizedStrings[language].householdEnvironment
                 display = HouseholdEnvironmentDisplay(metadataObj, language)
                 break
+            case EventTypes.LabOrders:
+                eventTypeText = LocalizedStrings[language].labOrders
+                display = LabOrdersDisplay(metadataObj, language)
+                break
             case EventTypes.MedicinesInStock:
                 eventTypeText = LocalizedStrings[language].medicinesInStock
                 display = MedicinesDisplay(metadataObj, language)
@@ -72,6 +80,18 @@ const SnapshotList = (props) => {
             case EventTypes.ControlledMedicines:
                 eventTypeText = LocalizedStrings[language].controlledMedicines
                 display = MedicinesDisplay(metadataObj, language)
+                break
+            case EventTypes.FamilyPlanning:
+                eventTypeText = LocalizedStrings[language].familyPlanning
+                display = FamilyPlanningDisplay(metadataObj, language)
+                break
+            case EventTypes.ProgramTrainings:
+                eventTypeText = LocalizedStrings[language].programTrainings
+                display = ProgramTrainingsDisplay(metadataObj, language)
+                break
+            case EventTypes.XrayOrders:
+                eventTypeText = LocalizedStrings[language].xrayOrders
+                display = XrayOrderDisplay(metadataObj, language)
                 break
             default:
                 eventTypeText = item.event_type

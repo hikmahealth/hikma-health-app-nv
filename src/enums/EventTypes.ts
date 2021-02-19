@@ -19,8 +19,17 @@ export enum EventTypes {
   PatientDetails = 'Patient Details',
   PsychologicalPathologies = 'Psychological Pathologies',
   HouseholdEnvironment = 'Household Environment',
+  LabOrders = 'Lab Orders',
+  LabTests = 'Lab Tests',
   UrineTests = 'Urine Tests',
   PAPResults = 'PAP Results',
   Ultrasound = 'Ultrasound',
-  DentalTreatment = 'Dental Treatment'
+  FamilyPlanning = 'Family Planning',
+  DentalOrigin = 'Dental Origin',
+  DentalTreatment = 'Dental Treatment',
+  ProgramTrainings = 'Program Trainings',
+  XrayOrders = 'Xray Orders',
+  XrayResults = 'Xray Results',
+  Optometry = 'Optometry',
+  AccidentReport = 'AccidentReport'
 }

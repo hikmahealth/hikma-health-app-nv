@@ -22,6 +22,7 @@ const formatDisplay = (field, dateField, language) => {
 export const UltrasoundDisplay = (metadataObj, language) => {
     return (
         <View>
+            <Text>{LocalizedStrings[language].doctor}: {metadataObj.doctor} </Text>
             <Text>{LocalizedStrings[language].abdominal}: {metadataObj.abdominal ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
             <Text>{LocalizedStrings[language].joints}: {metadataObj.joints ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
             <Text>{LocalizedStrings[language].neck}: {metadataObj.neck ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>

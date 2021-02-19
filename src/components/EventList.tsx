@@ -16,6 +16,16 @@ import { HouseholdEnvironmentDisplay } from "./nv_events/HouseholdEnvironment";
 import { PAPResultsDisplay } from "./nv_events/PAPResults";
 import { UrineTestsDisplay } from "./nv_events/UrineTests";
 import { UltrasoundDisplay } from "./nv_events/Ultrasound";
+import { LabOrdersDisplay } from "./nv_events/LabOrders";
+import { LabTestsDisplay } from "./nv_events/LabTests";
+import { FamilyPlanningDisplay } from "./nv_events/FamilyPlanning";
+import { DentalOriginDisplay } from "./nv_events/DentalOrigin";
+import { DentalTreatmentDisplay } from "./nv_events/DentalTreatment";
+import { ProgramTrainingsDisplay } from "./nv_events/ProgramTrainings";
+import { XrayResultsDisplay } from "./nv_events/XrayResults";
+import { XrayOrderDisplay } from "./nv_events/XrayOrders";
+import { OptometryDisplay } from "./nv_events/Optometry";
+import { AccidentReportDisplay } from "./nv_events/AccidentReport";
 
 const EventList = (props) => {
   const visit = props.navigation.getParam('visit');
@@ -100,6 +110,14 @@ const EventList = (props) => {
         eventTypeText = LocalizedStrings[language].householdEnvironment
         display = HouseholdEnvironmentDisplay(metadataObj, language)
         break
+      case EventTypes.LabOrders:
+        eventTypeText = LocalizedStrings[language].labOrders
+        display = LabOrdersDisplay(metadataObj, language)
+        break
+      case EventTypes.LabTests:
+        eventTypeText = LocalizedStrings[language].labTests
+        display = LabTestsDisplay(metadataObj, language)
+        break
       case EventTypes.PAPResults:
         eventTypeText = LocalizedStrings[language].PAPResults
         display = PAPResultsDisplay(metadataObj, language)
@@ -112,9 +130,41 @@ const EventList = (props) => {
         eventTypeText = LocalizedStrings[language].ultrasound
         display = UltrasoundDisplay(metadataObj, language)
         break
+      case EventTypes.FamilyPlanning:
+        eventTypeText = LocalizedStrings[language].familyPlanning
+        display = FamilyPlanningDisplay(metadataObj, language)
+        break
+      case EventTypes.DentalOrigin:
+        eventTypeText = LocalizedStrings[language].dentalOrigin
+        display = DentalOriginDisplay(metadataObj, language)
+        break
+      case EventTypes.DentalTreatment:
+        eventTypeText = LocalizedStrings[language].dentalTreatment
+        display = DentalTreatmentDisplay(metadataObj, language)
+        break
+      case EventTypes.ProgramTrainings:
+        eventTypeText = LocalizedStrings[language].programTrainings
+        display = ProgramTrainingsDisplay(metadataObj, language)
+        break
+      case EventTypes.XrayOrders:
+        eventTypeText = LocalizedStrings[language].xrayOrders
+        display = XrayOrderDisplay(metadataObj, language)
+        break
+      case EventTypes.XrayResults:
+        eventTypeText = LocalizedStrings[language].xrayResults
+        display = XrayResultsDisplay(metadataObj, language)
+        break
+      case EventTypes.Optometry:
+        eventTypeText = LocalizedStrings[language].optometry
+        display = OptometryDisplay(metadataObj, language)
+        break
+      case EventTypes.AccidentReport:
+        eventTypeText = LocalizedStrings[language].accidentReport
+        display = AccidentReportDisplay(metadataObj, language)
+        break
       default:
         eventTypeText = item.event_type
-        display = <Text>Display coming soon</Text>
+        display = <Text>{metadataObj}</Text>
         break
     }
     const time = new Date(item.event_timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })

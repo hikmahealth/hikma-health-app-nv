@@ -99,7 +99,7 @@ const VisitList = (props) => {
         style={styles.picker}
       >
         <Picker.Item value='en' label='en' />
-        <Picker.Item value='ar' label='ar' />
+        {/* <Picker.Item value='ar' label='ar' /> */}
         <Picker.Item value='sp' label='sp' />
       </Picker>
     )

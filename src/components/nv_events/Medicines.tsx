@@ -12,6 +12,7 @@ import { LocalizedStrings } from '../../enums/LocalizedStrings';
 export const MedicinesDisplay = (metadataObj, language) => {
   return (
     <View>
+      <Text>{LocalizedStrings[language].doctor}: {metadataObj.doctor} </Text>
       <Text>{LocalizedStrings[language].medicine}: {metadataObj.medicine} </Text>
       <Text>{LocalizedStrings[language].format}: {metadataObj.format}</Text>
       <Text>{LocalizedStrings[language].dosage}: {metadataObj.dosage}</Text>

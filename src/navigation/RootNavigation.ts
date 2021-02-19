@@ -25,10 +25,19 @@ import Medicines from '../components/nv_events/Medicines';
 import SnapshotList from '../components/SnapshotList';
 import PsychologicalPathologies from '../components/nv_events/PsychologicalPathologies';
 import HouseholdEnvironment from '../components/nv_events/HouseholdEnvironment';
+import LabOrders from '../components/nv_events/LabOrders';
+import LabTests from '../components/nv_events/LabTests';
 import DentalTreatment from '../components/nv_events/DentalTreatment';
 import UrineTests from '../components/nv_events/UrineTests';
 import PAPResults from '../components/nv_events/PAPResults';
 import Ultrasound from '../components/nv_events/Ultrasound';
+import DentalOrigin from '../components/nv_events/DentalOrigin';
+import FamilyPlanning from '../components/nv_events/FamilyPlanning';
+import ProgramTrainings from '../components/nv_events/ProgramTrainings';
+import XrayOrders from '../components/nv_events/XrayOrders';
+import XrayResults from '../components/nv_events/XrayResults';
+import Optometry from '../components/nv_events/Optometry';
+import AccidentReport from '../components/nv_events/AccidentReport';
 
 const rootNavigator = createStackNavigator(
   {
@@ -186,6 +195,20 @@ const rootNavigator = createStackNavigator(
         header: null
       })
     },
+    LabOrders: {
+      screen: LabOrders,
+      navigationOptions: () => ({
+        title: 'LabOrders',
+        header: null
+      })
+    },
+    LabTests: {
+      screen: LabTests,
+      navigationOptions: () => ({
+        title: 'LabTests',
+        header: null
+      })
+    },
     SnapshotList: {
       screen: SnapshotList,
       navigationOptions: () => ({
@@ -214,10 +237,59 @@ const rootNavigator = createStackNavigator(
         header: null
       })
     },
+    FamilyPlanning: {
+      screen: FamilyPlanning,
+      navigationOptions: () => ({
+        title: 'FamilyPlanning',
+        header: null
+      })
+    },
+    DentalOrigin: {
+      screen: DentalOrigin,
+      navigationOptions: () => ({
+        title: 'Ultrasound',
+        header: null
+      })
+    },
     DentalTreatment: {
       screen: DentalTreatment,
       navigationOptions: () => ({
         title: 'DentalTreatment',
+        header: null
+      })
+    },
+    ProgramTrainings: {
+      screen: ProgramTrainings,
+      navigationOptions: () => ({
+        title: 'ProgramTrainings',
+        header: null
+      })
+    },
+    XrayOrders: {
+      screen: XrayOrders,
+      navigationOptions: () => ({
+        title: 'XrayOrders',
+        header: null
+      })
+    },
+    XrayResults: {
+      screen: XrayResults,
+      navigationOptions: () => ({
+        title: 'XrayResults',
+        header: null
+      })
+    },
+    Optometry: {
+      screen: Optometry,
+      navigationOptions: () => ({
+        title: 'Optometry',
+        header: null
+      })
+    },
+    AccidentReport: {
+      screen: AccidentReport,
+      navigationOptions: () => ({
+        title: 'AccidentReport',
         header: null
       })
     },

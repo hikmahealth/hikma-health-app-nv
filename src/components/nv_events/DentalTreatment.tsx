@@ -16,7 +16,7 @@ const formatDisplay = (field, textField, language) => {
         return null
     }
     if (!!field && textField == null) {
-        return field
+        return LocalizedStrings[language].yes
     }
     return field ? textField : LocalizedStrings[language].no
 
@@ -26,80 +26,82 @@ export const DentalTreatmentDisplay = (metadataObj, language) => {
     return (
         <View>
             <Text>{LocalizedStrings[language].doctor}: {metadataObj.doctor} </Text>
-            <Text>{LocalizedStrings[language].anxiety}: {formatDisplay(metadataObj.anxiety, metadataObj.anxietyText, language)} </Text>
-            <Text>{LocalizedStrings[language].nuclearFamily}: {formatDisplay(metadataObj.nuclearFamily, metadataObj.nuclearFamilyText, language)} </Text>
-            <Text>{LocalizedStrings[language].selfEsteem}: {formatDisplay(metadataObj.selfEsteem, metadataObj.selfEsteemText, language)}</Text>
-            <Text>{LocalizedStrings[language].attentionDeficit}: {formatDisplay(metadataObj.attentionDeficit, metadataObj.attentionDeficitText, language)}</Text>
-            <Text>{LocalizedStrings[language].depression}: {formatDisplay(metadataObj.depression, metadataObj.depressionText, language)}</Text>
-            <Text>{LocalizedStrings[language].grief}: {formatDisplay(metadataObj.grief, metadataObj.griefText, language)}</Text>
-            <Text>{LocalizedStrings[language].stress}: {formatDisplay(metadataObj.stress, metadataObj.stressText, language)}</Text>
-            <Text>{LocalizedStrings[language].disfunctionalFamily}: {formatDisplay(metadataObj.disfunctionalFamily, metadataObj.disfunctionalFamilyText, language)}</Text>
-            <Text>{LocalizedStrings[language].hyperactivity}: {formatDisplay(metadataObj.hyperactivity, metadataObj.hyperactivityText, language)}</Text>
-            <Text>{LocalizedStrings[language].inappropriatePlay}: {formatDisplay(metadataObj.inappropriatePlay, metadataObj.inappropriatePlayText, language)}</Text>
-            <Text>{LocalizedStrings[language].languageProblems}: {formatDisplay(metadataObj.languageProblems, metadataObj.languageProblemsText, language)}</Text>
-            <Text>{LocalizedStrings[language].behavioralProblems}: {formatDisplay(metadataObj.behavioralProblems, metadataObj.behavioralProblemsText, language)}</Text>
-            <Text>{LocalizedStrings[language].schoolProblems}: {formatDisplay(metadataObj.schoolProblems, metadataObj.schoolProblemsText, language)}</Text>
-            <Text>{LocalizedStrings[language].psychosis}: {formatDisplay(metadataObj.psychosis, metadataObj.psychosisText, language)}</Text>
-            <Text>{LocalizedStrings[language].suicidal}: {formatDisplay(metadataObj.suicidal, metadataObj.suicidalText, language)}</Text>
-            <Text>{LocalizedStrings[language].personalityDisorders}: {formatDisplay(metadataObj.personalityDisorders, metadataObj.personalityDisordersText, language)}</Text>
-            <Text>{LocalizedStrings[language].trauma}: {formatDisplay(metadataObj.trauma, metadataObj.traumaText, language)}</Text>
-            <Text>{LocalizedStrings[language].psychologicalEvaluations}: {formatDisplay(metadataObj.psychologicalEvaluations, metadataObj.psychologicalEvaluationsText, language)}</Text>
-            <Text>{LocalizedStrings[language].domesticViolenceFamily}: {formatDisplay(metadataObj.domesticViolenceFamily, metadataObj.domesticViolenceFamilyText, language)}</Text>
-            <Text>{LocalizedStrings[language].domesticViolenceSpouse}: {formatDisplay(metadataObj.domesticViolenceSpouse, metadataObj.domesticViolenceSpouseText, language)}</Text>
-            <Text>{LocalizedStrings[language].referralHospital}: {formatDisplay(metadataObj.referralHospital, metadataObj.referralHospitalText, language)}</Text>
-            <Text>{LocalizedStrings[language].other}: {formatDisplay(metadataObj.other, null, language)}</Text>
+            <Text>{LocalizedStrings[language].toothbrush}: {formatDisplay(metadataObj.toothbrush, metadataObj.toothbrushText, language)} </Text>
+            <Text>{LocalizedStrings[language].consult}: {formatDisplay(metadataObj.consult, metadataObj.consultText, language)} </Text>
+            <Text>{LocalizedStrings[language].extraction}: {formatDisplay(metadataObj.extraction, metadataObj.extractionText, language)}</Text>
+            <Text>{LocalizedStrings[language].fluoride}: {formatDisplay(metadataObj.fluoride, metadataObj.fluorideText, language)}</Text>
+            <Text>{LocalizedStrings[language].floss}: {formatDisplay(metadataObj.floss, metadataObj.flossText, language)}</Text>
+            <Text>{LocalizedStrings[language].cleaningFirst}: {formatDisplay(metadataObj.cleaningFirst, metadataObj.cleaningFirstText, language)}</Text>
+            <Text>{LocalizedStrings[language].cleaningFirstYear}: {formatDisplay(metadataObj.cleaningFirstYear, metadataObj.cleaningFirstYearText, language)}</Text>
+            <Text>{LocalizedStrings[language].cleaningSecond}: {formatDisplay(metadataObj.cleaningSecond, metadataObj.cleaningSecondText, language)}</Text>
+            <Text>{LocalizedStrings[language].toothpaste}: {formatDisplay(metadataObj.toothpaste, metadataObj.toothpasteText, language)}</Text>
+            <Text>{LocalizedStrings[language].xray}: {formatDisplay(metadataObj.xray, metadataObj.xrayText, language)}</Text>
+            <Text>{LocalizedStrings[language].amalgamaRestoration}: {formatDisplay(metadataObj.amalgamaRestoration, metadataObj.amalgamaRestorationText, language)}</Text>
+            <Text>{LocalizedStrings[language].metalRestoration}: {formatDisplay(metadataObj.metalRestoration, metadataObj.metalRestorationText, language)}</Text>
+            <Text>{LocalizedStrings[language].ionomeroRestoration}: {formatDisplay(metadataObj.ionomeroRestoration, metadataObj.ionomeroRestorationText, language)}</Text>
+            <Text>{LocalizedStrings[language].mriRestoration}: {formatDisplay(metadataObj.mriRestoration, metadataObj.mriRestorationText, language)}</Text>
+            <Text>{LocalizedStrings[language].spaceRestoration}: {formatDisplay(metadataObj.spaceRestoration, metadataObj.spaceRestorationText, language)}</Text>
+            <Text>{LocalizedStrings[language].resinRestoration}: {formatDisplay(metadataObj.resinRestoration, metadataObj.resinRestorationText, language)}</Text>
+            <Text>{LocalizedStrings[language].zoeRestoration}: {formatDisplay(metadataObj.zoeRestoration, metadataObj.zoeRestorationText, language)}</Text>
+            <Text>{LocalizedStrings[language].acetateRestoration}: {formatDisplay(metadataObj.acetateRestoration, metadataObj.acetateRestorationText, language)}</Text>
+            <Text>{LocalizedStrings[language].pulpotomyRestoration}: {formatDisplay(metadataObj.pulpotomyRestoration, metadataObj.pulpotomyRestorationText, language)}</Text>
+            <Text>{LocalizedStrings[language].sdFluoride}: {formatDisplay(metadataObj.sdFluoride, metadataObj.sdFluorideText, language)}</Text>
+            <Text>{LocalizedStrings[language].sealant}: {formatDisplay(metadataObj.sealant, metadataObj.sealantText, language)}</Text>
+            <Text>{LocalizedStrings[language].teaching}: {formatDisplay(metadataObj.teaching, metadataObj.teachingText, language)}</Text>
+            <Text>{LocalizedStrings[language].impression}: {formatDisplay(metadataObj.impression, metadataObj.impressionText, language)}</Text>
+            <Text>{LocalizedStrings[language].other}: {formatDisplay(metadataObj.other, metadataObj.otherText, language)}</Text>
         </View>)
 }
 
 const DentalTreatment = (props) => {
-    const [toothbrush, setToothbrush] = useState(false);
+    const [toothbrush, setToothbrush] = useState(null);
     const [toothbrushText, setToothbrushText] = useState(null);
-    const [consult, setConsult] = useState(false);
+    const [consult, setConsult] = useState(null);
     const [consultText, setConsultText] = useState(null);
-    const [extraction, setExtraction] = useState(false);
-    const [extractionText, setExtractionText] = useState(false);
-
+    const [extraction, setExtraction] = useState(null);
+    const [extractionText, setExtractionText] = useState(null);
     const [fluoride, setFluoride] = useState(null);
     const [fluorideText, setFluorideText] = useState(null);
-    const [floss, setFloss] = useState(false);
-    const [flossText, setFlossText] = useState(false);
-
-    const [cleaningFirst, setCleaningFirst] = useState(false);
+    const [floss, setFloss] = useState(null);
+    const [flossText, setFlossText] = useState(null);
+    const [cleaningFirst, setCleaningFirst] = useState(null);
     const [cleaningFirstText, setCleaningFirstText] = useState(null);
-    const [cleaningFirstYear, setCleaningFirstYear] = useState(false);
+    const [cleaningFirstYear, setCleaningFirstYear] = useState(null);
     const [cleaningFirstYearText, setCleaningFirstYearText] = useState(null);
-    const [cleaningSecond, setCleaningSecond] = useState(false);
+    const [cleaningSecond, setCleaningSecond] = useState(null);
     const [cleaningSecondText, setCleaningSecondText] = useState(null);
-    const [toothpaste, setToothpaste] = useState(false);
+    const [toothpaste, setToothpaste] = useState(null);
     const [toothpasteText, setToothpasteText] = useState(null);
-    const [xray, setXray] = useState(false);
+    const [xray, setXray] = useState(null);
     const [xrayText, setXrayText] = useState(null);
-    const [amalgamaRestoration, setAmalgamaRestoration] = useState(false);
+    const [amalgamaRestoration, setAmalgamaRestoration] = useState(null);
     const [amalgamaRestorationText, setAmalgamaRestorationText] = useState(null);
-    const [metalRestoration, setMetalRestoration] = useState(false);
+    const [metalRestoration, setMetalRestoration] = useState(null);
     const [metalRestorationText, setMetalRestorationText] = useState(null);
-    const [ionomeroRestoration, setIonomeroRestoration] = useState(false);
+    const [ionomeroRestoration, setIonomeroRestoration] = useState(null);
     const [ionomeroRestorationText, setIonomeroRestorationText] = useState(null);
-    const [mriRestoration, setMriRestoration] = useState(false);
+    const [mriRestoration, setMriRestoration] = useState(null);
     const [mriRestorationText, setMriRestorationText] = useState(null);
-    const [spaceRestoration, setSpaceRestoration] = useState(false);
+    const [spaceRestoration, setSpaceRestoration] = useState(null);
     const [spaceRestorationText, setSpaceRestorationText] = useState(null);
-    const [resinRestoration, setResinRestoration] = useState(false);
+    const [resinRestoration, setResinRestoration] = useState(null);
     const [resinRestorationText, setResinRestorationText] = useState(null);
-    const [zoeRestoration, setZoeRestoration] = useState(false);
+    const [zoeRestoration, setZoeRestoration] = useState(null);
     const [zoeRestorationText, setZoeRestorationText] = useState(null);
-    const [acetateRestoration, setAcetateRestoration] = useState(false);
+    const [acetateRestoration, setAcetateRestoration] = useState(null);
     const [acetateRestorationText, setAcetateRestorationText] = useState(null);
-    const [pulpotomyRestoration, setPulpotomyRestoration] = useState(false);
+    const [pulpotomyRestoration, setPulpotomyRestoration] = useState(null);
     const [pulpotomyRestorationText, setPulpotomyRestorationText] = useState(null);
-    const [sdFluoride, setSdFluoride] = useState(false);
+    const [sdFluoride, setSdFluoride] = useState(null);
     const [sdFluorideText, setSdFluorideText] = useState(null);
-    const [sealant, setSealant] = useState(false);
+    const [sealant, setSealant] = useState(null);
     const [sealantText, setSealantText] = useState(null);
     const [teaching, setTeaching] = useState(null);
     const [teachingText, setTeachingText] = useState(null);
     const [impression, setImpression] = useState(null);
     const [impressionText, setImpressionText] = useState(null);
+    const [other, setOther] = useState(null);
+    const [otherText, setOtherText] = useState(null);
 
     const patientId = props.navigation.getParam('patientId');
     const visitId = props.navigation.getParam('visitId');
@@ -111,7 +113,7 @@ const DentalTreatment = (props) => {
             id: uuid(),
             patient_id: patientId,
             visit_id: visitId,
-            event_type: EventTypes.PsychologicalPathologies,
+            event_type: EventTypes.DentalTreatment,
             event_metadata: JSON.stringify({
                 doctor: userName,
                 toothbrush,
@@ -159,7 +161,9 @@ const DentalTreatment = (props) => {
                 teaching,
                 teachingText,
                 impression,
-                impressionText
+                impressionText,
+                other,
+                otherText
             })
         }).then(() => {
             props.navigation.navigate('NewVisit')
@@ -190,20 +194,7 @@ const DentalTreatment = (props) => {
         <ScrollView>
             <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
                 <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
-
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: toothbrush, action: setToothbrush, prompt: LocalizedStrings[language].miscarriages, language })}
-                    </View>
-                    {toothbrush ?
-                        <View style={[styles.responseRow, { padding: 0 }]}>
-                            <TextInput
-                                style={styles.inputs}
-                                onChangeText={(text) => setToothbrushText(text)}
-                                value={toothbrushText}
-                                keyboardType='numeric'
-                            />
-                        </View> : null
-                    }
+                    {formRow(toothbrush, setToothbrush, toothbrushText, setToothbrushText, 'sealant')}
                     {formRow(consult, setConsult, consultText, setConsultText, 'consult')}
                     {formRow(extraction, setExtraction, extractionText, setExtractionText, 'extraction')}
                     {formRow(fluoride, setFluoride, fluorideText, setFluorideText, 'fluoride')}
@@ -217,7 +208,6 @@ const DentalTreatment = (props) => {
                     {formRow(metalRestoration, setMetalRestoration, metalRestorationText, setMetalRestorationText, 'metalRestoration')}
                     {formRow(ionomeroRestoration, setIonomeroRestoration, ionomeroRestorationText, setIonomeroRestorationText, 'ionomeroRestoration')}
                     {formRow(mriRestoration, setMriRestoration, mriRestorationText, setMriRestorationText, 'mriRestoration')}
-
                     {formRow(spaceRestoration, setSpaceRestoration, spaceRestorationText, setSpaceRestorationText, 'spaceRestoration')}
                     {formRow(resinRestoration, setResinRestoration, resinRestorationText, setResinRestorationText, 'resinRestoration')}
                     {formRow(zoeRestoration, setZoeRestoration, zoeRestorationText, setZoeRestorationText, 'zoeRestoration')}
@@ -225,8 +215,9 @@ const DentalTreatment = (props) => {
                     {formRow(pulpotomyRestoration, setPulpotomyRestoration, pulpotomyRestorationText, setPulpotomyRestorationText, 'pulpotomyRestoration')}
                     {formRow(sdFluoride, setSdFluoride, sdFluorideText, setSdFluorideText, 'sdFluoride')}
                     {formRow(sealant, setSealant, sealantText, setSealantText, 'sealant')}
-                    {formRow(teaching, setTeaching, teachingText, setTeachingText, 'sealant')}
-                    {formRow(impression, setImpression, impressionText, setImpressionText, 'sealant')}
+                    {formRow(teaching, setTeaching, teachingText, setTeachingText, 'teaching')}
+                    {formRow(impression, setImpression, impressionText, setImpressionText, 'impression')}
+                    {formRow(other, setOther, otherText, setOtherText, 'other')}
 
                 </View>
                 <View style={{ alignItems: 'center' }}>

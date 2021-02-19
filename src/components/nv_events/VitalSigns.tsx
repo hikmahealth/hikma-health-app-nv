@@ -13,6 +13,7 @@ import { LocalizedStrings } from '../../enums/LocalizedStrings';
 export const VitalSignsDisplay = (metadataObj, language) => {
   return (
     <View>
+      <Text>{LocalizedStrings[language].doctor}: {metadataObj.doctor} </Text>
       <Text>{LocalizedStrings[language].glycemia}: {metadataObj.glycemia}</Text>
       <Text>{LocalizedStrings[language].weight}: {metadataObj.weight}</Text>
       <Text>{LocalizedStrings[language].idealWeight}: {metadataObj.idealWeight}</Text>

@@ -59,7 +59,7 @@ const PatientView = (props) => {
         style={{ height: 50, width: 90 }}
       >
         <Picker.Item value='en' label='en' />
-        <Picker.Item value='ar' label='ar' />
+        {/* <Picker.Item value='ar' label='ar' /> */}
         <Picker.Item value='sp' label='sp' />
       </Picker>
     )
@@ -222,6 +222,14 @@ const PatientView = (props) => {
               onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.HouseholdEnvironment, language: language, patient: patient })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].householdEnvironment}</Text>
+                <Text style={{ fontSize: 15 }}>></Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.LabOrders, language, patient })}>
+              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
+                <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].labOrders}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
               </View>
             </TouchableOpacity>

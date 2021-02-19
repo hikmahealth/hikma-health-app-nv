@@ -37,7 +37,7 @@ export const MedicalPathologiesDisplay = (metadataObj, language) => {
             <Text>{LocalizedStrings[language].otherAllergies}: {formatDisplay(metadataObj.otherAllergies, metadataObj.otherAllergiesText, language)}</Text>
             <Text>{LocalizedStrings[language].tonsillitis}: {formatDisplay(metadataObj.tonsillitis, metadataObj.tonsillitisText, language)}</Text>
             <Text>{LocalizedStrings[language].anemic}: {formatDisplay(metadataObj.anemic, metadataObj.anemicText, language)}</Text>
-            <Text>{LocalizedStrings[language].arthritis}: {formatDisplay(metadataObj.arthritis, metadataObj.arthritisText, language)}</Text>
+            <Text>{LocalizedStrings[language].arthritisRA}: {formatDisplay(metadataObj.arthritis, metadataObj.arthritisText, language)}</Text>
             <Text>{LocalizedStrings[language].asthma}: {formatDisplay(metadataObj.asthma, metadataObj.asthmaText, language)}</Text>
             <Text>{LocalizedStrings[language].neckPain}: {formatDisplay(metadataObj.neckPain, metadataObj.neckPainText, language)}</Text>
             <Text>{LocalizedStrings[language].cervicovaginitis}: {formatDisplay(metadataObj.cervicovaginitis, metadataObj.cervicovaginitisText, language)}</Text>
@@ -615,7 +615,7 @@ const MedicalPathologies = (props) => {
                     {formRow(otherAllergies, setOtherAllergies, otherAllergiesText, setOtherAllergiesText, 'otherAllergies')}
                     {formRow(tonsillitis, setTonsillitis, tonsillitisText, setTonsillitisText, 'tonsillitis')}
                     {formRow(anemic, setAnemic, anemicText, setAnemicText, 'anemic')}
-                    {formRow(arthritis, setArthritis, arthritisText, setArthritisText, 'arthritis')}
+                    {formRow(arthritis, setArthritis, arthritisText, setArthritisText, 'arthritisRA')}
                     {formRow(asthma, setAsthma, asthmaText, setAsthmaText, 'asthma')}
                     {formRow(neckPain, setNeckPain, neckPainText, setNeckPainText, 'neckPain')}
                     {formRow(cervicovaginitis, setCervicovaginitis, cervicovaginitisText, setCervicovaginitisText, 'cervicovaginitis')}
