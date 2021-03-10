@@ -234,7 +234,9 @@ const PsychologicalPathologies = (props) => {
         <ScrollView>
             <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
                 <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
-
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+                        <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].psychologicalPathologies}</Text>
+                    </View>
                     <View style={[styles.responseRow]}>
                         {radioButtons({ field: anxiety, action: setAnxiety, prompt: LocalizedStrings[language].anxiety, language })}
                     </View>

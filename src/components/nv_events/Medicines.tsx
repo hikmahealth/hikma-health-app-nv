@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 import styles from '../Style';
 import LinearGradient from 'react-native-linear-gradient';
 import { LocalizedStrings } from '../../enums/LocalizedStrings';
+import { EventTypes } from '../../enums/EventTypes';
 
 export const MedicinesDisplay = (metadataObj, language) => {
   return (
@@ -32,18 +33,6 @@ const Medicines = (props) => {
   const language = props.navigation.getParam('language', 'en');
   const userName = props.navigation.getParam('userName');
 
-  useEffect(() => {
-    database.getLatestPatientEventByType(patientId, eventType).then((response: any) => {
-      if (response.length > 0) {
-        const responseObj = JSON.parse(response)
-        setMedicine(responseObj.medicine)
-        setFormat(responseObj.format)
-        setDosage(responseObj.dosage)
-        setDays(responseObj.days)
-      }
-    })
-  }, [])
-
   const submit = async () => {
     database.addEvent({
       id: uuid(),
@@ -62,9 +51,23 @@ const Medicines = (props) => {
     })
   };
 
+  const title = () => {
+    switch (eventType) {
+      case EventTypes.MedicinesInStock:
+        return LocalizedStrings[language].medicinesInStock
+      case EventTypes.MedicinesOTC:
+        return LocalizedStrings[language].medicinesOTC
+      case EventTypes.ControlledMedicines:
+        return LocalizedStrings[language].controlledMedicines
+    }
+  }
+
   return (
     <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={[styles.containerLeft]}>
       <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+          <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{title()}</Text>
+        </View>
         <View style={[styles.responseRow, { paddingBottom: 0 }]}>
           <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].medicine}</Text>
         </View>
@@ -103,6 +106,7 @@ const Medicines = (props) => {
             style={styles.inputs}
             onChangeText={(text) => setDays(text)}
             value={days}
+            keyboardType={'numeric'}
           />
         </View>
       </View>

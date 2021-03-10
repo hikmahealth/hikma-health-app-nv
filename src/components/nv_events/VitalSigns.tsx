@@ -16,6 +16,7 @@ export const VitalSignsDisplay = (metadataObj, language) => {
       <Text>{LocalizedStrings[language].doctor}: {metadataObj.doctor} </Text>
       <Text>{LocalizedStrings[language].glycemia}: {metadataObj.glycemia}</Text>
       <Text>{LocalizedStrings[language].weight}: {metadataObj.weight}</Text>
+      <Text>{LocalizedStrings[language].weightLb}: {metadataObj.weightLb}</Text>
       <Text>{LocalizedStrings[language].idealWeight}: {metadataObj.idealWeight}</Text>
       <Text>{LocalizedStrings[language].bloodPressure}: {metadataObj.systolic}/{metadataObj.diastolic}</Text>
       <Text>{LocalizedStrings[language].pulse}: {metadataObj.pulse}</Text>
@@ -30,6 +31,7 @@ export const VitalSignsDisplay = (metadataObj, language) => {
 const VitalSigns = (props) => {
   const [glycemia, setGlycemia] = useState(null);
   const [weight, setWeight] = useState(null);
+  const [weightLb, setWeightLb] = useState(null);
   const [idealWeight, setIdealWeight] = useState(null);
   const [systolic, setSystolic] = useState(null);
   const [diastolic, setDiastolic] = useState(null);
@@ -76,6 +78,7 @@ const VitalSigns = (props) => {
         doctor: userName,
         glycemia,
         weight,
+        weightLb,
         idealWeight,
         systolic,
         diastolic,
@@ -95,6 +98,9 @@ const VitalSigns = (props) => {
     <ScrollView>
       <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
         <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+            <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].vitals}</Text>
+          </View>
           <View style={[styles.responseRow, { paddingBottom: 0 }]}>
             <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].glycemia}</Text>
           </View>
@@ -119,6 +125,20 @@ const VitalSigns = (props) => {
               placeholder="kg"
               onChangeText={(text) => setWeight(text)}
               value={weight}
+              keyboardType='numeric'
+            />
+          </View>
+
+          <View style={[styles.responseRow, { paddingVertical: 0 }]}>
+            <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].weight}</Text>
+          </View>
+
+          <View style={[styles.responseRow, { padding: 0 }]}>
+            <TextInput
+              style={styles.inputs}
+              placeholder="lb"
+              onChangeText={(text) => setWeightLb(text)}
+              value={weightLb}
               keyboardType='numeric'
             />
           </View>

@@ -202,6 +202,9 @@ const ProgramTrainings = (props) => {
         <ScrollView>
             <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
                 <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+                        <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].programTrainings}</Text>
+                    </View>
                     {formRow(asthmaSubject, setAsthmaSubject, asthmaSubjectText, setAsthmaSubjectText, 'asthmaSubject')}
                     {formRow(pregnancySubject, setPregnancySubject, pregnancySubjectText, setPregnancySubjectText, 'pregnancySubject')}
                     {formRow(dispensarizados1Subject, setDispensarizados1Subject, dispensarizados1SubjectText, setDispensarizados1SubjectText, 'dispensarizados1Subject')}

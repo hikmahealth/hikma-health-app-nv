@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    View, Text, TextInput, Button
+    View, Text, TextInput, Button, ScrollView
 } from 'react-native';
 
 import { database } from "../../storage/Database";
@@ -39,7 +39,7 @@ export const LabOrdersDisplay = (metadataObj, language) => {
             <Text>{LocalizedStrings[language].bloodType}: {formatDisplay(metadataObj.bloodType, language)}</Text>
             <Text>{LocalizedStrings[language].HIVTest}: {formatDisplay(metadataObj.HIVTest, language)}</Text>
             <Text>{LocalizedStrings[language].other}: {metadataObj.other} </Text>
-        
+
         </View>)
 }
 
@@ -115,65 +115,70 @@ const LabOrders = (props) => {
     };
 
     return (
-        <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
-            <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: hematicBiometry, action: setHematicBiometry, prompt: LocalizedStrings[language].hematicBiometry, language })}
-                </View>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: urinalysis, action: setUrinalysis, prompt: LocalizedStrings[language].urinalysis, language })}
-                </View>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: biochemistry, action: setBiochemistry, prompt: LocalizedStrings[language].biochemistry, language })}
-                </View>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: lipidProfile, action: setLipidProfile, prompt: LocalizedStrings[language].lipidProfile, language })}
-                </View>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: pregnancyTest, action: setPregnancyTest, prompt: LocalizedStrings[language].pregnancyTest, language })}
-                </View>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: immunologyTest, action: setImmunologyTest, prompt: LocalizedStrings[language].immunologyTest, language })}
-                </View>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: PAPTest, action: setPAPTest, prompt: LocalizedStrings[language].PAPTest, language })}
-                </View>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: serologyTest, action: setSerologyTest, prompt: LocalizedStrings[language].serologyTest, language })}
-                </View>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: stoolTest, action: setStoolTest, prompt: LocalizedStrings[language].stoolTest, language })}
-                </View>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: fecalAntigens, action: setFecalAntigens, prompt: LocalizedStrings[language].fecalAntigens, language })}
-                </View>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: bloodType, action: setBloodType, prompt: LocalizedStrings[language].bloodType, language })}
-                </View>
-                <View style={[styles.responseRow]}>
-                    {radioButtons({ field: HIVTest, action: setHIVTest, prompt: LocalizedStrings[language].HIVTest, language })}
-                </View>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
+                <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+                        <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].labOrders}</Text>
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: hematicBiometry, action: setHematicBiometry, prompt: LocalizedStrings[language].hematicBiometry, language })}
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: urinalysis, action: setUrinalysis, prompt: LocalizedStrings[language].urinalysis, language })}
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: biochemistry, action: setBiochemistry, prompt: LocalizedStrings[language].biochemistry, language })}
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: lipidProfile, action: setLipidProfile, prompt: LocalizedStrings[language].lipidProfile, language })}
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: pregnancyTest, action: setPregnancyTest, prompt: LocalizedStrings[language].pregnancyTest, language })}
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: immunologyTest, action: setImmunologyTest, prompt: LocalizedStrings[language].immunologyTest, language })}
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: PAPTest, action: setPAPTest, prompt: LocalizedStrings[language].PAPTest, language })}
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: serologyTest, action: setSerologyTest, prompt: LocalizedStrings[language].serologyTest, language })}
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: stoolTest, action: setStoolTest, prompt: LocalizedStrings[language].stoolTest, language })}
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: fecalAntigens, action: setFecalAntigens, prompt: LocalizedStrings[language].fecalAntigens, language })}
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: bloodType, action: setBloodType, prompt: LocalizedStrings[language].bloodType, language })}
+                    </View>
+                    <View style={[styles.responseRow]}>
+                        {radioButtons({ field: HIVTest, action: setHIVTest, prompt: LocalizedStrings[language].HIVTest, language })}
+                    </View>
 
-                <View style={[styles.responseRow, { paddingBottom: 0 }]}>
-                    <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].other}</Text>
-                </View>
-                <View style={[styles.responseRow, { padding: 0 }]}>
-                    <TextInput
-                        style={styles.inputs}
-                        onChangeText={(text) => setOther(text)}
-                        value={other}
-                    />
-                </View>
+                    <View style={[styles.responseRow, { paddingBottom: 0 }]}>
+                        <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].other}</Text>
+                    </View>
+                    <View style={[styles.responseRow, { padding: 0 }]}>
+                        <TextInput
+                            style={styles.inputs}
+                            onChangeText={(text) => setOther(text)}
+                            value={other}
+                        />
+                    </View>
 
 
-            </View>
-            <View style={{ alignItems: 'center' }}>
-                <Button
-                    title={LocalizedStrings[language].save}
-                    color={'#F77824'}
-                    onPress={() => submit()} />
-            </View>
-        </LinearGradient>
+                </View>
+                <View style={{ alignItems: 'center' }}>
+                    <Button
+                        title={LocalizedStrings[language].save}
+                        color={'#F77824'}
+                        onPress={() => submit()} />
+                </View>
+            </LinearGradient>
+        </ScrollView>
     );
 };
 

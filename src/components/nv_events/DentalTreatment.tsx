@@ -194,6 +194,9 @@ const DentalTreatment = (props) => {
         <ScrollView>
             <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
                 <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+                        <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].dentalTreatment}</Text>
+                    </View>
                     {formRow(toothbrush, setToothbrush, toothbrushText, setToothbrushText, 'sealant')}
                     {formRow(consult, setConsult, consultText, setConsultText, 'consult')}
                     {formRow(extraction, setExtraction, extractionText, setExtractionText, 'extraction')}

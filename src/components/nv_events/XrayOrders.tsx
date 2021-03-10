@@ -171,8 +171,9 @@ const XrayOrders = (props) => {
         <ScrollView>
             <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
                 <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
-
-
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+                        <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].xrayOrders}</Text>
+                    </View>
                     <View style={[styles.responseRow]}>{radioButtons({ field: hipAntero, action: setHipAntero, prompt: LocalizedStrings[language].hipAntero, language })}</View>
                     <View style={[styles.responseRow]}>{radioButtons({ field: hipLateral, action: setHipLateral, prompt: LocalizedStrings[language].hipLateral, language })}</View>
                     <View style={[styles.responseRow]}>{radioButtons({ field: hipPosterior, action: setHipPosterior, prompt: LocalizedStrings[language].hipPosterior, language })}</View>

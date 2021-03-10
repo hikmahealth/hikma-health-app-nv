@@ -349,7 +349,9 @@ const PAPResults = (props) => {
         <ScrollView>
             <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
                 <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
-
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+                        <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].PAPResults}</Text>
+                    </View>
                     {formRow(adequateCyto, setAdequateCyto, adequateCytoText, setAdequateCytoText, adequateCytoDate, setAdequateCytoDate, 'adequateCyto')}
                     {formRow(incompleteCyto, setIncompleteCyto, incompleteCytoText, setIncompleteCytoText, incompleteCytoDate, setIncompleteCytoDate, 'incompleteCyto')}
                     {formRow(cellularityCyto, setCellularityCyto, cellularityCytoText, setCellularityCytoText, cellularityCytoDate, setCellularityCytoDate, 'cellularityCyto')}
@@ -399,7 +401,7 @@ const PAPResults = (props) => {
                             value={other}
                         />
                     </View>
-                {other ? datePicker({ future: true, placeholder: LocalizedStrings[language].date, date: otherDate, action: setOtherDate, language }) : null}
+                    {other ? datePicker({ future: true, placeholder: LocalizedStrings[language].date, date: otherDate, action: setOtherDate, language }) : null}
 
                 </View>
                 <View style={{ alignItems: 'center' }}>

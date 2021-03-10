@@ -31,7 +31,7 @@ export const AccidentReportDisplay = (metadataObj, language) => {
             <Text>{LocalizedStrings[language].trauma}: {formatTextDisplay(metadataObj.trauma, metadataObj.traumaText, language)} </Text>
             <Text>{LocalizedStrings[language].traumaDetails}: {metadataObj.traumaDetails} </Text>
             <Text>{LocalizedStrings[language].referralSpecialist}: {formatTextDisplay(metadataObj.referralSpecialist, metadataObj.referralSpecialistText, language)} </Text>
-            <Text>{LocalizedStrings[language].followUpVisit}: {formatTextDisplay(metadataObj.followUpVisit,metadataObj.followUpVisitDate, language)} </Text>
+            <Text>{LocalizedStrings[language].followUpVisit}: {formatTextDisplay(metadataObj.followUpVisit, metadataObj.followUpVisitDate, language)} </Text>
             <Text>{LocalizedStrings[language].other}: {metadataObj.other} </Text>
         </View>)
 }
@@ -104,7 +104,9 @@ const AccidentReport = (props) => {
 
             <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
                 <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
-
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch',}}>
+                        <Text style={[styles.text, {fontSize: 16, fontWeight: 'bold'}]}>{LocalizedStrings[language].accidentReport}</Text>
+                    </View>
                     {formRow(accidentWork, setAccidentWork, accidentWorkText, setAccidentWorkText, 'accidentWork')}
 
                     <View style={[styles.responseRow, { paddingVertical: 0 }]}>

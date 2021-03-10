@@ -86,6 +86,9 @@ const ClinicalEvaluation = (props) => {
     <ScrollView>
       <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
         <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+            <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].clinicalEvaluation}</Text>
+          </View>
 
           <View style={[styles.responseRow, { paddingBottom: 0 }]}>
             <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].visitDate}: {visitDate}</Text>
@@ -183,10 +186,10 @@ const ClinicalEvaluation = (props) => {
           </View>
         </View>
         <View style={{ alignItems: 'center' }}>
-        <Button
-          title={LocalizedStrings[language].save}
-          color={'#F77824'}
-          onPress={() => submit()}/>
+          <Button
+            title={LocalizedStrings[language].save}
+            color={'#F77824'}
+            onPress={() => submit()} />
         </View>
       </LinearGradient>
     </ScrollView>

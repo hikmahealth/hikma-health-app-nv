@@ -47,7 +47,7 @@ export const DentalOriginDisplay = (metadataObj, language) => {
             <Text>{LocalizedStrings[language].verboSur}: {formatDisplay(metadataObj.verboSur, language)} </Text>
             <Text>{LocalizedStrings[language].jubileeHouseCommunity}: {formatDisplay(metadataObj.jubileeHouseCommunity, language)} </Text>
             <Text>{LocalizedStrings[language].otherFeedingCenter}: {metadataObj.otherFeedingCenter} </Text>
-      </View>)
+        </View>)
 }
 
 const DentalOrigin = (props) => {
@@ -120,6 +120,9 @@ const DentalOrigin = (props) => {
         <ScrollView>
             <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
                 <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+                        <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].dentalOrigin}</Text>
+                    </View>
                     <View style={[styles.responseRow]}>
                         {radioButtons({ field: bernabe, action: setBernabe, prompt: LocalizedStrings[language].bernabe, language })}
                     </View>
@@ -193,7 +196,7 @@ const DentalOrigin = (props) => {
                             value={otherFeedingCenter}
                         />
                     </View>
-                    
+
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <Button

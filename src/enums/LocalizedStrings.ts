@@ -126,6 +126,7 @@ export const LocalizedStrings = {
 
     glycemia: "Glycemia (mg)",
     weight: "Weight (kg)",
+    weightLb: "Weight (lb)",
     idealWeight: "Ideal Weight (kg)",
     bloodPressure: "Blood Pressure",
     pulse: "Pulse",
@@ -153,7 +154,7 @@ export const LocalizedStrings = {
     medicinesOTC: "Medicines OTC",
     controlledMedicines: "Controlled Medicines",
     medicine: "Medicine",
-    format: "Format",
+    format: "Presentation (i.e. tablet / bottle size / concentration)",
     dosage: "Dosage",
     days: "Days",
 
@@ -733,6 +734,7 @@ export const LocalizedStrings = {
 
     glycemia: "Glicemia (mg)",
     weight: "Peso (kg)",
+    weightLb: "Peso (lb)",
     idealWeight: "Peso Ideal (kg)",
     bloodPressure: "Presión Arterial",
     pulse: "Pulso",
@@ -760,7 +762,7 @@ export const LocalizedStrings = {
     medicinesOTC: "Medicamentos Prescritos",
     controlledMedicines: "Medicamentos Controlados",
     medicine: "Medicamentos",
-    format: "Formato",
+    format: "Presentación (e.j tableta, tamaño de botella, concentración)",
     dosage: "Dosis",
     days: "Dias",
 

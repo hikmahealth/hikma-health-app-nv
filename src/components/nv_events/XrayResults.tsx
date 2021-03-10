@@ -174,6 +174,9 @@ const XrayResults = (props) => {
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
                 <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+                        <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].xrayResults}</Text>
+                    </View>
                     {formRow(arthritis, setArthritis, arthritisText, setArthritisText, 'arthritis')}
                     {formRow(cardiomegaly, setCardiomegaly, cardiomegalyText, setCardioMegalyText, 'cardiomegaly')}
                     {formRow(ureteralDuplication, setUreteralDuplication, ureteralDuplicationText, setUreteralDuplicationText, 'ureteralDuplication')}
