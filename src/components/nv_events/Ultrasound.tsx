@@ -44,6 +44,7 @@ export const UltrasoundDisplay = (metadataObj, language) => {
             <Text>{LocalizedStrings[language].prostate1}: {formatDisplay(metadataObj.prostate1, metadataObj.prostate1Date, language)} </Text>
             <Text>{LocalizedStrings[language].prostate2}: {formatDisplay(metadataObj.prostate2, metadataObj.prostate2Date, language)} </Text>
             <Text>{LocalizedStrings[language].prostate3}: {formatDisplay(metadataObj.prostate3, metadataObj.prostate3Date, language)} </Text>
+            <Text>{LocalizedStrings[language].prostate4}: {formatDisplay(metadataObj.prostate4, metadataObj.prostate4Date, language)} </Text>
             <Text>{LocalizedStrings[language].endometrialThickening}: {formatDisplay(metadataObj.endometrialThickening, metadataObj.endometrialThickeningDate, language)} </Text>
             <Text>{LocalizedStrings[language].splenomegaly}: {formatDisplay(metadataObj.splenomegaly, metadataObj.splenomegalyDate, language)} </Text>
             <Text>{LocalizedStrings[language].mildHepatic}: {formatDisplay(metadataObj.mildHepatic, metadataObj.mildHepaticDate, language)} </Text>
@@ -172,6 +173,8 @@ const Ultrasound = (props) => {
                 prostate2Date,
                 prostate3,
                 prostate3Date,
+                prostate4,
+                prostate4Date,
                 endometrialThickening,
                 endometrialThickeningDate,
                 splenomegaly,
@@ -278,10 +281,6 @@ const Ultrasound = (props) => {
 
                     <View style={[styles.responseRow]}>
                         {radioButtons({ field: other, action: setOther, prompt: LocalizedStrings[language].other, language })}
-                    </View>
-
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: softTissues, action: setSoftTissues, prompt: LocalizedStrings[language].softTissues, language })}
                     </View>
 
                     <View style={[styles.responseRow, { paddingVertical: 0 }]}>

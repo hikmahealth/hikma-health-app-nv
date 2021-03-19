@@ -130,13 +130,13 @@ const VitalSigns = (props) => {
           </View>
 
           <View style={[styles.responseRow, { paddingVertical: 0 }]}>
-            <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].weight}</Text>
+            <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].weightLb}</Text>
           </View>
 
           <View style={[styles.responseRow, { padding: 0 }]}>
             <TextInput
               style={styles.inputs}
-              placeholder="lb"
+              placeholder="libra"
               onChangeText={(text) => setWeightLb(text)}
               value={weightLb}
               keyboardType='numeric'

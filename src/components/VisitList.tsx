@@ -59,16 +59,16 @@ const VisitList = (props) => {
       }
     )}
       onLongPress={() => Alert.alert(
-        'Delete Visit',
-        'Are you sure you want to delete this visit?',
+        LocalizedStrings[language].deleteVisit,
+        LocalizedStrings[language].confirmDeleteVisit,
         [
           {
-            text: "Cancel",
+            text: LocalizedStrings[language].cancel,
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
           },
           {
-            text: "Confirm", onPress: () => {
+            text: LocalizedStrings[language].confirm, onPress: () => {
               deleteVisit(item)
             }
           }

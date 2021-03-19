@@ -76,7 +76,7 @@ const XrayResults = (props) => {
     const userName = props.navigation.getParam('userName');
 
     useEffect(() => {
-        database.getLatestPatientEventByType(patientId, EventTypes.PsychologicalPathologies).then((response: any) => {
+        database.getLatestPatientEventByType(patientId, EventTypes.XrayResults).then((response: any) => {
             if (response.length > 0) {
                 const responseObj = JSON.parse(response)
 

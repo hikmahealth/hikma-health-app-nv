@@ -65,7 +65,7 @@ const LabOrders = (props) => {
     const userName = props.navigation.getParam('userName');
 
     useEffect(() => {
-        database.getLatestPatientEventByType(patientId, EventTypes.HouseholdEnvironment).then((response: any) => {
+        database.getLatestPatientEventByType(patientId, EventTypes.LabOrders).then((response: any) => {
             if (response.length > 0) {
                 const responseObj = JSON.parse(response)
                 setHematicBiometry(responseObj.hematicBiometry)

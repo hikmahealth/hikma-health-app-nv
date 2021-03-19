@@ -31,5 +31,5 @@ export enum EventTypes {
   XrayOrders = 'Xray Orders',
   XrayResults = 'Xray Results',
   Optometry = 'Optometry',
-  AccidentReport = 'AccidentReport'
+  AccidentReport = 'Accident Report'
 }

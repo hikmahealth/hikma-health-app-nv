@@ -24,6 +24,9 @@ export const LocalizedStrings = {
     true: "True",
     false: "False",
     newVisit: "New Visit",
+    //next two not in arabic
+    deleteVisit: "Delete Visit",
+    confirmDeleteVisit: "Are you sure you want to delete this visit?",
     newPatient: "New Patient",
     newEntry: "New Entry",
     patientSnapshot: "Patient Snapshot",
@@ -462,7 +465,7 @@ export const LocalizedStrings = {
     permanentPartner: "Permanent Partner",
 
     //16
-    dentalOrigin: "Dental Patient Origin",
+    dentalOrigin: "Dental Origin (ON or JHC)",
     bernabe: "Bernabé",
     canon: "Cañon",
     clubLaEsperanza: "Club la Esperanza P Sheyla",
@@ -631,6 +634,8 @@ export const LocalizedStrings = {
     negative: "Negativo",
     true: "Verdader@",
     false: "Fals@",
+    deleteVisit: "Eliminar visita",
+    confirmDeleteVisit: "¿Estás seguro de que deseas eliminar esta visita?",
     newVisit: "Visita Nueva",
     newPatient: "Paciente Nuevo",
     newEntry: "Ingreso Nuevo",
@@ -734,7 +739,7 @@ export const LocalizedStrings = {
 
     glycemia: "Glicemia (mg)",
     weight: "Peso (kg)",
-    weightLb: "Peso (lb)",
+    weightLb: "Peso (libra)",
     idealWeight: "Peso Ideal (kg)",
     bloodPressure: "Presión Arterial",
     pulse: "Pulso",
@@ -944,7 +949,7 @@ export const LocalizedStrings = {
     RHFactor: "Factor Rh",
 
     //12
-    labUrineTests: "Examen de Orina",
+    labUrineTests: "Examen de Orina (EGO)",
     colorPhysical: "Fisico - Color",
     aspectsPhysical: "Fisico - Aspecto",
     sedimentPhysical: "Fisico - Sedimento",
@@ -1071,7 +1076,7 @@ export const LocalizedStrings = {
     permanentPartner: "Compañer@",
 
     //16
-    dentalOrigin: "Origen del Paciente Dental",
+    dentalOrigin: "Origen Dental (ON o JHC)",
     bernabe: "Bernabé",
     canon: "Cañon",
     clubLaEsperanza: "Club la Esperanza P Sheyla",
