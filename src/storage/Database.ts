@@ -10,7 +10,6 @@ import { LanguageString } from "../types/LanguageString";
 import { Event } from "../types/Event";
 import { Visit } from "../types/Visit";
 import { EventTypes } from "../enums/EventTypes";
-import { NameVariants } from "../enums/NameVariants";
 
 export interface Database {
   open(): Promise<SQLite.SQLiteDatabase>;
@@ -18,8 +17,10 @@ export interface Database {
   login(email: string, password: string): Promise<any>;
   usersExist(): Promise<boolean>;
   getClinics(): Promise<Clinic[]>;
+  getPatientCount(): Promise<number>
   getPatients(): Promise<Patient[]>;
-  searchPatients(givenName: string, surname: string, country: string, hometown: string, camp: string, phone: string, minYear: number, maxYear: number): Promise<Patient[]>
+  searchPatients(givenName: string, surname: string, country: string, hometown: string, gender: string, minYear: number, maxYear: number,
+    medicalNum: string, dentalNum: string, optometryNum: string, community: string, zone: string, block: string, lot: string, bloodType: string, visitDate: string): Promise<Patient[]>
   getPatient(patient_id: string): Promise<Patient>;
   editStringContent(stringContent: StringContent[], id: string): Promise<string>;
   saveStringContent(stringContent: StringContent[], id?: string): Promise<string>;
@@ -298,6 +299,20 @@ class DatabaseImpl implements Database {
       });
   }
 
+  public getPatientCount(): Promise<number> {
+    return this.getDatabase()
+      .then(db =>
+        db.executeSql("SELECT COUNT(*) as patient_count FROM patients;")
+      )
+      .then(async ([results]) => {
+        if (results === undefined) {
+          return 0;
+        }
+        const row = results.rows.item(0);
+        return row.patient_count
+      })
+  }
+
   public getPatients(): Promise<Patient[]> {
     console.log("[db] Fetching patients from the db...");
     return this.getDatabase()
@@ -325,31 +340,19 @@ class DatabaseImpl implements Database {
       });
   }
 
-  public fuzzySearch(givenName: string): string {
-    let queryTerms = ` WHERE (string_content.content LIKE '%${givenName.trim()}%'`
-    NameVariants.forEach(name => {
-
-      let match = name.findIndex(variant => {
-        return variant.includes(givenName)
-      })
-
-      if (match > -1) {
-        name.forEach(variant => {
-          queryTerms += ` OR string_content.content LIKE '%${variant}%'`
-        })
-      }
-    })
-    queryTerms += ')'
-    return queryTerms
-  }
-
-  public searchPatients(givenName: string, surname: string, country: string, hometown: string, camp: string, phone: string, minYear: number, maxYear: number): Promise<Patient[]> {
+  public searchPatients(
+    givenName: string, surname: string, country: string, hometown: string, gender: string, minYear: number, maxYear: number,
+    medicalNum: string, dentalNum: string, optometryNum: string, community: string, zone: string, block: string, lot: string, bloodType: string, visitDate: string): Promise<Patient[]> {
     let queryTerms = '';
 
-    const queryBase = "SELECT DISTINCT patients.id, patients.given_name, patients.surname, patients.date_of_birth, patients.country, patients.hometown, patients.sex, patients.phone, patients.image_timestamp, patients.edited_at FROM patients LEFT JOIN string_content ON patients.given_name = string_content.id OR patients.surname = string_content.id OR patients.country = string_content.id OR patients.hometown = string_content.id LEFT JOIN events ON patients.id = events.patient_id"
+    const queryBase = "SELECT DISTINCT patients.id, patients.given_name, patients.surname, patients.date_of_birth, patients.country, patients.hometown, patients.sex, patients.phone, patients.image_timestamp, patients.edited_at FROM patients LEFT JOIN string_content ON patients.given_name = string_content.id OR patients.surname = string_content.id OR patients.country = string_content.id OR patients.hometown = string_content.id LEFT JOIN events ON patients.id = events.patient_id LEFT JOIN visits ON patients.id = visits.patient_id"
 
     if (!!givenName) {
-      queryTerms += this.fuzzySearch(givenName.trim().toLowerCase())
+      if (!!queryTerms) {
+        queryTerms += ` INTERSECT ${queryBase} WHERE string_content.content LIKE '%${givenName.trim()}%'`
+      } else {
+        queryTerms += ` WHERE string_content.content LIKE '%${givenName.trim()}%'`
+      }
     }
 
     if (!!surname) {
@@ -376,19 +379,43 @@ class DatabaseImpl implements Database {
       }
     }
 
-    if (!!camp) {
+    if (!!medicalNum || !!dentalNum || !!optometryNum || !!community || !!zone || !!block || !!lot) {
       if (!!queryTerms) {
-        queryTerms += ` INTERSECT ${queryBase} WHERE events.event_type = '${EventTypes.Camp}' AND events.event_metadata LIKE '%${camp.trim()}%'`
+        queryTerms += ` INTERSECT ${queryBase} WHERE events.event_type = '${EventTypes.PatientDetails}'`
       } else {
-        queryTerms += ` WHERE events.event_type = '${EventTypes.Camp}' AND events.event_metadata LIKE '%${camp.trim()}%'`
+        queryTerms += ` WHERE events.event_type = '${EventTypes.PatientDetails}'`
+      }
+
+      queryTerms += !!medicalNum ? `AND events.event_metadata LIKE '%${medicalNum.trim()}%'` : ''
+      queryTerms += !!dentalNum ? `AND events.event_metadata LIKE '%${dentalNum.trim()}%'` : ''
+      queryTerms += !!optometryNum ? `AND events.event_metadata LIKE '%${optometryNum.trim()}%'` : ''
+      queryTerms += !!community ? `AND events.event_metadata LIKE '%${community.trim()}%'` : ''
+      queryTerms += !!zone ? `AND events.event_metadata LIKE '%${zone.trim()}%'` : ''
+      queryTerms += !!block ? `AND events.event_metadata LIKE '%${block.trim()}%'` : ''
+      queryTerms += !!lot ? `AND events.event_metadata LIKE '%${lot.trim()}%'` : ''
+    }
+
+    if (!!bloodType) {
+      if (!!queryTerms) {
+        queryTerms += ` INTERSECT ${queryBase} WHERE events.event_type = '${EventTypes.Vitals}' AND events.event_metadata LIKE '%${bloodType.trim()}%'`
+      } else {
+        queryTerms += ` WHERE events.event_type = '${EventTypes.Vitals}' AND events.event_metadata LIKE '%${bloodType.trim()}%'`
       }
     }
 
-    if (!!phone) {
+    if (!!visitDate) {
       if (!!queryTerms) {
-        queryTerms += ` INTERSECT ${queryBase} WHERE patients.phone LIKE '%${phone.trim()}%'`
+        queryTerms += ` INTERSECT ${queryBase} WHERE visits.check_in_timestamp LIKE '%${visitDate}%'`
       } else {
-        queryTerms += ` WHERE patients.phone LIKE '%${phone.trim()}%'`
+        queryTerms += ` WHERE visits.check_in_timestamp LIKE '%${visitDate}%'`
+      }
+    }
+
+    if (!!gender) {
+      if (!!queryTerms) {
+        queryTerms += ` AND patients.sex LIKE '%${gender.trim()}%'`
+      } else {
+        queryTerms += ` WHERE patients.sex LIKE '%${gender.trim()}%'`
       }
     }
 
@@ -399,6 +426,7 @@ class DatabaseImpl implements Database {
         queryTerms += ` WHERE SUBSTR(patients.date_of_birth, 1, 4) BETWEEN '${minYear}' AND '${maxYear}'`
       }
     }
+
     queryTerms += ' ORDER BY patients.edited_at DESC LIMIT 50'
 
     console.log("[db] Fetching patients from the db...");

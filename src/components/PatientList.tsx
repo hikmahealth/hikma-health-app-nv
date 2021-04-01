@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, Image as Image, TextInput, FlatList, TouchableOpacity, ImageBackground, Keyboard, Picker, Modal, TouchableHighlight, Button } from "react-native";
+import { View, Text, Image as Image, TextInput, FlatList, TouchableOpacity, ImageBackground, Keyboard, Picker, Modal, TouchableHighlight, Button, ScrollView } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import { database } from "../storage/Database";
 import { DatabaseSync } from "../storage/Sync";
@@ -8,6 +8,7 @@ import styles from './Style';
 import { iconHash } from '../services/hash'
 import { LocalizedStrings } from '../enums/LocalizedStrings';
 import { icons } from '../enums/Icons';
+import DatePicker from "react-native-datepicker";
 
 const PatientList = (props) => {
   const databaseSync: DatabaseSync = new DatabaseSync();
@@ -18,12 +19,21 @@ const PatientList = (props) => {
   const instanceUrl = props.navigation.state.params.instanceUrl;
   const [userId, setUserId] = useState(props.navigation.state.params.userId);
   const [list, setList] = useState([]);
+  const [patientCount, setPatientCount] = useState(0);
   const [givenName, setGivenName] = useState('');
   const [surname, setSurname] = useState('');
   const [country, setCountry] = useState('');
   const [hometown, setHometown] = useState('');
-  const [camp, setCamp] = useState('');
-  const [phone, setPhone] = useState('');
+  const [male, setMale] = useState(null);
+  const [medicalNum, setMedicalNum] = useState('');
+  const [dentalNum, setDentalNum] = useState('');
+  const [optometryNum, setOptometryNum] = useState('');
+  const [community, setCommunity] = useState('');
+  const [zone, setZone] = useState('');
+  const [block, setBlock] = useState('');
+  const [lot, setLot] = useState('');
+  const [bloodType, setBloodType] = useState('');
+  const [visitDate, setVisitDate] = useState('');
   const [minAge, setMinAge] = useState<number>(0);
   const [maxAge, setMaxAge] = useState<number>(0);
 
@@ -31,6 +41,8 @@ const PatientList = (props) => {
   const [language, setLanguage] = useState(props.navigation.getParam('language', 'sp'));
   const [searchIconFunction, setSearchIconFunction] = useState(false)
   const search = useRef(null);
+
+  const today = new Date();
 
   useEffect(() => {
     searchPatients()
@@ -57,28 +69,72 @@ const PatientList = (props) => {
       setSurname('');
       setCountry('');
       setHometown('');
-      setCamp('');
-      setPhone('');
+      setMale(null);
       setMinAge(0);
       setMaxAge(0);
+      setMedicalNum('');
+      setDentalNum('');
+      setOptometryNum('');
+      setCommunity('');
+      setZone('');
+      setBlock('');
+      setLot('');
+      setBloodType('');
+      setVisitDate('');
     })
+    database.getPatientCount().then(number => setPatientCount(number))
+  }
+
+
+  const radioButtons = (props) => {
+    return (
+      <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between', height: 40, alignItems: 'center' }}>
+        <Text style={{ flex: 1, flexDirection: 'column', flexWrap: 'wrap' }}>{props.prompt}</Text>
+        <View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => setMale(!male)}>
+              <View style={[styles.outerRadioButton, { borderColor: 'black' }]}>
+                {male ? <View style={styles.selectedRadioButton} /> : null}
+              </View>
+            </TouchableOpacity>
+            <Text>M</Text>
+
+            <TouchableOpacity onPress={() => {
+              male === null ? setMale(false) : setMale(!male)
+            }
+            }>
+              <View style={[styles.outerRadioButton, { borderColor: 'black' }]}>
+                {(!male && male !== null) ? <View style={styles.selectedRadioButton} /> : null}
+              </View>
+            </TouchableOpacity>
+            <Text>F</Text>
+          </View>
+        </View>
+      </View>
+    )
   }
 
   const searchPatients = () => {
     const currentYear = new Date().getFullYear()
-    if (givenName.length > 0 || surname.length > 0 || country.length > 0 || hometown.length > 0 || maxAge > 0 || camp.length > 0 || phone.length > 0) {
+    if (givenName.length > 0 || surname.length > 0 || country.length > 0 || hometown.length > 0 || maxAge > 0 || male !== null ||
+      medicalNum.length > 0 || dentalNum.length > 0 || optometryNum.length > 0 || community.length > 0 || zone.length > 0 || block.length > 0 || lot.length > 0 ||
+      bloodType.length > 0 || visitDate.length > 0) {
       const givenNameLC = givenName.toLowerCase();
       const surnameLC = surname.toLowerCase();
       const countryLC = country.toLowerCase();
       const hometownLC = hometown.toLowerCase();
-      const campLC = camp.toLowerCase();
-      const phoneLC = phone.toLowerCase();
+
+      let gender = null
+      if (male !== null) {
+        gender = male ? 'M' : 'F'
+      }
       const minYear = (maxAge > 0 && maxAge >= minAge) ? currentYear - maxAge : null;
       const maxYear = (maxAge > 0 && maxAge >= minAge) ? currentYear - minAge : null;
 
-      database.searchPatients(givenNameLC, surnameLC, countryLC, hometownLC, campLC, phoneLC, minYear, maxYear).then(patients => {
-        setList(patients);
-      })
+      database.searchPatients(givenNameLC, surnameLC, countryLC, hometownLC, gender, minYear, maxYear, medicalNum,
+        dentalNum, optometryNum, community, zone, block, lot, bloodType, visitDate).then(patients => {
+          setList(patients);
+        })
     } else {
       reloadPatients()
     }
@@ -185,6 +241,7 @@ const PatientList = (props) => {
         </View>
 
         <View style={[styles.searchBar, { marginTop: 0, justifyContent: 'space-around' }]}>
+          <Text style={styles.text}>{patientCount} {LocalizedStrings[language].patients}</Text>
           <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
             <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].advancedFilters}</Text>
           </TouchableOpacity>
@@ -195,7 +252,7 @@ const PatientList = (props) => {
         <View style={[styles.searchBar, { marginTop: 0, justifyContent: 'center' }]}>
           {LanguageToggle()}
           <TouchableOpacity onPress={async () => {
-            await databaseSync.performSync(instanceUrl, email, password)
+            await databaseSync.performSync(instanceUrl, email, password, language)
             await imageSync.syncPhotos(instanceUrl, email, password)
             reloadPatients()
           }}
@@ -220,11 +277,11 @@ const PatientList = (props) => {
             color={'#F77824'}
             title={LocalizedStrings[language].newPatient}
             onPress={() => props.navigation.navigate('NewPatient',
-            {
-              reloadPatientsToggle: props.navigation.state.params.reloadPatientsToggle,
-              language: language
-            }
-          )}/>
+              {
+                reloadPatientsToggle: props.navigation.state.params.reloadPatientsToggle,
+                language: language
+              }
+            )} />
         </View>
       </View>
       <Modal
@@ -233,103 +290,185 @@ const PatientList = (props) => {
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.leftView}>
-          <View style={[styles.modalView, { alignItems: 'stretch', justifyContent: 'space-between', flex: 1 }]}>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View style={styles.leftView}>
+            <View style={[styles.modalView, { alignItems: 'stretch', justifyContent: 'space-between', flex: 1 }]}>
+              <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
 
-              <TouchableHighlight
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                  setSearchIconFunction(true)
-                }}
-              >
-                <Image source={require('../images/close.png')} style={{ width: 15, height: 15 }} />
-              </TouchableHighlight>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <TextInput
-                placeholder={LocalizedStrings[language].firstName}
-                onChangeText={(text) => setGivenName(text)}
-                value={givenName}
-              />
-              <TextInput
-                placeholder={LocalizedStrings[language].surname}
-                onChangeText={(text) => setSurname(text)}
-                value={surname}
-              />
-            </View>
+                <TouchableHighlight
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                    setSearchIconFunction(true)
+                  }}
+                >
+                  <Image source={require('../images/close.png')} style={{ width: 15, height: 15 }} />
+                </TouchableHighlight>
+              </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <TextInput
+                  placeholder={LocalizedStrings[language].firstName + '(s)'}
+                  onChangeText={(text) => setGivenName(text)}
+                  value={givenName}
+                />
+                <TextInput
+                  placeholder={LocalizedStrings[language].surname + '(s)'}
+                  onChangeText={(text) => setSurname(text)}
+                  value={surname}
+                />
+              </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <TextInput
-                placeholder={LocalizedStrings[language].country}
-                onChangeText={(text) => setCountry(text)}
-                value={country}
-              />
-              <TextInput
-                placeholder={LocalizedStrings[language].hometown}
-                onChangeText={(text) => setHometown(text)}
-                value={hometown}
-              />
-            </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <TextInput
+                  placeholder={LocalizedStrings[language].country}
+                  onChangeText={(text) => setCountry(text)}
+                  value={country}
+                />
+                <TextInput
+                  placeholder={LocalizedStrings[language].hometown}
+                  onChangeText={(text) => setHometown(text)}
+                  value={hometown}
+                />
+              </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <TextInput
-                placeholder={LocalizedStrings[language].camp}
-                onChangeText={(text) => setCamp(text)}
-                value={camp}
-              />
-              <TextInput
-                placeholder={LocalizedStrings[language].phone}
-                onChangeText={(text) => setPhone(text)}
-                value={phone}
-              />
-            </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View>
+                  {radioButtons({ prompt: LocalizedStrings[language].gender })}
+                </View>
 
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={{ paddingTop: 15, paddingRight: 5 }}>{LocalizedStrings[language].minAge}</Text>
-              <Picker
-                selectedValue={minAge}
-                onValueChange={value => setMinAge(value)}
-                style={{
-                  height: 50,
-                  width: 90
-                }}
-              >
-                {agePicker()}
-              </Picker>
-              <Text style={{ paddingTop: 15, paddingRight: 5, paddingLeft: 5 }}>{LocalizedStrings[language].maxAge}</Text>
-              <Picker
-                selectedValue={maxAge}
-                onValueChange={value => setMaxAge(value)}
-                style={{
-                  height: 50,
-                  width: 90
-                }}
-              >
-                {agePicker()}
-              </Picker>
-            </View>
+                <DatePicker
+                  // style={{height: 40,}}
+                  date={visitDate}
+                  mode="date"
+                  placeholder={LocalizedStrings[language].visitDate}
+                  format="YYYY-MM-DD"
+                  minDate="1900-05-01"
+                  maxDate={today.toISOString().split('T')[0]}
+                  confirmBtnText={LocalizedStrings[language].confirm}
+                  cancelBtnText={LocalizedStrings[language].cancel}
+                  customStyles={{
+                    dateInput: {
+                      alignItems: 'flex-start',
+                      borderWidth: 0
+                    }
+                  }}
+                  androidMode='spinner'
+                  onDateChange={(date) => {
+                    setVisitDate(date)
+                  }}
+                />
+              </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Button
-                title={LocalizedStrings[language].clearFilters}
-                color={'red'}
-                onPress={() => {
-                  reloadPatients()
-                }}
-              >
-              </Button>
-              <Button
-                title={LocalizedStrings[language].search}
-                onPress={() => {
-                  Keyboard.dismiss()
-                  setModalVisible(!modalVisible);
-                  searchPatients()
-                }}>
-              </Button>
+
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <TextInput
+                  placeholder={LocalizedStrings[language].medicalNum}
+                  onChangeText={(text) => setMedicalNum(text)}
+                  value={medicalNum}
+                />
+                <TextInput
+                  placeholder={LocalizedStrings[language].dentalNum}
+                  onChangeText={(text) => setDentalNum(text)}
+                  value={dentalNum}
+                />
+              </View>
+
+
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <TextInput
+                  placeholder={LocalizedStrings[language].optometryNum}
+                  onChangeText={(text) => setOptometryNum(text)}
+                  value={optometryNum}
+                />
+                <TextInput
+                  placeholder={LocalizedStrings[language].community}
+                  onChangeText={(text) => setCommunity(text)}
+                  value={community}
+                />
+              </View>
+
+
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <TextInput
+                  placeholder={LocalizedStrings[language].zone}
+                  onChangeText={(text) => setZone(text)}
+                  value={zone}
+                />
+                <TextInput
+                  placeholder={LocalizedStrings[language].block}
+                  onChangeText={(text) => setBlock(text)}
+                  value={block}
+                />
+              </View>
+
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <TextInput
+                  placeholder={LocalizedStrings[language].lot}
+                  onChangeText={(text) => setLot(text)}
+                  value={lot}
+                />
+                <Picker
+                  selectedValue={bloodType}
+                  onValueChange={value => setBloodType(value)}
+                  style={{ width: 150, height: 40 }}
+                >
+                  <Picker.Item value='' label={LocalizedStrings[language].bloodType} />
+                  <Picker.Item value='A+' label='A+' />
+                  <Picker.Item value='B+' label='B+' />
+                  <Picker.Item value='AB+' label='AB+' />
+                  <Picker.Item value='O+' label='O+' />
+                  <Picker.Item value='A-' label='A-' />
+                  <Picker.Item value='B-' label='B-' />
+                  <Picker.Item value='AB-' label='AB-' />
+                  <Picker.Item value='O-' label='O-' />
+                </Picker>
+              </View>
+
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={{ paddingTop: 15, paddingRight: 5 }}>{LocalizedStrings[language].minAge}</Text>
+                <Picker
+                  selectedValue={minAge}
+                  onValueChange={value => setMinAge(value)}
+                  style={{
+                    height: 50,
+                    width: 90
+                  }}
+                >
+                  {agePicker()}
+                </Picker>
+                <Text style={{ paddingTop: 15, paddingRight: 5, paddingLeft: 5 }}>{LocalizedStrings[language].maxAge}</Text>
+                <Picker
+                  selectedValue={maxAge}
+                  onValueChange={value => setMaxAge(value)}
+                  style={{
+                    height: 50,
+                    width: 90
+                  }}
+                >
+                  {agePicker()}
+                </Picker>
+              </View>
+
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Button
+                  title={LocalizedStrings[language].clearFilters}
+                  color={'red'}
+                  onPress={() => {
+                    reloadPatients()
+                  }}
+                >
+                </Button>
+                <Button
+                  title={LocalizedStrings[language].search}
+                  onPress={() => {
+                    Keyboard.dismiss()
+                    setModalVisible(!modalVisible);
+                    searchPatients()
+                  }}>
+                </Button>
+              </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
       </Modal>
     </LinearGradient>
   )

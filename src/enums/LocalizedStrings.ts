@@ -97,6 +97,11 @@ export const LocalizedStrings = {
     travel: "Recent travel to High Risk Countries?",
     testIsolate: "Test/Isolate Patient",
     noAction: "No Action Necessary",
+    syncFailure: "Database Sync Failure!",
+    syncFailureConnection: "Check internet connection",
+    syncFailureSystem: "Contact system administrator",
+    syncSuccess: "Database Sync Success",
+
     //NV events
     patientDetails: "Patient Details",
     medicalNum: "Medical #",
@@ -707,6 +712,10 @@ export const LocalizedStrings = {
     travel: "¿Ha viajado recientemente a países de alto riesgo de contagio?",
     testIsolate: "Hacerle la prueba/Aislar al paciente",
     noAction: "No es necesario tomar ninguna acción",
+    syncFailure: "¡Fallo de sincronización!",
+    syncFailureConnection: "Verifica la conexión a internet",
+    syncFailureSystem: "Comuníquese con el administrador del sistema",
+    syncSuccess: "Éxito en la sincronización",
     //NV events
     patientDetails: "Detalles del Paciente",
     medicalNum: "Exp. Medico #",
