@@ -11,18 +11,38 @@ import LinearGradient from 'react-native-linear-gradient';
 import { radioButtons } from '../Covid19Form'
 import { LocalizedStrings } from '../../enums/LocalizedStrings';
 
+const formatTextDisplay = (field, textField, language) => {
+    if (field === null) {
+        return null
+    }
+    if (!!field && textField == null) {
+        return LocalizedStrings[language].yes
+    }
+    return field ? textField : LocalizedStrings[language].no
+}
+
+const formatDisplay = (field, language) => {
+    if (!!field) {
+        return LocalizedStrings[language].yes
+    }
+    if (field == null) {
+        return null
+    }
+    return LocalizedStrings[language].no
+}
+
 export const HouseholdEnvironmentDisplay = (metadataObj, language) => {
     return (
         <View>
             <Text>{LocalizedStrings[language].doctor}: {metadataObj.doctor} </Text>
-            <Text>{LocalizedStrings[language].potableWater}: {metadataObj.potableWater ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
+            <Text>{LocalizedStrings[language].potableWater}: {formatDisplay(metadataObj.potableWater, language)}</Text>
             <Text>{LocalizedStrings[language].animals}: {metadataObj.animals} </Text>
-            <Text>{LocalizedStrings[language].gasCooking}: {metadataObj.gasCooking ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].woodCooking}: {metadataObj.woodCooking ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
+            <Text>{LocalizedStrings[language].gasCooking}: {formatDisplay(metadataObj.gasCooking, language)}</Text>
+            <Text>{LocalizedStrings[language].woodCooking}: {formatDisplay(metadataObj.woodCooking, language)}</Text>
             <Text>{LocalizedStrings[language].householdSize}: {metadataObj.householdSize}</Text>
-            <Text>{LocalizedStrings[language].toilet}: {metadataObj.toilet ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].latrine}: {metadataObj.latrine ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].familyViolence}: {metadataObj.familyViolence ? metadataObj.familyViolenceText : LocalizedStrings[language].no}</Text>
+            <Text>{LocalizedStrings[language].toilet}: {formatDisplay(metadataObj.toilet, language)}</Text>
+            <Text>{LocalizedStrings[language].latrine}: {formatDisplay(metadataObj.latrine, language)}</Text>
+            <Text>{LocalizedStrings[language].familyViolence}: {formatTextDisplay(metadataObj.familyViolence, metadataObj.familyViolenceText, language)}</Text>
         </View>)
 }
 

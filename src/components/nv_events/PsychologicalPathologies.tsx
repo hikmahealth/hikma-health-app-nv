@@ -16,7 +16,7 @@ const formatDisplay = (field, textField, language) => {
         return null
     }
     if (!!field && textField == null) {
-        return field
+        return LocalizedStrings[language].yes
     }
     return field ? textField : LocalizedStrings[language].no
 
@@ -47,7 +47,7 @@ export const PsychologicalPathologiesDisplay = (metadataObj, language) => {
             <Text>{LocalizedStrings[language].domesticViolenceFamily}: {formatDisplay(metadataObj.domesticViolenceFamily, metadataObj.domesticViolenceFamilyText, language)}</Text>
             <Text>{LocalizedStrings[language].domesticViolenceSpouse}: {formatDisplay(metadataObj.domesticViolenceSpouse, metadataObj.domesticViolenceSpouseText, language)}</Text>
             <Text>{LocalizedStrings[language].referralHospital}: {formatDisplay(metadataObj.referralHospital, metadataObj.referralHospitalText, language)}</Text>
-            <Text>{LocalizedStrings[language].other}: {formatDisplay(metadataObj.other, null, language)}</Text>
+            <Text>{LocalizedStrings[language].other}: {metadataObj.other}</Text>
         </View>)
 }
 

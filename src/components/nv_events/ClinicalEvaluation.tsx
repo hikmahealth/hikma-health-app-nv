@@ -11,6 +11,25 @@ import LinearGradient from 'react-native-linear-gradient';
 import { datePicker, radioButtons } from '../Covid19Form'
 import { LocalizedStrings } from '../../enums/LocalizedStrings';
 
+const formatDateDisplay = (field, dateField, language) => {
+  if (field !== null) {
+      if (!!dateField) {
+          return field ? (LocalizedStrings[language].yes + '   ' + dateField) : LocalizedStrings[language].no
+      } else {
+          return field ? (LocalizedStrings[language].yes) : LocalizedStrings[language].no
+      }
+  }
+  return null
+}
+
+const formatDisplay = (field, language) => {
+  if (field == null) {
+      return null
+  }
+  return field ? LocalizedStrings[language].yes : LocalizedStrings[language].no
+
+}
+
 export const ClinicalEvaluationDisplay = (metadataObj, language) => {
   return (
     <View>
@@ -19,12 +38,12 @@ export const ClinicalEvaluationDisplay = (metadataObj, language) => {
       <Text>{LocalizedStrings[language].reason}: {metadataObj.reason}</Text>
       <Text>{LocalizedStrings[language].observations}: {metadataObj.observations}</Text>
       <Text>{LocalizedStrings[language].medications}: {metadataObj.medications}</Text>
-      <Text>{LocalizedStrings[language].breastExam}: {metadataObj.breastExam ? LocalizedStrings[language].true : LocalizedStrings[language].no}</Text>
+      <Text>{LocalizedStrings[language].breastExam}: {formatDisplay(metadataObj.breastExam, language)}</Text>
       <Text>{LocalizedStrings[language].diagnosis}: {metadataObj.diagnosis}</Text>
       <Text>{LocalizedStrings[language].treatment}: {metadataObj.treatment}</Text>
-      <Text>{LocalizedStrings[language].communityVisit}: {metadataObj.communityVisit ? metadataObj.communityVisitDate : LocalizedStrings[language].no}</Text>
-      <Text>{LocalizedStrings[language].promoterVisit}: {metadataObj.promoterVisit ? metadataObj.promoterVisitDate : LocalizedStrings[language].no}</Text>
-      <Text>{LocalizedStrings[language].refusal}: {metadataObj.refusal ? metadataObj.refusalDate : LocalizedStrings[language].no}</Text>
+      <Text>{LocalizedStrings[language].communityVisit}: {formatDateDisplay(metadataObj.communityVisit, metadataObj.communityVisitDate, language)}</Text>
+      <Text>{LocalizedStrings[language].promoterVisit}: {formatDateDisplay(metadataObj.promoterVisit, metadataObj.promoterVisitDate, language)}</Text>
+      <Text>{LocalizedStrings[language].refusal}: {formatDateDisplay(metadataObj.refusal, metadataObj.refusalDate, language)}</Text>
       <Text>{LocalizedStrings[language].nextVisitDate}: {metadataObj.nextVisitDate}</Text>
       <Text>{LocalizedStrings[language].nextVisitReason}: {metadataObj.nextVisitReason}</Text>
     </View>)

@@ -15,6 +15,8 @@ const formatIUDDisplay = (field, type, dateField, language) => {
     if (field !== null) {
         if (!!dateField && !!type) {
             return field ? (LocalizedStrings[language].yes + '   ' + type + '   ' + dateField) : LocalizedStrings[language].no
+        } else if (!!type) {
+            return field ? (LocalizedStrings[language].yes + '   ' + type) : LocalizedStrings[language].no
         } else {
             return field ? (LocalizedStrings[language].yes) : LocalizedStrings[language].no
         }

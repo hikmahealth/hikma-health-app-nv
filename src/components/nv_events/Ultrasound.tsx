@@ -11,59 +11,67 @@ import LinearGradient from 'react-native-linear-gradient';
 import { datePicker, radioButtons } from '../Covid19Form'
 import { LocalizedStrings } from '../../enums/LocalizedStrings';
 
-const formatDisplay = (field, dateField, language) => {
+const formatDateDisplay = (field, dateField) => {
     if (!!field && !!dateField) {
         return (field + '   ' + dateField)
     }
     return null
-
+}
+const formatDisplay = (field, language) => {
+    if (!!field) {
+        return LocalizedStrings[language].yes
+    }
+    if (field == null) {
+        return null
+    }
+    return LocalizedStrings[language].no
 }
 
 export const UltrasoundDisplay = (metadataObj, language) => {
     return (
         <View>
             <Text>{LocalizedStrings[language].doctor}: {metadataObj.doctor} </Text>
-            <Text>{LocalizedStrings[language].abdominal}: {metadataObj.abdominal ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].joints}: {metadataObj.joints ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].neck}: {metadataObj.neck ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].doppler}: {metadataObj.doppler ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].breast}: {metadataObj.breast ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].firstOB}: {metadataObj.firstOB ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].secondOB}: {metadataObj.secondOB ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].thirdOB}: {metadataObj.thirdOB ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].softTissues}: {metadataObj.softTissues ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].pelvic}: {metadataObj.pelvic ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].prostate}: {metadataObj.prostate ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].renal}: {metadataObj.renal ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].testicular}: {metadataObj.testicular ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
-            <Text>{LocalizedStrings[language].other}: {metadataObj.other ? LocalizedStrings[language].yes : LocalizedStrings[language].no}</Text>
+            <Text>{LocalizedStrings[language].abdominal}: {formatDisplay(metadataObj.abdominal, language)}</Text>
+            <Text>{LocalizedStrings[language].joints}: {formatDisplay(metadataObj.joints, language)}</Text>
+            <Text>{LocalizedStrings[language].neck}: {formatDisplay(metadataObj.neck, language)}</Text>
+            <Text>{LocalizedStrings[language].doppler}: {formatDisplay(metadataObj.doppler, language)}</Text>
+            <Text>{LocalizedStrings[language].breast}: {formatDisplay(metadataObj.breast, language)}</Text>
+            <Text>{LocalizedStrings[language].firstOB}: {formatDisplay(metadataObj.firstOB, language)}</Text>
+            <Text>{LocalizedStrings[language].secondOB}: {formatDisplay(metadataObj.secondOB, language)}</Text>
+            <Text>{LocalizedStrings[language].thirdOB}: {formatDisplay(metadataObj.thirdOB, language)}</Text>
+            <Text>{LocalizedStrings[language].softTissues}: {formatDisplay(metadataObj.softTissues, language)}</Text>
+            <Text>{LocalizedStrings[language].pelvic}: {formatDisplay(metadataObj.pelvic, language)}</Text>
+            <Text>{LocalizedStrings[language].prostate}: {formatDisplay(metadataObj.prostate, language)}</Text>
+            <Text>{LocalizedStrings[language].renal}: {formatDisplay(metadataObj.renal, language)}</Text>
+            <Text>{LocalizedStrings[language].testicular}: {formatDisplay(metadataObj.testicular, language)}</Text>
+            <Text>{LocalizedStrings[language].other}: {formatDisplay(metadataObj.other, language)}</Text>
 
-            <Text>{LocalizedStrings[language].goiter}: {formatDisplay(metadataObj.goiter, metadataObj.goiterDate, language)} </Text>
-            <Text>{LocalizedStrings[language].wrappedCord}: {formatDisplay(metadataObj.wrappedCord, metadataObj.wrappedCordDate, language)} </Text>
-            <Text>{LocalizedStrings[language].cholelithiasis}: {formatDisplay(metadataObj.cholelithiasis, metadataObj.cholelithiasisDate, language)} </Text>
-            <Text>{LocalizedStrings[language].prostate1}: {formatDisplay(metadataObj.prostate1, metadataObj.prostate1Date, language)} </Text>
-            <Text>{LocalizedStrings[language].prostate2}: {formatDisplay(metadataObj.prostate2, metadataObj.prostate2Date, language)} </Text>
-            <Text>{LocalizedStrings[language].prostate3}: {formatDisplay(metadataObj.prostate3, metadataObj.prostate3Date, language)} </Text>
-            <Text>{LocalizedStrings[language].prostate4}: {formatDisplay(metadataObj.prostate4, metadataObj.prostate4Date, language)} </Text>
-            <Text>{LocalizedStrings[language].endometrialThickening}: {formatDisplay(metadataObj.endometrialThickening, metadataObj.endometrialThickeningDate, language)} </Text>
-            <Text>{LocalizedStrings[language].splenomegaly}: {formatDisplay(metadataObj.splenomegaly, metadataObj.splenomegalyDate, language)} </Text>
-            <Text>{LocalizedStrings[language].mildHepatic}: {formatDisplay(metadataObj.mildHepatic, metadataObj.mildHepaticDate, language)} </Text>
-            <Text>{LocalizedStrings[language].moderateHepatic}: {formatDisplay(metadataObj.moderateHepatic, metadataObj.moderateHepaticDate, language)} </Text>
-            <Text>{LocalizedStrings[language].severeHepatic}: {formatDisplay(metadataObj.severeHepatic, metadataObj.severeHepaticDate, language)} </Text>
-            <Text>{LocalizedStrings[language].hepatomegaly}: {formatDisplay(metadataObj.hepatomegaly, metadataObj.hepatomegalyDate, language)} </Text>
-            <Text>{LocalizedStrings[language].cirrhosis}: {formatDisplay(metadataObj.cirrhosis, metadataObj.cirrhosisDate, language)} </Text>
-            <Text>{LocalizedStrings[language].venousInsufficiency}: {formatDisplay(metadataObj.venousInsufficiency, metadataObj.venousInsufficiencyDate, language)} </Text>
-            <Text>{LocalizedStrings[language].mildRenal}: {formatDisplay(metadataObj.mildRenal, metadataObj.mildRenalDate, language)} </Text>
-            <Text>{LocalizedStrings[language].moderateRenal}: {formatDisplay(metadataObj.moderateRenal, metadataObj.moderateRenalDate, language)} </Text>
-            <Text>{LocalizedStrings[language].severeRenal}: {formatDisplay(metadataObj.severeRenal, metadataObj.severeRenalDate, language)} </Text>
-            <Text>{LocalizedStrings[language].nephrolithiasis}: {formatDisplay(metadataObj.nephrolithiasis, metadataObj.nephrolithiasisDate, language)} </Text>
-            <Text>{LocalizedStrings[language].complexMasses}: {formatDisplay(metadataObj.complexMasses, metadataObj.complexMassesDate, language)} </Text>
-            <Text>{LocalizedStrings[language].benignNodules}: {formatDisplay(metadataObj.benignNodules, metadataObj.benignNodulesDate, language)} </Text>
-            <Text>{LocalizedStrings[language].malignantNodules}: {formatDisplay(metadataObj.malignantNodules, metadataObj.malignantNodulesDate, language)} </Text>
-            <Text>{LocalizedStrings[language].thyroidNodules}: {formatDisplay(metadataObj.thyroidNodules, metadataObj.thyroidNodulesDate, language)} </Text>
-            <Text>{LocalizedStrings[language].normalUltrasound}: {formatDisplay(metadataObj.normalUltrasound, metadataObj.normalUltrasoundDate, language)} </Text>
-            <Text>{LocalizedStrings[language].polycysticOvaries}: {formatDisplay(metadataObj.polycysticOvaries, metadataObj.polycysticOvariesDate, language)} </Text>
-            <Text>{LocalizedStrings[language].simpleOvarianCysts}: {formatDisplay(metadataObj.simpleOvarianCysts, metadataObj.simpleOvarianCystsDate, language)} </Text>
+            <Text>{LocalizedStrings[language].goiter}: {formatDateDisplay(metadataObj.goiter, metadataObj.goiterDate)} </Text>
+            <Text>{LocalizedStrings[language].wrappedCord}: {formatDateDisplay(metadataObj.wrappedCord, metadataObj.wrappedCordDate)} </Text>
+            <Text>{LocalizedStrings[language].cholelithiasis}: {formatDateDisplay(metadataObj.cholelithiasis, metadataObj.cholelithiasisDate)} </Text>
+            <Text>{LocalizedStrings[language].prostate1}: {formatDateDisplay(metadataObj.prostate1, metadataObj.prostate1Date)} </Text>
+            <Text>{LocalizedStrings[language].prostate2}: {formatDateDisplay(metadataObj.prostate2, metadataObj.prostate2Date)} </Text>
+            <Text>{LocalizedStrings[language].prostate3}: {formatDateDisplay(metadataObj.prostate3, metadataObj.prostate3Date)} </Text>
+            <Text>{LocalizedStrings[language].prostate4}: {formatDateDisplay(metadataObj.prostate4, metadataObj.prostate4Date)} </Text>
+            <Text>{LocalizedStrings[language].endometrialThickening}: {formatDateDisplay(metadataObj.endometrialThickening, metadataObj.endometrialThickeningDate)} </Text>
+            <Text>{LocalizedStrings[language].splenomegaly}: {formatDateDisplay(metadataObj.splenomegaly, metadataObj.splenomegalyDate)} </Text>
+            <Text>{LocalizedStrings[language].mildHepatic}: {formatDateDisplay(metadataObj.mildHepatic, metadataObj.mildHepaticDate)} </Text>
+            <Text>{LocalizedStrings[language].moderateHepatic}: {formatDateDisplay(metadataObj.moderateHepatic, metadataObj.moderateHepaticDate)} </Text>
+            <Text>{LocalizedStrings[language].severeHepatic}: {formatDateDisplay(metadataObj.severeHepatic, metadataObj.severeHepaticDate)} </Text>
+            <Text>{LocalizedStrings[language].hepatomegaly}: {formatDateDisplay(metadataObj.hepatomegaly, metadataObj.hepatomegalyDate)} </Text>
+            <Text>{LocalizedStrings[language].cirrhosis}: {formatDateDisplay(metadataObj.cirrhosis, metadataObj.cirrhosisDate)} </Text>
+            <Text>{LocalizedStrings[language].venousInsufficiency}: {formatDateDisplay(metadataObj.venousInsufficiency, metadataObj.venousInsufficiencyDate)} </Text>
+            <Text>{LocalizedStrings[language].mildRenal}: {formatDateDisplay(metadataObj.mildRenal, metadataObj.mildRenalDate)} </Text>
+            <Text>{LocalizedStrings[language].moderateRenal}: {formatDateDisplay(metadataObj.moderateRenal, metadataObj.moderateRenalDate)} </Text>
+            <Text>{LocalizedStrings[language].severeRenal}: {formatDateDisplay(metadataObj.severeRenal, metadataObj.severeRenalDate)} </Text>
+            <Text>{LocalizedStrings[language].nephrolithiasis}: {formatDateDisplay(metadataObj.nephrolithiasis, metadataObj.nephrolithiasisDate)} </Text>
+            <Text>{LocalizedStrings[language].complexMasses}: {formatDateDisplay(metadataObj.complexMasses, metadataObj.complexMassesDate)} </Text>
+            <Text>{LocalizedStrings[language].benignNodules}: {formatDateDisplay(metadataObj.benignNodules, metadataObj.benignNodulesDate)} </Text>
+            <Text>{LocalizedStrings[language].malignantNodules}: {formatDateDisplay(metadataObj.malignantNodules, metadataObj.malignantNodulesDate)} </Text>
+            <Text>{LocalizedStrings[language].thyroidNodules}: {formatDateDisplay(metadataObj.thyroidNodules, metadataObj.thyroidNodulesDate)} </Text>
+            <Text>{LocalizedStrings[language].normalUltrasound}: {formatDateDisplay(metadataObj.normalUltrasound, metadataObj.normalUltrasoundDate)} </Text>
+            <Text>{LocalizedStrings[language].polycysticOvaries}: {formatDateDisplay(metadataObj.polycysticOvaries, metadataObj.polycysticOvariesDate)} </Text>
+            <Text>{LocalizedStrings[language].simpleOvarianCysts}: {formatDateDisplay(metadataObj.simpleOvarianCysts, metadataObj.simpleOvarianCystsDate)} </Text>
         </View>)
 }
 

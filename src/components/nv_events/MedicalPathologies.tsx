@@ -16,10 +16,9 @@ const formatDisplay = (field, textField, language) => {
         return null
     }
     if (!!field && textField == null) {
-        return field
+        return LocalizedStrings[language].yes
     }
     return field ? textField : LocalizedStrings[language].no
-
 }
 
 export const MedicalPathologiesDisplay = (metadataObj, language) => {
@@ -42,7 +41,7 @@ export const MedicalPathologiesDisplay = (metadataObj, language) => {
             <Text>{LocalizedStrings[language].neckPain}: {formatDisplay(metadataObj.neckPain, metadataObj.neckPainText, language)}</Text>
             <Text>{LocalizedStrings[language].cervicovaginitis}: {formatDisplay(metadataObj.cervicovaginitis, metadataObj.cervicovaginitisText, language)}</Text>
 
-            <Text>{LocalizedStrings[language].cSection}: {formatDisplay(metadataObj.cSection, null, language)}</Text>
+            <Text>{LocalizedStrings[language].cSection}: {metadataObj.cSection}</Text>
 
             <Text>{LocalizedStrings[language].sciaticPain}: {formatDisplay(metadataObj.sciaticPain, metadataObj.sciaticPainText, language)}</Text>
             <Text>{LocalizedStrings[language].cholesterol}: {formatDisplay(metadataObj.cholesterol, metadataObj.cholesterolText, language)}</Text>
@@ -50,13 +49,14 @@ export const MedicalPathologiesDisplay = (metadataObj, language) => {
             <Text>{LocalizedStrings[language].conjunctivitis}: {formatDisplay(metadataObj.conjunctivitis, metadataObj.conjunctivitisText, language)}</Text>
             <Text>{LocalizedStrings[language].covid}: {formatDisplay(metadataObj.covid, metadataObj.covidText, language)}</Text>
             <Text>{LocalizedStrings[language].malnourishment}: {formatDisplay(metadataObj.malnourishment, metadataObj.malnourishmentText, language)}</Text>
+            <Text>{LocalizedStrings[language].diabetes}: {formatDisplay(metadataObj.diabetes, metadataObj.diabetesText, language)}</Text>
             <Text>{LocalizedStrings[language].migraines}: {formatDisplay(metadataObj.migraines, metadataObj.migrainesText, language)}</Text>
             <Text>{LocalizedStrings[language].diarrhea}: {formatDisplay(metadataObj.diarrhea, metadataObj.diarrheaText, language)}</Text>
             <Text>{LocalizedStrings[language].ecocardiogram}: {formatDisplay(metadataObj.ecocardiogram, metadataObj.ecocardiogramText, language)}</Text>
             <Text>{LocalizedStrings[language].electrocardiogram}: {formatDisplay(metadataObj.electrocardiogram, metadataObj.electrocardiogramText, language)}</Text>
 
-            <Text>{LocalizedStrings[language].pregnant}: {formatDisplay(metadataObj.pregnant, LocalizedStrings[language].true, language)}</Text>
-            <Text>{LocalizedStrings[language].pregnancies}: {formatDisplay(metadataObj.pregnancies, null, language)}</Text>
+            <Text>{LocalizedStrings[language].pregnant}: {formatDisplay(metadataObj.pregnant, null, language)}</Text>
+            <Text>{LocalizedStrings[language].pregnancies}: {metadataObj.pregnancies}</Text>
 
             <Text>{LocalizedStrings[language].chikungunya}: {formatDisplay(metadataObj.chikungunya, metadataObj.chikungunyaText, language)}</Text>
             <Text>{LocalizedStrings[language].dengue}: {formatDisplay(metadataObj.dengue, metadataObj.dengueText, language)}</Text>
@@ -66,7 +66,7 @@ export const MedicalPathologiesDisplay = (metadataObj, language) => {
             <Text>{LocalizedStrings[language].copd}: {formatDisplay(metadataObj.copd, metadataObj.copdText, language)}</Text>
             <Text>{LocalizedStrings[language].gastritis}: {formatDisplay(metadataObj.gastritis, metadataObj.gastritisText, language)}</Text>
             <Text>{LocalizedStrings[language].scabies}: {formatDisplay(metadataObj.scabies, metadataObj.scabiesText, language)}</Text>
-            <Text>{LocalizedStrings[language].lastPAP}: {formatDisplay(metadataObj.lastPAP, null, language)}</Text>
+            <Text>{LocalizedStrings[language].lastPAP}: {metadataObj.lastPAP}</Text>
 
             <Text>{LocalizedStrings[language].vaginalFluid}: {formatDisplay(metadataObj.vaginalFluid, metadataObj.vaginalFluidText, language)}</Text>
             <Text>{LocalizedStrings[language].hypertension}: {formatDisplay(metadataObj.hypertension, metadataObj.hypertensionText, language)}</Text>
@@ -90,8 +90,8 @@ export const MedicalPathologiesDisplay = (metadataObj, language) => {
             <Text>{LocalizedStrings[language].skinUlcers}: {formatDisplay(metadataObj.skinUlcers, metadataObj.skinUlcersText, language)}</Text>
             <Text>{LocalizedStrings[language].skinInfected}: {formatDisplay(metadataObj.skinInfected, metadataObj.skinInfectedText, language)}</Text>
             <Text>{LocalizedStrings[language].lice}: {formatDisplay(metadataObj.lice, metadataObj.liceText, language)}</Text>
-            <Text>{LocalizedStrings[language].postnatalVisit}: {formatDisplay(metadataObj.postnatalVisit, LocalizedStrings[language].true, language)}</Text>
-            <Text>{LocalizedStrings[language].prenatalVisit}: {formatDisplay(metadataObj.prenatalVisit, LocalizedStrings[language].true, language)}</Text>
+            <Text>{LocalizedStrings[language].postnatalVisit}: {formatDisplay(metadataObj.postnatalVisit, null, language)}</Text>
+            <Text>{LocalizedStrings[language].prenatalVisit}: {formatDisplay(metadataObj.prenatalVisit, null, language)}</Text>
 
             <Text>{LocalizedStrings[language].eyeProb}: {formatDisplay(metadataObj.eyeProb, metadataObj.eyeProbText, language)}</Text>
             <Text>{LocalizedStrings[language].emotionalProb}: {formatDisplay(metadataObj.emotionalProb, metadataObj.emotionalProbText, language)}</Text>
@@ -106,7 +106,7 @@ export const MedicalPathologiesDisplay = (metadataObj, language) => {
 
             <Text>{LocalizedStrings[language].hiv}: {formatDisplay(metadataObj.hiv, metadataObj.hivText, language)}</Text>
             <Text>{LocalizedStrings[language].vomiting}: {formatDisplay(metadataObj.vomiting, metadataObj.vomitingText, language)}</Text>
-            <Text>{LocalizedStrings[language].other}: {formatDisplay(metadataObj.other, null, language)}</Text>
+            <Text>{LocalizedStrings[language].other}: {metadataObj.other}</Text>
 
         </View>)
 }
@@ -155,6 +155,8 @@ const MedicalPathologies = (props) => {
     const [covidText, setCovidText] = useState(null);
     const [malnourishment, setMalnourishment] = useState(null);
     const [malnourishmentText, setMalnourishmentText] = useState(null);
+    const [diabetes, setDiabetes] = useState(null);
+    const [diabetesText, setDiabetesText] = useState(null);
     const [migraines, setMigraines] = useState(null);
     const [migrainesText, setMigrainesText] = useState(null);
     const [diarrhea, setDiarrhea] = useState(null);
@@ -313,6 +315,8 @@ const MedicalPathologies = (props) => {
                 setCovidText(responseObj.covidText)
                 setMalnourishment(responseObj.malnourishment)
                 setMalnourishmentText(responseObj.malnourishmentText)
+                setDiabetes(responseObj.diabetes)
+                setDiabetesText(responseObj.diabetesText)
                 setMigraines(responseObj.migraines)
                 setMigrainesText(responseObj.migrainesText)
                 setDiarrhea(responseObj.diarrhea)
@@ -465,6 +469,8 @@ const MedicalPathologies = (props) => {
                 covidText,
                 malnourishment,
                 malnourishmentText,
+                diabetes,
+                diabetesText,
                 migraines,
                 migrainesText,
                 diarrhea,
@@ -639,6 +645,7 @@ const MedicalPathologies = (props) => {
                     {formRow(conjunctivitis, setConjunctivitis, conjunctivitisText, setConjunctivitisText, 'conjunctivitis')}
                     {formRow(covid, setCovid, covidText, setCovidText, 'covid')}
                     {formRow(malnourishment, setMalnourishment, malnourishmentText, setMalnourishmentText, 'malnourishment')}
+                    {formRow(diabetes, setDiabetes, diabetesText, setDiabetesText, 'diabetes')}
                     {formRow(migraines, setMigraines, migrainesText, setMigrainesText, 'migraines')}
                     {formRow(diarrhea, setDiarrhea, diarrheaText, setDiarrheaText, 'diarrhea')}
                     {formRow(ecocardiogram, setEcocardiogram, ecocardiogramText, setEcocardiogramText, 'ecocardiogram')}

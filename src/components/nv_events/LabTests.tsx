@@ -47,7 +47,7 @@ export const LabTestsDisplay = (metadataObj, language) => {
             <Text>{LocalizedStrings[language].CBCWBC}: {formatTextDisplay(metadataObj.CBCWBC, metadataObj.CBCWBCDate)} </Text>
             <Text>{LocalizedStrings[language].CBCPlateletCount}: {formatTextDisplay(metadataObj.CBCPlateletCount, metadataObj.CBCPlateletCountDate)} </Text>
             <Text>{LocalizedStrings[language].CBCRBC}: {formatTextDisplay(metadataObj.CBCRBC, metadataObj.CBCRBCDate)} </Text>
-            <Text>{LocalizedStrings[language].CBCMCV}: {formatTextDisplay(metadataObj.CBCMCV, metadataObj.CBCMCVCBCImmatureDate)} </Text>
+            <Text>{LocalizedStrings[language].CBCMCV}: {formatTextDisplay(metadataObj.CBCMCV, metadataObj.CBCMCVDate)} </Text>
             <Text>{LocalizedStrings[language].biochemUric}: {formatTextDisplay(metadataObj.biochemUric, metadataObj.biochemUricDate)} </Text>
             <Text>{LocalizedStrings[language].biochemCreatinine}: {formatTextDisplay(metadataObj.biochemCreatinine, metadataObj.biochemCreatinineDate)} </Text>
             <Text>{LocalizedStrings[language].biochemGlucose}: {formatTextDisplay(metadataObj.biochemGlucose, metadataObj.biochemGlucoseDate)} </Text>

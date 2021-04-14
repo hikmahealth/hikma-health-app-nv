@@ -12,14 +12,11 @@ import { radioButtons } from '../Covid19Form'
 import { LocalizedStrings } from '../../enums/LocalizedStrings';
 
 const formatDisplay = (field, language) => {
-    if (!!field) {
-        return LocalizedStrings[language].yes
-    }
-    if (field === null) {
+    if (field == null) {
         return null
     }
-    return LocalizedStrings[language].no
-}
+    return field ? LocalizedStrings[language].yes : LocalizedStrings[language].no
+  }
 
 export const DentalOriginDisplay = (metadataObj, language) => {
     return (

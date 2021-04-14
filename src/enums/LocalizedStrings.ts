@@ -19,6 +19,7 @@ export const LocalizedStrings = {
     cancel: "CANCEL",
     yes: "Y",
     no: "N",
+    //next two not in arabic
     positive: "Positive",
     negative: "Negative",
     true: "True",
@@ -84,7 +85,7 @@ export const LocalizedStrings = {
     fatigue: "Fatigue?",
     aches: "Aches and Pains?",
     headache: "Headache?",
-    diabetes: "Diabetes?",
+    diabetes: "Diabetes",
     cardioDisease: "Cardiovascular Disease?",
     pulmonaryDisease: "Pulmonary Disease?",
     renalDisease: "Renal Disease?",
@@ -189,6 +190,7 @@ export const LocalizedStrings = {
     conjunctivitis: "Conjunctivitis",
     covid: "COVID-19",
     malnourishment: "Malnourishment",
+    //diabetes
     migraines: "Body & head pain including migraines",
     diarrhea: "Acute Diarrhea",
     ecocardiogram: "Ecocardiogram",
@@ -699,7 +701,7 @@ export const LocalizedStrings = {
     fatigue: "¿Fatiga?",
     aches: "¿Dolores y molestias?",
     headache: "¿Dolor de cabeza?",
-    diabetes: "¿Diabetes?",
+    diabetes: "Diabetes",
     cardioDisease: "¿Problemas del corazón?",
     pulmonaryDisease: "¿Enfermedad en los pulmones?",
     renalDisease: "¿Enfermedad de los riñones?",

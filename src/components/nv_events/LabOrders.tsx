@@ -16,7 +16,7 @@ const formatDisplay = (field, language) => {
     if (!!field) {
         return LocalizedStrings[language].yes
     }
-    if (field === null) {
+    if (field == null) {
         return null
     }
     return LocalizedStrings[language].no

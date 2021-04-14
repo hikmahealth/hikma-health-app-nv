@@ -12,14 +12,14 @@ import { radioButtons, datePicker } from '../Covid19Form'
 import { LocalizedStrings } from '../../enums/LocalizedStrings';
 
 const formatTextDisplay = (field, textField, language) => {
-    if (field !== null) {
-        if (!!textField) {
-            return field ? (LocalizedStrings[language].yes + '   ' + textField) : LocalizedStrings[language].no
-        } else {
-            return field ? (LocalizedStrings[language].yes) : LocalizedStrings[language].no
-        }
+    if (field == null) {
+        return null
     }
-    return null
+    if (!!field && textField == null) {
+        return LocalizedStrings[language].yes
+    }
+    return field ? textField : LocalizedStrings[language].no
+
 }
 
 export const AccidentReportDisplay = (metadataObj, language) => {
