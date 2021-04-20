@@ -16,60 +16,19 @@ const formatDisplay = (field, language) => {
         return null
     }
     return field ? LocalizedStrings[language].yes : LocalizedStrings[language].no
-  }
+}
 
 export const DentalOriginDisplay = (metadataObj, language) => {
     return (
         <View>
             <Text>{LocalizedStrings[language].doctor}: {metadataObj.doctor} </Text>
-            <Text>{LocalizedStrings[language].bernabe}: {formatDisplay(metadataObj.bernabe, language)} </Text>
-            <Text>{LocalizedStrings[language].canon}: {formatDisplay(metadataObj.canon, language)} </Text>
-            <Text>{LocalizedStrings[language].clubLaEsperanza}: {formatDisplay(metadataObj.clubLaEsperanza, language)} </Text>
-            <Text>{LocalizedStrings[language].elShaddai}: {formatDisplay(metadataObj.elShaddai, language)} </Text>
-            <Text>{LocalizedStrings[language].hogar}: {formatDisplay(metadataObj.hogar, language)} </Text>
-            <Text>{LocalizedStrings[language].jinotepe}: {formatDisplay(metadataObj.jinotepe, language)} </Text>
-            <Text>{LocalizedStrings[language].laHermosa}: {formatDisplay(metadataObj.laHermosa, language)} </Text>
-            <Text>{LocalizedStrings[language].leonDeJuda}: {formatDisplay(metadataObj.leonDeJuda, language)} </Text>
-            <Text>{LocalizedStrings[language].losNinn}: {formatDisplay(metadataObj.losNinn, language)} </Text>
-            <Text>{LocalizedStrings[language].luzVida}: {formatDisplay(metadataObj.luzVida, language)} </Text>
-            <Text>{LocalizedStrings[language].manantialDeVida}: {formatDisplay(metadataObj.manantialDeVida, language)} </Text>
-            <Text>{LocalizedStrings[language].maranatha}: {formatDisplay(metadataObj.maranatha, language)} </Text>
-            <Text>{LocalizedStrings[language].matagalpa}: {formatDisplay(metadataObj.matagalpa, language)} </Text>
-            <Text>{LocalizedStrings[language].monteDeSion}: {formatDisplay(metadataObj.monteDeSion, language)} </Text>
-            <Text>{LocalizedStrings[language].nuevaJerusalen}: {formatDisplay(metadataObj.nuevaJerusalen, language)} </Text>
-            <Text>{LocalizedStrings[language].obreroLevitico}: {formatDisplay(metadataObj.obreroLevítico, language)} </Text>
-            <Text>{LocalizedStrings[language].posoltegaJoseLara}: {formatDisplay(metadataObj.posoltegaJoseLara, language)} </Text>
-            <Text>{LocalizedStrings[language].riosDeAguaViva}: {formatDisplay(metadataObj.riosDeAguaViva, language)} </Text>
-            <Text>{LocalizedStrings[language].rivas}: {formatDisplay(metadataObj.rivas, language)} </Text>
-            <Text>{LocalizedStrings[language].verboSur}: {formatDisplay(metadataObj.verboSur, language)} </Text>
-            <Text>{LocalizedStrings[language].jubileeHouseCommunity}: {formatDisplay(metadataObj.jubileeHouseCommunity, language)} </Text>
-            <Text>{LocalizedStrings[language].otherFeedingCenter}: {metadataObj.otherFeedingCenter} </Text>
+            {!!metadataObj.otherFeedingCenter && metadataObj.feedingCenter == 'Other' ? <Text>{LocalizedStrings[language].otherFeedingCenter}: {metadataObj.otherFeedingCenter} </Text> : <Text>{LocalizedStrings[language].feedingCenter}: {metadataObj.feedingCenter} </Text>}
         </View>)
 }
 
 const DentalOrigin = (props) => {
 
-    const [bernabe, setBernabe] = useState(null);
-    const [canon, setCanon] = useState(null);
-    const [clubLaEsperanza, setClubLaEsperanza] = useState(null);
-    const [elShaddai, setElShaddai] = useState(null);
-    const [hogar, setHogar] = useState(null);
-    const [jinotepe, setJinotepe] = useState(null);
-    const [laHermosa, setLaHermosa] = useState(null);
-    const [leonDeJuda, setLeonDeJuda] = useState(null);
-    const [losNinn, setLosNinn] = useState(null);
-    const [luzVida, setLuzVida] = useState(null);
-    const [manantialDeVida, setManantialDeVida] = useState(null);
-    const [maranatha, setMaranatha] = useState(null);
-    const [matagalpa, setMatagalpa] = useState(null);
-    const [monteDeSion, setMonteDeSion] = useState(null);
-    const [nuevaJerusalen, setNuevaJerusalen] = useState(null);
-    const [obreroLevitico, setObreroLevitico] = useState(null);
-    const [posoltegaJoseLara, setPosoltegaJoseLara] = useState(null);
-    const [riosDeAguaViva, setRiosDeAguaViva] = useState(null);
-    const [rivas, setRivas] = useState(null);
-    const [verboSur, setVerboSur] = useState(null);
-    const [jubileeHouseCommunity, setJubileeHouseCommunity] = useState(null);
+    const [feedingCenter, setFeedingCenter] = useState(null);
     const [otherFeedingCenter, setOtherFeedingCenter] = useState(null);
 
     const patientId = props.navigation.getParam('patientId');
@@ -85,27 +44,7 @@ const DentalOrigin = (props) => {
             event_type: EventTypes.DentalOrigin,
             event_metadata: JSON.stringify({
                 doctor: userName,
-                bernabe,
-                canon,
-                clubLaEsperanza,
-                elShaddai,
-                hogar,
-                jinotepe,
-                laHermosa,
-                leonDeJuda,
-                losNinn,
-                luzVida,
-                manantialDeVida,
-                maranatha,
-                matagalpa,
-                monteDeSion,
-                nuevaJerusalen,
-                obreroLevitico,
-                posoltegaJoseLara,
-                riosDeAguaViva,
-                rivas,
-                verboSur,
-                jubileeHouseCommunity,
+                feedingCenter,
                 otherFeedingCenter,
             })
         }).then(() => {
@@ -113,76 +52,45 @@ const DentalOrigin = (props) => {
         })
     };
 
-    return (
-        <ScrollView>
-            <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
-                <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
-                        <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].dentalOrigin}</Text>
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: bernabe, action: setBernabe, prompt: LocalizedStrings[language].bernabe, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: canon, action: setCanon, prompt: LocalizedStrings[language].canon, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: clubLaEsperanza, action: setClubLaEsperanza, prompt: LocalizedStrings[language].clubLaEsperanza, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: elShaddai, action: setElShaddai, prompt: LocalizedStrings[language].elShaddai, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: hogar, action: setHogar, prompt: LocalizedStrings[language].hogar, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: jinotepe, action: setJinotepe, prompt: LocalizedStrings[language].jinotepe, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: laHermosa, action: setLaHermosa, prompt: LocalizedStrings[language].laHermosa, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: leonDeJuda, action: setLeonDeJuda, prompt: LocalizedStrings[language].leonDeJuda, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: losNinn, action: setLosNinn, prompt: LocalizedStrings[language].losNinn, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: luzVida, action: setLuzVida, prompt: LocalizedStrings[language].luzVida, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: manantialDeVida, action: setManantialDeVida, prompt: LocalizedStrings[language].manantialDeVida, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: maranatha, action: setMaranatha, prompt: LocalizedStrings[language].maranatha, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: matagalpa, action: setMatagalpa, prompt: LocalizedStrings[language].matagalpa, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: monteDeSion, action: setMonteDeSion, prompt: LocalizedStrings[language].monteDeSion, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: nuevaJerusalen, action: setNuevaJerusalen, prompt: LocalizedStrings[language].nuevaJerusalen, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: obreroLevitico, action: setObreroLevitico, prompt: LocalizedStrings[language].obreroLevitico, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: posoltegaJoseLara, action: setPosoltegaJoseLara, prompt: LocalizedStrings[language].posoltegaJoseLara, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: riosDeAguaViva, action: setRiosDeAguaViva, prompt: LocalizedStrings[language].riosDeAguaViva, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: rivas, action: setRivas, prompt: LocalizedStrings[language].rivas, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: verboSur, action: setVerboSur, prompt: LocalizedStrings[language].verboSur, language })}
-                    </View>
-                    <View style={[styles.responseRow]}>
-                        {radioButtons({ field: jubileeHouseCommunity, action: setJubileeHouseCommunity, prompt: LocalizedStrings[language].jubileeHouseCommunity, language })}
-                    </View>
+    const OriginPicker = () => {
+        return (
+            <Picker
+                selectedValue={feedingCenter}
+                onValueChange={value => setFeedingCenter(value)}
+                style={[styles.picker, { width: 200 }]}
+            >
+                <Picker.Item value='' label={LocalizedStrings[language].feedingCenter} />
+                <Picker.Item value={LocalizedStrings[language].bernabe} label={LocalizedStrings[language].bernabe} />
+                <Picker.Item value={LocalizedStrings[language].canon} label={LocalizedStrings[language].canon} />
+                <Picker.Item value={LocalizedStrings[language].clubLaEsperanza} label={LocalizedStrings[language].clubLaEsperanza} />
+                <Picker.Item value={LocalizedStrings[language].elShaddai} label={LocalizedStrings[language].elShaddai} />
+                <Picker.Item value={LocalizedStrings[language].hogar} label={LocalizedStrings[language].hogar} />
+                <Picker.Item value={LocalizedStrings[language].jinotepe} label={LocalizedStrings[language].jinotepe} />
+                <Picker.Item value={LocalizedStrings[language].laHermosa} label={LocalizedStrings[language].laHermosa} />
+                <Picker.Item value={LocalizedStrings[language].leonDeJuda} label={LocalizedStrings[language].leonDeJuda} />
+                <Picker.Item value={LocalizedStrings[language].losNinn} label={LocalizedStrings[language].losNinn} />
+                <Picker.Item value={LocalizedStrings[language].luzVida} label={LocalizedStrings[language].luzVida} />
+                <Picker.Item value={LocalizedStrings[language].manantialDeVida} label={LocalizedStrings[language].manantialDeVida} />
+                <Picker.Item value={LocalizedStrings[language].maranatha} label={LocalizedStrings[language].maranatha} />
+                <Picker.Item value={LocalizedStrings[language].matagalpa} label={LocalizedStrings[language].matagalpa} />
+                <Picker.Item value={LocalizedStrings[language].monteDeSion} label={LocalizedStrings[language].monteDeSion} />
+                <Picker.Item value={LocalizedStrings[language].nuevaJerusalen} label={LocalizedStrings[language].nuevaJerusalen} />
+                <Picker.Item value={LocalizedStrings[language].obreroLevitico} label={LocalizedStrings[language].obreroLevitico} />
+                <Picker.Item value={LocalizedStrings[language].posoltegaJoseLara} label={LocalizedStrings[language].posoltegaJoseLara} />
+                <Picker.Item value={LocalizedStrings[language].riosDeAguaViva} label={LocalizedStrings[language].riosDeAguaViva} />
+                <Picker.Item value={LocalizedStrings[language].rivas} label={LocalizedStrings[language].rivas} />
+                <Picker.Item value={LocalizedStrings[language].verboSur} label={LocalizedStrings[language].verboSur} />
+                <Picker.Item value={LocalizedStrings[language].jubileeHouseCommunity} label={LocalizedStrings[language].jubileeHouseCommunity} />
+                <Picker.Item value='Other' label={LocalizedStrings[language].other} />
+
+            </Picker>
+        )
+    }
+
+    const showOtherFeedingCenter = () => {
+        if (feedingCenter == 'Other') {
+            return (
+                <View style={styles.responseRow}>
                     <View style={[styles.responseRow, { paddingVertical: 0 }]}>
                         <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].otherFeedingCenter}</Text>
                     </View>
@@ -193,7 +101,23 @@ const DentalOrigin = (props) => {
                             value={otherFeedingCenter}
                         />
                     </View>
+                </View>)
+        } else {
+            return null
+        }
+    }
 
+    return (
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
+                <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
+                        <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].dentalOrigin}</Text>
+                    </View>
+                    <View style={styles.responseRow}>
+                        {OriginPicker()}
+                    </View>
+                    {showOtherFeedingCenter()}
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <Button

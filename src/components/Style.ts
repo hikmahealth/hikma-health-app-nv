@@ -128,6 +128,13 @@ export default StyleSheet.create({
     padding: 10,
     fontSize: 20,
   },
+  searchModalInput: {
+    flex: 1,
+    borderRadius: 12,
+    borderColor: '#000',
+    borderWidth: .5,
+    margin: 5,
+  },
   card: {
     margin: 10,
     padding: 10,

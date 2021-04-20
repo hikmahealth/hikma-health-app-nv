@@ -19,7 +19,7 @@ export interface Database {
   getClinics(): Promise<Clinic[]>;
   getPatientCount(): Promise<number>
   getPatients(): Promise<Patient[]>;
-  searchPatients(givenName: string, surname: string, country: string, hometown: string, gender: string, minYear: number, maxYear: number,
+  searchPatients(idNv: string, givenName: string, surname: string, gender: string, minYear: number, maxYear: number, dob: string,
     medicalNum: string, dentalNum: string, optometryNum: string, community: string, zone: string, block: string, lot: string, bloodType: string, visitDate: string): Promise<Patient[]>
   getPatient(patient_id: string): Promise<Patient>;
   editStringContent(stringContent: StringContent[], id: string): Promise<string>;
@@ -341,7 +341,7 @@ class DatabaseImpl implements Database {
   }
 
   public searchPatients(
-    givenName: string, surname: string, country: string, hometown: string, gender: string, minYear: number, maxYear: number,
+    idNv: string, givenName: string, surname: string, gender: string, minYear: number, maxYear: number, dob: string,
     medicalNum: string, dentalNum: string, optometryNum: string, community: string, zone: string, block: string, lot: string, bloodType: string, visitDate: string): Promise<Patient[]> {
     let queryTerms = '';
 
@@ -363,23 +363,7 @@ class DatabaseImpl implements Database {
       }
     }
 
-    if (!!country) {
-      if (!!queryTerms) {
-        queryTerms += ` INTERSECT ${queryBase} WHERE string_content.content LIKE '%${country.trim()}%'`
-      } else {
-        queryTerms += ` WHERE string_content.content LIKE '%${country.trim()}%'`
-      }
-    }
-
-    if (!!hometown) {
-      if (!!queryTerms) {
-        queryTerms += ` INTERSECT ${queryBase} WHERE string_content.content LIKE '%${hometown.trim()}%'`
-      } else {
-        queryTerms += ` WHERE string_content.content LIKE '%${hometown.trim()}%'`
-      }
-    }
-
-    if (!!medicalNum || !!dentalNum || !!optometryNum || !!community || !!zone || !!block || !!lot) {
+    if (!!medicalNum || !!dentalNum || !!optometryNum || !!community || !!zone || !!block || !!lot || !!idNv) {
       if (!!queryTerms) {
         queryTerms += ` INTERSECT ${queryBase} WHERE events.event_type = '${EventTypes.PatientDetails}'`
       } else {
@@ -393,6 +377,7 @@ class DatabaseImpl implements Database {
       queryTerms += !!zone ? `AND events.event_metadata LIKE '%${zone.trim()}%'` : ''
       queryTerms += !!block ? `AND events.event_metadata LIKE '%${block.trim()}%'` : ''
       queryTerms += !!lot ? `AND events.event_metadata LIKE '%${lot.trim()}%'` : ''
+      queryTerms += !!idNv ? `AND events.event_metadata LIKE '%${idNv.trim()}%'` : ''
     }
 
     if (!!bloodType) {
@@ -419,7 +404,14 @@ class DatabaseImpl implements Database {
       }
     }
 
-    if (!!minYear && !!maxYear && minYear.toString().length === 4 && maxYear.toString().length === 4) {
+    if (!!dob) {
+      if (!!queryTerms) {
+        queryTerms += ` AND patients.date_of_birth LIKE '${dob}'`
+      } else {
+        queryTerms += ` WHERE patients.date_of_birth LIKE '${dob}'`
+      }
+    }
+    else if (!!minYear && !!maxYear && minYear.toString().length === 4 && maxYear.toString().length === 4) {
       if (!!queryTerms) {
         queryTerms += ` AND SUBSTR(patients.date_of_birth, 1, 4) BETWEEN '${minYear}' AND '${maxYear}'`
       } else {

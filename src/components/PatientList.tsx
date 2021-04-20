@@ -22,8 +22,7 @@ const PatientList = (props) => {
   const [patientCount, setPatientCount] = useState(0);
   const [givenName, setGivenName] = useState('');
   const [surname, setSurname] = useState('');
-  const [country, setCountry] = useState('');
-  const [hometown, setHometown] = useState('');
+  const [patientIdNv, setPatientIdNv] = useState('');
   const [male, setMale] = useState(null);
   const [medicalNum, setMedicalNum] = useState('');
   const [dentalNum, setDentalNum] = useState('');
@@ -34,6 +33,7 @@ const PatientList = (props) => {
   const [lot, setLot] = useState('');
   const [bloodType, setBloodType] = useState('');
   const [visitDate, setVisitDate] = useState('');
+  const [dob, setDob] = useState('');
   const [minAge, setMinAge] = useState<number>(0);
   const [maxAge, setMaxAge] = useState<number>(0);
 
@@ -67,8 +67,6 @@ const PatientList = (props) => {
       setList(patients);
       setGivenName('');
       setSurname('');
-      setCountry('');
-      setHometown('');
       setMale(null);
       setMinAge(0);
       setMaxAge(0);
@@ -116,13 +114,11 @@ const PatientList = (props) => {
 
   const searchPatients = () => {
     const currentYear = new Date().getFullYear()
-    if (givenName.length > 0 || surname.length > 0 || country.length > 0 || hometown.length > 0 || maxAge > 0 || male !== null ||
+    if (patientIdNv.length > 0 || givenName.length > 0 || surname.length > 0 || maxAge > 0 || dob.length > 0 || male !== null ||
       medicalNum.length > 0 || dentalNum.length > 0 || optometryNum.length > 0 || community.length > 0 || zone.length > 0 || block.length > 0 || lot.length > 0 ||
       bloodType.length > 0 || visitDate.length > 0) {
       const givenNameLC = givenName.toLowerCase();
       const surnameLC = surname.toLowerCase();
-      const countryLC = country.toLowerCase();
-      const hometownLC = hometown.toLowerCase();
 
       let gender = null
       if (male !== null) {
@@ -131,9 +127,10 @@ const PatientList = (props) => {
       const minYear = (maxAge > 0 && maxAge >= minAge) ? currentYear - maxAge : null;
       const maxYear = (maxAge > 0 && maxAge >= minAge) ? currentYear - minAge : null;
 
-      database.searchPatients(givenNameLC, surnameLC, countryLC, hometownLC, gender, minYear, maxYear, medicalNum,
+      database.searchPatients(patientIdNv, givenNameLC, surnameLC, gender, minYear, maxYear, dob, medicalNum,
         dentalNum, optometryNum, community, zone, block, lot, bloodType, visitDate).then(patients => {
           setList(patients);
+          setPatientCount(patients.length)
         })
     } else {
       reloadPatients()
@@ -306,11 +303,13 @@ const PatientList = (props) => {
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <TextInput
+                  style={styles.searchModalInput}
                   placeholder={LocalizedStrings[language].firstName + '(s)'}
                   onChangeText={(text) => setGivenName(text)}
                   value={givenName}
                 />
                 <TextInput
+                  style={styles.searchModalInput}
                   placeholder={LocalizedStrings[language].surname + '(s)'}
                   onChangeText={(text) => setSurname(text)}
                   value={surname}
@@ -319,14 +318,31 @@ const PatientList = (props) => {
 
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <TextInput
-                  placeholder={LocalizedStrings[language].country}
-                  onChangeText={(text) => setCountry(text)}
-                  value={country}
+                  style={styles.searchModalInput}
+                  placeholder={LocalizedStrings[language].patientId}
+                  onChangeText={(text) => setPatientIdNv(text)}
+                  value={patientIdNv}
                 />
-                <TextInput
-                  placeholder={LocalizedStrings[language].hometown}
-                  onChangeText={(text) => setHometown(text)}
-                  value={hometown}
+                <DatePicker
+                  style={[styles.searchModalInput, { paddingLeft: 10 }]}
+                  date={dob}
+                  mode="date"
+                  placeholder={LocalizedStrings[language].dob}
+                  format="YYYY-MM-DD"
+                  minDate="1900-05-01"
+                  maxDate={today.toISOString().split('T')[0]}
+                  confirmBtnText={LocalizedStrings[language].confirm}
+                  cancelBtnText={LocalizedStrings[language].cancel}
+                  customStyles={{
+                    dateInput: {
+                      alignItems: 'flex-start',
+                      borderWidth: 0
+                    }
+                  }}
+                  androidMode='spinner'
+                  onDateChange={(date) => {
+                    setDob(date)
+                  }}
                 />
               </View>
 
@@ -336,7 +352,7 @@ const PatientList = (props) => {
                 </View>
 
                 <DatePicker
-                  // style={{height: 40,}}
+                  style={[styles.searchModalInput, { paddingLeft: 10 }]}
                   date={visitDate}
                   mode="date"
                   placeholder={LocalizedStrings[language].visitDate}
@@ -361,11 +377,13 @@ const PatientList = (props) => {
 
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <TextInput
+                  style={styles.searchModalInput}
                   placeholder={LocalizedStrings[language].medicalNum}
                   onChangeText={(text) => setMedicalNum(text)}
                   value={medicalNum}
                 />
                 <TextInput
+                  style={styles.searchModalInput}
                   placeholder={LocalizedStrings[language].dentalNum}
                   onChangeText={(text) => setDentalNum(text)}
                   value={dentalNum}
@@ -375,11 +393,13 @@ const PatientList = (props) => {
 
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <TextInput
+                  style={styles.searchModalInput}
                   placeholder={LocalizedStrings[language].optometryNum}
                   onChangeText={(text) => setOptometryNum(text)}
                   value={optometryNum}
                 />
                 <TextInput
+                  style={styles.searchModalInput}
                   placeholder={LocalizedStrings[language].community}
                   onChangeText={(text) => setCommunity(text)}
                   value={community}
@@ -389,11 +409,13 @@ const PatientList = (props) => {
 
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <TextInput
+                  style={styles.searchModalInput}
                   placeholder={LocalizedStrings[language].zone}
                   onChangeText={(text) => setZone(text)}
                   value={zone}
                 />
                 <TextInput
+                  style={styles.searchModalInput}
                   placeholder={LocalizedStrings[language].block}
                   onChangeText={(text) => setBlock(text)}
                   value={block}
@@ -402,6 +424,7 @@ const PatientList = (props) => {
 
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <TextInput
+                  style={styles.searchModalInput}
                   placeholder={LocalizedStrings[language].lot}
                   onChangeText={(text) => setLot(text)}
                   value={lot}
@@ -423,7 +446,7 @@ const PatientList = (props) => {
                 </Picker>
               </View>
 
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={{ paddingTop: 15, paddingRight: 5 }}>{LocalizedStrings[language].minAge}</Text>
                 <Picker
                   selectedValue={minAge}

@@ -495,6 +495,7 @@ export const LocalizedStrings = {
     verboSur: "Verbo Sur",
     jubileeHouseCommunity: "Jubilee House Community",
     otherFeedingCenter: "Other (name of feeding center)",
+    feedingCenter: "Feeding Center",
 
     //17
     dentalTreatment: "Dental Treatment",
@@ -1109,7 +1110,8 @@ export const LocalizedStrings = {
     rivas: "Rivas",
     verboSur: "Verbo Sur",
     jubileeHouseCommunity: "Jubilee House Community",
-    otherFeedingCenter: "Other (name of feeding center)",
+    otherFeedingCenter: "Otro (nombre de comedor)",
+    feedingCenter: "Comedor",
 
     //17
     dentalTreatment: "Tratamientos Dental",

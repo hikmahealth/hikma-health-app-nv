@@ -11,6 +11,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { LocalizedStrings } from '../../enums/LocalizedStrings';
 
 const PatientDetails = (props) => {
+    const [patientIdNv, setPatientIdNv] = useState(null);
     const [medicalNum, setMedicalNum] = useState(null);
     const [dentalNum, setDentalNum] = useState(null);
     const [optometryNum, setOptometryNum] = useState(null);
@@ -37,6 +38,7 @@ const PatientDetails = (props) => {
             if (response.length > 0) {
                 const responseObj = JSON.parse(response)
 
+                setPatientIdNv(responseObj.patientId)
                 setMedicalNum(responseObj.medicalNum)
                 setDentalNum(responseObj.dentalNum)
                 setOptometryNum(responseObj.optometryNum)
@@ -68,7 +70,7 @@ const PatientDetails = (props) => {
                 medicalNum,
                 dentalNum,
                 optometryNum,
-                patientId,
+                patientId: patientIdNv,
                 community,
                 zone,
                 block,
@@ -95,6 +97,17 @@ const PatientDetails = (props) => {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'stretch', }}>
                         <Text style={[styles.text, { fontSize: 16, fontWeight: 'bold' }]}>{LocalizedStrings[language].patientDetails}</Text>
+                    </View>
+                    <View style={[styles.responseRow, { paddingBottom: 0 }]}>
+                        <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].patientId}</Text>
+                    </View>
+                    <View style={[styles.responseRow, { padding: 0 }]}>
+                        <TextInput
+                            style={styles.inputs}
+                            onChangeText={(text) => setPatientIdNv(text)}
+                            value={patientIdNv}
+                            keyboardType="numeric"
+                        />
                     </View>
                     <View style={[styles.responseRow, { paddingBottom: 0 }]}>
                         <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].medicalNum}</Text>
