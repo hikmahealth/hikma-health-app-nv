@@ -885,7 +885,7 @@ export const LocalizedStrings = {
 
     //9
     householdEnvironment: "Ambiente del Hogar",
-    potableWater: "Agua Potableersonas Viven en la Casa",
+    potableWater: "Agua Potable",
     animals: "Animales",
     gasCooking: "Cocina con Gas",
     woodCooking: "Cocina de Leña ",
@@ -1016,7 +1016,7 @@ export const LocalizedStrings = {
     endometrialCarcinoma: "Carcinoma - Endometrial",
     neoplasiaCarcinoma: "Carcinoma - No se Descarta Neoplasia",
     nosCarcinoma: "Carcinoma - NOS",
-    iscc: "Carcinoma de Células Escamosas invasor",
+    iscc: "Carcinoma de Células Escamosas Invasoras",
     atrophy: "Otros - Atrofia",
     coccoid: "Otros - Bacterias Cocoides",
     regenerative: "Otros - Cambios Regenerativos",
@@ -1058,7 +1058,7 @@ export const LocalizedStrings = {
     venousInsufficiency: "Insuficiencia venosa",
     mildRenal: "IRC Renal - Leve",
     moderateRenal: "IRC Renal - Moderada",
-    severeRenal: "IRC Renal - Severe",
+    severeRenal: "IRC Renal - Severo",
     nephrolithiasis: "Litiasis Renal",
     complexMasses: "Masas Complejas",
     benignNodules: "Nodulos Benignos",

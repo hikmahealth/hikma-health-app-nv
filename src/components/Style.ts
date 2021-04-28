@@ -131,7 +131,7 @@ export default StyleSheet.create({
   searchModalInput: {
     flex: 1,
     borderRadius: 12,
-    borderColor: '#000',
+    borderColor: '#999999',
     borderWidth: .5,
     margin: 5,
   },

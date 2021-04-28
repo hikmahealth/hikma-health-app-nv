@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, TextInput, ScrollView, Button
+  View, Text, TextInput, ScrollView, Button, Picker
 } from 'react-native';
 
 import { database } from "../../storage/Database";
@@ -23,6 +23,7 @@ export const MedicalHistoryDisplay = (metadataObj, language) => {
       <Text>{LocalizedStrings[language].familyHx}: {metadataObj.familyHx}</Text>
       <Text>{LocalizedStrings[language].surgeryHx}: {metadataObj.surgeryHx}</Text>
       <Text>{LocalizedStrings[language].vaccinations}: {metadataObj.vaccinations}</Text>
+      <Text>{LocalizedStrings[language].bloodType}: {metadataObj.bloodType}</Text>
     </View>)
 }
 
@@ -36,6 +37,7 @@ const MedicalHistory = (props) => {
   const [familyHx, setFamilyHx] = useState(null);
   const [surgeryHx, setSurgeryHx] = useState(null);
   const [vaccinations, setVaccinations] = useState(null);
+  const [bloodType, setBloodType] = useState('A+');
 
   const patientId = props.navigation.getParam('patientId');
   const visitId = props.navigation.getParam('visitId');
@@ -54,6 +56,7 @@ const MedicalHistory = (props) => {
         setFamilyHx(responseObj.familyHx)
         setSurgeryHx(responseObj.surgeryHx)
         setVaccinations(responseObj.vaccinations)
+        setBloodType(responseObj.bloodType)
       }
     })
   }, [])
@@ -73,15 +76,36 @@ const MedicalHistory = (props) => {
         parasiteTreatment,
         familyHx,
         surgeryHx,
-        vaccinations
+        vaccinations,
+        bloodType
       })
     }).then(() => {
       props.navigation.navigate('NewVisit')
     })
   };
 
+  const bloodToggle = () => {
+    return (
+      <Picker
+        selectedValue={bloodType}
+        onValueChange={value => setBloodType(value)}
+        style={[styles.picker, { width: 100 }]}
+      >
+        <Picker.Item value='A+' label='A+' />
+        <Picker.Item value='B+' label='B+' />
+        <Picker.Item value='AB+' label='AB+' />
+        <Picker.Item value='O+' label='O+' />
+        <Picker.Item value='A-' label='A-' />
+        <Picker.Item value='B-' label='B-' />
+        <Picker.Item value='AB-' label='AB-' />
+        <Picker.Item value='O-' label='O-' />
+
+      </Picker>
+    )
+  }
+
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <LinearGradient colors={['#31BBF3', '#4D7FFF']} style={styles.containerLeft}>
         <View style={[styles.inputsContainer, { alignItems: 'flex-start' }]}>
 
@@ -165,6 +189,12 @@ const MedicalHistory = (props) => {
               onChangeText={(text) => setVaccinations(text)}
               value={vaccinations}
             />
+          </View>
+          <View style={[styles.responseRow, { paddingVertical: 0 }]}>
+            <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].bloodType}</Text>
+          </View>
+          <View style={[styles.responseRow, { paddingVertical: 0 }]}>
+            {bloodToggle()}
           </View>
         </View>
         <View style={{ alignItems: 'center' }}>

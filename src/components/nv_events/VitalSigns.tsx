@@ -24,7 +24,6 @@ export const VitalSignsDisplay = (metadataObj, language) => {
       <Text>{LocalizedStrings[language].sats}: {metadataObj.sats}</Text>
       <Text>{LocalizedStrings[language].height}: {metadataObj.height}</Text>
       <Text>{LocalizedStrings[language].temp}: {metadataObj.temp}</Text>
-      <Text>{LocalizedStrings[language].bloodType}: {metadataObj.bloodType}</Text>
     </View>)
 }
 
@@ -40,33 +39,12 @@ const VitalSigns = (props) => {
   const [sats, setSats] = useState(null);
   const [height, setHeight] = useState(null);
   const [temp, setTemp] = useState(null);
-  const [bloodType, setBloodType] = useState('A+');
 
 
   const patientId = props.navigation.getParam('patientId');
   const visitId = props.navigation.getParam('visitId');
   const language = props.navigation.getParam('language', 'en');
   const userName = props.navigation.getParam('userName');
-
-  const bloodToggle = () => {
-    return (
-      <Picker
-        selectedValue={bloodType}
-        onValueChange={value => setBloodType(value)}
-        style={[styles.picker, { width: 100 }]}
-      >
-        <Picker.Item value='A+' label='A+' />
-        <Picker.Item value='B+' label='B+' />
-        <Picker.Item value='AB+' label='AB+' />
-        <Picker.Item value='O+' label='O+' />
-        <Picker.Item value='A-' label='A-' />
-        <Picker.Item value='B-' label='B-' />
-        <Picker.Item value='AB-' label='AB-' />
-        <Picker.Item value='O-' label='O-' />
-
-      </Picker>
-    )
-  }
 
   const setVitals = async () => {
     database.addEvent({
@@ -86,8 +64,7 @@ const VitalSigns = (props) => {
         respiration,
         sats,
         height,
-        temp,
-        bloodType
+        temp
       })
     }).then(() => {
       props.navigation.navigate('NewVisit')
@@ -241,12 +218,6 @@ const VitalSigns = (props) => {
               keyboardType='numeric'
             />
           </View>
-        </View>
-        <View style={[styles.responseRow, { paddingVertical: 0 }]}>
-          <Text style={{ color: '#FFFFFF' }}>{LocalizedStrings[language].bloodType}</Text>
-        </View>
-        <View style={[styles.responseRow, { paddingVertical: 0 }]}>
-          {bloodToggle()}
         </View>
 
         <View style={{ marginTop: 30, alignItems: 'center' }}>

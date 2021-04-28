@@ -9,6 +9,7 @@ import { iconHash } from '../services/hash'
 import { LocalizedStrings } from '../enums/LocalizedStrings';
 import { icons } from '../enums/Icons';
 import DatePicker from "react-native-datepicker";
+import { DentalOriginPicker } from "./nv_events/DentalOrigin";
 
 const PatientList = (props) => {
   const databaseSync: DatabaseSync = new DatabaseSync();
@@ -34,6 +35,7 @@ const PatientList = (props) => {
   const [bloodType, setBloodType] = useState('');
   const [visitDate, setVisitDate] = useState('');
   const [dob, setDob] = useState('');
+  const [dpo, setDpo] = useState('');
   const [minAge, setMinAge] = useState<number>(0);
   const [maxAge, setMaxAge] = useState<number>(0);
 
@@ -79,6 +81,8 @@ const PatientList = (props) => {
       setLot('');
       setBloodType('');
       setVisitDate('');
+      setDob('');
+      setDpo('');
     })
     database.getPatientCount().then(number => setPatientCount(number))
   }
@@ -91,21 +95,21 @@ const PatientList = (props) => {
         <View>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <TouchableOpacity onPress={() => setMale(!male)}>
-              <View style={[styles.outerRadioButton, { borderColor: 'black' }]}>
+              <View style={[styles.outerRadioButton, { borderColor: '#999999' }]}>
                 {male ? <View style={styles.selectedRadioButton} /> : null}
               </View>
             </TouchableOpacity>
-            <Text>M</Text>
+            <Text style={{color: '#999999'}}>M</Text>
 
             <TouchableOpacity onPress={() => {
               male === null ? setMale(false) : setMale(!male)
             }
             }>
-              <View style={[styles.outerRadioButton, { borderColor: 'black' }]}>
+              <View style={[styles.outerRadioButton, { borderColor: '#999999' }]}>
                 {(!male && male !== null) ? <View style={styles.selectedRadioButton} /> : null}
               </View>
             </TouchableOpacity>
-            <Text>F</Text>
+            <Text style={{color: '#999999'}}>F</Text>
           </View>
         </View>
       </View>
@@ -114,7 +118,7 @@ const PatientList = (props) => {
 
   const searchPatients = () => {
     const currentYear = new Date().getFullYear()
-    if (patientIdNv.length > 0 || givenName.length > 0 || surname.length > 0 || maxAge > 0 || dob.length > 0 || male !== null ||
+    if (patientIdNv.length > 0 || givenName.length > 0 || surname.length > 0 || maxAge > 0 || dob.length > 0 || dpo.length > 0 || male !== null ||
       medicalNum.length > 0 || dentalNum.length > 0 || optometryNum.length > 0 || community.length > 0 || zone.length > 0 || block.length > 0 || lot.length > 0 ||
       bloodType.length > 0 || visitDate.length > 0) {
       const givenNameLC = givenName.toLowerCase();
@@ -127,8 +131,8 @@ const PatientList = (props) => {
       const minYear = (maxAge > 0 && maxAge >= minAge) ? currentYear - maxAge : null;
       const maxYear = (maxAge > 0 && maxAge >= minAge) ? currentYear - minAge : null;
 
-      database.searchPatients(patientIdNv, givenNameLC, surnameLC, gender, minYear, maxYear, dob, medicalNum,
-        dentalNum, optometryNum, community, zone, block, lot, bloodType, visitDate).then(patients => {
+      database.searchPatients(patientIdNv, givenNameLC, surnameLC, gender, minYear, maxYear, dob, dpo,
+        medicalNum, dentalNum, optometryNum, community, zone, block, lot, bloodType, visitDate).then(patients => {
           setList(patients);
           setPatientCount(patients.length)
         })
@@ -297,11 +301,11 @@ const PatientList = (props) => {
                     setModalVisible(!modalVisible);
                     setSearchIconFunction(true)
                   }}
-                >
+                  hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}                >
                   <Image source={require('../images/close.png')} style={{ width: 15, height: 15 }} />
                 </TouchableHighlight>
               </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: -10 }}>
                 <TextInput
                   style={styles.searchModalInput}
                   placeholder={LocalizedStrings[language].firstName + '(s)'}
@@ -334,6 +338,9 @@ const PatientList = (props) => {
                   confirmBtnText={LocalizedStrings[language].confirm}
                   cancelBtnText={LocalizedStrings[language].cancel}
                   customStyles={{
+                    placeholderText:{
+                      color: '#999999'
+                    },
                     dateInput: {
                       alignItems: 'flex-start',
                       borderWidth: 0
@@ -362,6 +369,9 @@ const PatientList = (props) => {
                   confirmBtnText={LocalizedStrings[language].confirm}
                   cancelBtnText={LocalizedStrings[language].cancel}
                   customStyles={{
+                    placeholderText:{
+                      color: '#999999'
+                    },
                     dateInput: {
                       alignItems: 'flex-start',
                       borderWidth: 0
@@ -432,7 +442,7 @@ const PatientList = (props) => {
                 <Picker
                   selectedValue={bloodType}
                   onValueChange={value => setBloodType(value)}
-                  style={{ width: 150, height: 40 }}
+                  style={{ width: 150, height: 40, color: '#999999' }}
                 >
                   <Picker.Item value='' label={LocalizedStrings[language].bloodType} />
                   <Picker.Item value='A+' label='A+' />
@@ -447,24 +457,30 @@ const PatientList = (props) => {
               </View>
 
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ paddingTop: 15, paddingRight: 5 }}>{LocalizedStrings[language].minAge}</Text>
+                {DentalOriginPicker(dpo, setDpo, language, '#999999')}
+              </View>
+
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Text style={{ paddingTop: 15, paddingRight: 5, color: '#999999', }}>{LocalizedStrings[language].minAge}</Text>
                 <Picker
                   selectedValue={minAge}
                   onValueChange={value => setMinAge(value)}
                   style={{
+                    color: '#999999',
                     height: 50,
-                    width: 90
+                    width: 80
                   }}
                 >
                   {agePicker()}
                 </Picker>
-                <Text style={{ paddingTop: 15, paddingRight: 5, paddingLeft: 5 }}>{LocalizedStrings[language].maxAge}</Text>
+                <Text style={{ paddingTop: 15, paddingRight: 5, paddingLeft: 5, color: '#999999', }}>{LocalizedStrings[language].maxAge}</Text>
                 <Picker
                   selectedValue={maxAge}
                   onValueChange={value => setMaxAge(value)}
                   style={{
+                    color: '#999999',
                     height: 50,
-                    width: 90
+                    width: 80
                   }}
                 >
                   {agePicker()}

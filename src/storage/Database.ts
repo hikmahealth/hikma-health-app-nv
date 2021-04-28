@@ -19,7 +19,7 @@ export interface Database {
   getClinics(): Promise<Clinic[]>;
   getPatientCount(): Promise<number>
   getPatients(): Promise<Patient[]>;
-  searchPatients(idNv: string, givenName: string, surname: string, gender: string, minYear: number, maxYear: number, dob: string,
+  searchPatients(idNv: string, givenName: string, surname: string, gender: string, minYear: number, maxYear: number, dob: string, dpo: string,
     medicalNum: string, dentalNum: string, optometryNum: string, community: string, zone: string, block: string, lot: string, bloodType: string, visitDate: string): Promise<Patient[]>
   getPatient(patient_id: string): Promise<Patient>;
   editStringContent(stringContent: StringContent[], id: string): Promise<string>;
@@ -341,7 +341,7 @@ class DatabaseImpl implements Database {
   }
 
   public searchPatients(
-    idNv: string, givenName: string, surname: string, gender: string, minYear: number, maxYear: number, dob: string,
+    idNv: string, givenName: string, surname: string, gender: string, minYear: number, maxYear: number, dob: string, dpo: string,
     medicalNum: string, dentalNum: string, optometryNum: string, community: string, zone: string, block: string, lot: string, bloodType: string, visitDate: string): Promise<Patient[]> {
     let queryTerms = '';
 
@@ -382,9 +382,9 @@ class DatabaseImpl implements Database {
 
     if (!!bloodType) {
       if (!!queryTerms) {
-        queryTerms += ` INTERSECT ${queryBase} WHERE events.event_type = '${EventTypes.Vitals}' AND events.event_metadata LIKE '%${bloodType.trim()}%'`
+        queryTerms += ` INTERSECT ${queryBase} WHERE events.event_type = '${EventTypes.MedicalHistory}' AND events.event_metadata LIKE '%${bloodType.trim()}%'`
       } else {
-        queryTerms += ` WHERE events.event_type = '${EventTypes.Vitals}' AND events.event_metadata LIKE '%${bloodType.trim()}%'`
+        queryTerms += ` WHERE events.event_type = '${EventTypes.MedicalHistory}' AND events.event_metadata LIKE '%${bloodType.trim()}%'`
       }
     }
 
@@ -416,6 +416,14 @@ class DatabaseImpl implements Database {
         queryTerms += ` AND SUBSTR(patients.date_of_birth, 1, 4) BETWEEN '${minYear}' AND '${maxYear}'`
       } else {
         queryTerms += ` WHERE SUBSTR(patients.date_of_birth, 1, 4) BETWEEN '${minYear}' AND '${maxYear}'`
+      }
+    }
+
+    if (!!dpo) {
+      if (!!queryTerms) {
+        queryTerms += ` INTERSECT ${queryBase} WHERE events.event_type = '${EventTypes.DentalOrigin}' AND events.event_metadata LIKE '%${dpo.trim()}%'`
+      } else {
+        queryTerms += ` WHERE events.event_type = '${EventTypes.DentalOrigin}' AND events.event_metadata LIKE '%${dpo.trim()}%'`
       }
     }
 
