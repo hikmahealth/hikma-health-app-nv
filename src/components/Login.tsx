@@ -15,11 +15,9 @@ import styles from './Style';
 const Login = (props) => {
   const databaseSync = new DatabaseSync();
   const imageSync = new ImageSync();
-  const [email, setEmail] = useState('demo-nv@hikmahealth.org');
-  const [password, setPassword] = useState('HikmaHealth');
-  const [instanceList, setInstanceList] = useState([]);
-  const [selectedInstance, setSelectedInstance] = useState({name: 'NV', url: 'https://nv-api.hikmahealth.org'});
-  const [showInstanceDropdown, setShowInstanceDropdown] = useState(false);
+  const selectedInstance = { name: 'NV', url: '' };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loginFailed, setLoginFailed] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [syncModalVisible, setSyncModalVisible] = useState(false);
@@ -28,28 +26,6 @@ const Login = (props) => {
   let userId = '';
   let clinicId = '';
   let instanceUrl = '';
-
-  // useEffect(() => {
-  //   database.usersExist().then(result => {
-  //     if (!result) {
-  //       getInstances().then(response => {
-  //         setInstanceList(response)
-  //       })
-  //       setShowInstanceDropdown(true)
-  //     } else {
-  //       setShowInstanceDropdown(false)
-  //     }
-  //     database.close()
-  //   })
-  // }, [props])
-
-  const getInstances = async (): Promise<any> => {
-    return fetch('https://demo-api.hikmahealth.org/api/instances', {
-      method: 'GET',
-    }).then(response => {
-      return response.json()
-    })
-  }
 
   const remoteLogin = async (): Promise<any> => {
     const response = await fetch(`${selectedInstance.url}/api/login`, {
@@ -327,15 +303,6 @@ const Login = (props) => {
         />
         {loginFailed ? <Text style={{ color: '#FF0000', fontSize: 10, paddingLeft: 10 }}>Login Error: {errorMsg}</Text> : null}
       </View>
-
-      {showInstanceDropdown ? <View style={styles.instanceList}>
-        <Picker
-          selectedValue={selectedInstance}
-          onValueChange={value => setSelectedInstance(value)}
-        >
-          {instanceList.map((instance, index) => { return <Picker.Item key={index} value={instance} label={instance.name} /> })}
-        </Picker>
-      </View> : null}
 
       <View>
         <TouchableOpacity onPress={handleLogin}>

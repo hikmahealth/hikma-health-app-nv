@@ -38,6 +38,7 @@ import XrayOrders from '../components/nv_events/XrayOrders';
 import XrayResults from '../components/nv_events/XrayResults';
 import Optometry from '../components/nv_events/Optometry';
 import AccidentReport from '../components/nv_events/AccidentReport';
+import EditMedicines from '../components/edit_events/EditMedicines';
 
 const rootNavigator = createStackNavigator(
   {
@@ -178,6 +179,13 @@ const rootNavigator = createStackNavigator(
       screen: Medicines,
       navigationOptions: () => ({
         title: 'Medicines',
+        header: null
+      })
+    },
+    EditMedicines: {
+      screen: EditMedicines,
+      navigationOptions: () => ({
+        title: 'EditMedicines',
         header: null
       })
     },

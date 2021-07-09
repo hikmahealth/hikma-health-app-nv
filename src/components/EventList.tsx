@@ -54,14 +54,12 @@ const EventList = (props) => {
 
   const editEvent = (event: Event) => {
     switch (event.event_type) {
-      case EventTypes.Covid19Screening:
-        break
-      case EventTypes.Vitals:
-        props.navigation.navigate('EditVitals', { event, language })
-        break
+      case EventTypes.MedicinesInStock:
+      case EventTypes.MedicinesOTC:
+      case EventTypes.ControlledMedicines:
+        props.navigation.navigate('EditMedicines', { previousScreen: 'EventList', event, language, userName })
       default:
-        props.navigation.navigate('EditOpenTextEvent', { event, language })
-
+        break
     }
   }
 
@@ -171,7 +169,7 @@ const EventList = (props) => {
 
     return (
       <TouchableOpacity style={styles.card}
-      // onLongPress={() => editEvent(item)}
+        onLongPress={() => editEvent(item)}
       >
         <View style={styles.cardContent} >
           <View style={{ margin: 10 }}>

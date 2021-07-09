@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, TextInput, TouchableOpacity, ImageBackground, Alert, Button, Picker, ScrollView } from "react-native";
-import Collapsible from 'react-native-collapsible';
 import { ImageSync } from '../storage/ImageSync';
 import { database } from '../storage/Database';
 import styles from './Style';
@@ -170,7 +169,7 @@ const PatientView = (props) => {
           <View style={{ alignItems: 'center' }}>
             <TouchableOpacity
               style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.MedicalHistory, language: language, patient: patient })}>
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.MedicalHistory, language, patient, userName })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].medicalHistory}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
@@ -178,7 +177,7 @@ const PatientView = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.MedicinesInStock, language: language, patient: patient })}>
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.MedicinesInStock, language, patient, userName })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].medicinesInStock}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
@@ -186,7 +185,7 @@ const PatientView = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.MedicinesOTC, language: language, patient: patient })}>
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.MedicinesOTC, language, patient, userName })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].medicinesOTC}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
@@ -194,7 +193,7 @@ const PatientView = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.ControlledMedicines, language: language, patient: patient })}>
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.ControlledMedicines, language, patient, userName })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].controlledMedicines}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
@@ -202,7 +201,7 @@ const PatientView = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.MedicalPathologies, language: language, patient: patient })}>
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.MedicalPathologies, language, patient, userName })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].medicalPathologies}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
@@ -210,7 +209,7 @@ const PatientView = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.PsychologicalPathologies, language: language, patient: patient })}>
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.PsychologicalPathologies, language, patient, userName })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].psychologicalPathologies}</Text>
 
@@ -219,7 +218,7 @@ const PatientView = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.HouseholdEnvironment, language: language, patient: patient })}>
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.HouseholdEnvironment, language, patient, userName })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].householdEnvironment}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
@@ -227,7 +226,7 @@ const PatientView = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.LabOrders, language, patient })}>
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.LabOrders, language, patient, userName })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].labOrders}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
@@ -235,7 +234,7 @@ const PatientView = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.FamilyPlanning, language, patient })}>
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.FamilyPlanning, language, patient, userName })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].familyPlanning}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
@@ -243,7 +242,7 @@ const PatientView = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.ProgramTrainings, language, patient })}>
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.ProgramTrainings, language, patient, userName })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].programTrainings}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
@@ -251,7 +250,7 @@ const PatientView = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.profileButton, { height: 40, marginVertical: 1 }]}
-              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.XrayOrders, language, patient })}>
+              onPress={() => props.navigation.navigate('SnapshotList', { eventType: EventTypes.XrayOrders, language, patient, userName })}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 15 }}>{LocalizedStrings[language].xrayOrders}</Text>
                 <Text style={{ fontSize: 15 }}>></Text>
